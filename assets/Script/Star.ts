@@ -1,4 +1,5 @@
 import Character from "./Character";
+import Enemy from "./Enemy";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -11,13 +12,14 @@ import Character from "./Character";
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-
+//星球基类 继承自 敌人类
+//实现近距离加分框的绘制
 @ccclass
-export default class Star extends cc.Component  {
+export default class Star extends Enemy  {
 
     @property(cc.Label)
     label: cc.Label = null;
-    @property({displayName:"碰撞盒Tag"})
+    @property({displayName:"引力碰撞盒Tag"})
     trigger:Number = 0;
     @property({displayName:"重力",min:0})
     g:number = 1;
@@ -57,6 +59,7 @@ export default class Star extends cc.Component  {
     }
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
+        super.onBeginContact(contact,self,other);
         if(self.tag === this.trigger&&other.getComponent(Character))
         {
             this.tage = other.node;

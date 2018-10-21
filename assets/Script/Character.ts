@@ -1,4 +1,5 @@
 import Until from "./Tools/Until";
+import GradeManage from "./GradeManage";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -52,10 +53,14 @@ export default class Character extends cc.Component implements ITouchEvent {
         this.node.rotation = position.signAngle(cc.v2(0,1))*180/3.14;
     }
 
-     update (dt) {
+    update (dt) {
          //限制最大速度
         this.body.linearVelocity = cc.v2(Math.max(Math.min(this.body.linearVelocity.x,this.maxSpeend) ,-this.maxSpeend),Math.max(Math.min(this.body.linearVelocity.y,this.maxSpeend),-this.maxSpeend));
-     }
+    }
+    //死亡接口
+    die()
+    {
+    }
 }
 //定义了ITouch接口但是没用上
 export  interface ITouchEvent{
