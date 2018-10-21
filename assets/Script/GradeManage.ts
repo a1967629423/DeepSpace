@@ -9,10 +9,16 @@ export default class GradeManage  {
         if(this._inster)this._inster = new GradeManage();
         return this._inster;
     }
-    nowGrade:number;
+    private _nowGrade:number;
+    public get nowGrade() : number {
+        return this._nowGrade;
+    }
     addGrade(val:number)
     {
-        this.nowGrade+= this.nowGrade;
+        this._nowGrade+= this._nowGrade;
     }
+    
+
+    
 
 }
