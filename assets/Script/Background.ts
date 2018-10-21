@@ -11,7 +11,7 @@ import Character, { ITouchEvent } from "./Character";
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-
+//最开始用的background脚本，现在被弃用，请看BackGround2
 @ccclass
 export default class BackGround extends cc.Component {
     

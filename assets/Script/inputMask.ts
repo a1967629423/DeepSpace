@@ -11,7 +11,7 @@ import Character from "./Character";
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-
+//用于捕获输入的类
 @ccclass
 export default class InputMask extends cc.Component {
 

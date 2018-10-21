@@ -12,7 +12,7 @@ import GradeManage from "./GradeManage";
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-
+//角色类
 @ccclass
 export default class Character extends cc.Component implements ITouchEvent {
     onTouch(touch: cc.Event.EventTouch,sourceNode:cc.Node) {
