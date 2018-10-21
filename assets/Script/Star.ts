@@ -17,7 +17,7 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class Star extends Enemy  {
 
-    @property(cc.Label)
+    @property({type:cc.Label,override:true})
     label: cc.Label = null;
     @property({displayName:"引力碰撞盒Tag"})
     trigger:Number = 0;

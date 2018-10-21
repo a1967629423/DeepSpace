@@ -28,10 +28,13 @@ export default class Character extends cc.Component implements ITouchEvent {
     @property(cc.Label)
     label: cc.Label = null;
     @property({displayName:"最大速度",range:[0,400,10],slide:false})
-    maxSpeend:number = 40;
+    maxSpeed:number = 40;
+    @property({displayName:"引擎停止工作的最小速度",range:[0,100,1]})
+    minSpeed:number = 2;
     // LIFE-CYCLE CALLBACKS:
     //角色的刚体组件
     body:cc.RigidBody = null;
+    partic:cc.ParticleSystem[] = null;
     // onLoad () {}
     onLoad()
     {
@@ -39,7 +42,9 @@ export default class Character extends cc.Component implements ITouchEvent {
         cc.director.getPhysicsManager().enabled = true;
     }
     start () {
-        this.body = this.getComponent(cc.RigidBody)
+        this.body = this.getComponent(cc.RigidBody);
+        this.partic = this.getComponentsInChildren(cc.ParticleSystem);
+
     }
     moveTo(t:number,x:number,y:number)
     {
@@ -52,10 +57,24 @@ export default class Character extends cc.Component implements ITouchEvent {
         //console.log(position.signAngle(cc.v2(0,1)));
         this.node.rotation = position.signAngle(cc.v2(0,1))*180/3.14;
     }
-
+    particfire:boolean = false;
     update (dt) {
          //限制最大速度
-        this.body.linearVelocity = cc.v2(Math.max(Math.min(this.body.linearVelocity.x,this.maxSpeend) ,-this.maxSpeend),Math.max(Math.min(this.body.linearVelocity.y,this.maxSpeend),-this.maxSpeend));
+        this.body.linearVelocity = cc.v2(Math.max(Math.min(this.body.linearVelocity.x,this.maxSpeed) ,-this.maxSpeed),Math.max(Math.min(this.body.linearVelocity.y,this.maxSpeed),-this.maxSpeed));
+        if(this.body.linearVelocity.mag()<this.minSpeed&&!this.particfire)
+        {
+            this.partic.forEach((item:cc.ParticleSystem)=>{
+                item.stopSystem();
+            });
+            this.particfire = true;
+        }
+        else if(this.body.linearVelocity.mag()>=this.minSpeed&&this.particfire)
+        {
+            this.partic.forEach((item:cc.ParticleSystem)=>{
+                item.resetSystem();
+            });
+            this.particfire = false;
+        }
     }
     //死亡接口
     die()
