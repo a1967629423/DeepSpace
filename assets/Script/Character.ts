@@ -26,29 +26,20 @@ export default class Character extends cc.Component implements ITouchEvent {
 
     @property(cc.Label)
     label: cc.Label = null;
-
-    @property
-    text: string = 'hello';
     @property({displayName:"最大速度",range:[0,400,10],slide:false})
     maxSpeend:number = 40;
     // LIFE-CYCLE CALLBACKS:
+    //角色的刚体组件
     body:cc.RigidBody = null;
     // onLoad () {}
     onLoad()
     {
+        //启动物理
         cc.director.getPhysicsManager().enabled = true;
     }
     start () {
         cc.director.getPhysicsManager().enabled = true;
-        var self:Character = this;
         this.body = this.getComponent(cc.RigidBody)
-        this.node.on(cc.Node.EventType.MOUSE_DOWN,function(event:cc.Event.EventMouse){
-            //var action = cc.moveTo(2,100,150);
-            //self.node.runAction(action);
-
-        })
-        cc.systemEvent.on(cc.Node.EventType.MOUSE_DOWN,function(event:cc.Event.EventMouse){
-        });
     }
     moveTo(t:number,x:number,y:number)
     {
@@ -58,8 +49,6 @@ export default class Character extends cc.Component implements ITouchEvent {
     maskTouch(position:cc.Vec2)
     {
         this.body.applyForceToCenter(position,true);
-          
-
         //console.log(position.signAngle(cc.v2(0,1)));
         this.node.rotation = position.signAngle(cc.v2(0,1))*180/3.14;
     }
@@ -69,6 +58,7 @@ export default class Character extends cc.Component implements ITouchEvent {
         this.body.linearVelocity = cc.v2(Math.max(Math.min(this.body.linearVelocity.x,this.maxSpeend) ,-this.maxSpeend),Math.max(Math.min(this.body.linearVelocity.y,this.maxSpeend),-this.maxSpeend));
      }
 }
+//定义了ITouch接口但是没用上
 export  interface ITouchEvent{
     onTouch(touch:cc.Event.EventTouch,sourceNode:cc.Node);
     getNode():cc.Node;

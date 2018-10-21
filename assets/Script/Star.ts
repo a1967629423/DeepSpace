@@ -32,9 +32,11 @@ export default class Star extends cc.Component  {
      }
 
     start () {
+        //创建绘制节点，并绘制出一个圆
         var graphics = new cc.Node("graphics").addComponent(cc.Graphics);
         this.node.addChild(graphics.node);
         graphics.circle(0,0,this.radius);
+        
         graphics.strokeColor = cc.Color.RED;
         graphics.stroke();
     }
