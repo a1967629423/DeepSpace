@@ -15,6 +15,7 @@ const {ccclass, property} = cc._decorator;
 //角色类
 //引擎运行的时候会发出声音-完成
 //引擎能量的实现-完成
+//计算移动的距离-完成
 @ccclass
 export default class Character extends cc.Component implements ITouchEvent {
     onTouch(touch: cc.Event.EventTouch,sourceNode:cc.Node) {
@@ -37,6 +38,15 @@ export default class Character extends cc.Component implements ITouchEvent {
     expend:number = 1;
     //真实的能量
     private nowEngine:number;
+    //上次的位置
+    private lastpointion:cc.Vec2 = cc.v2(0,0);
+    //飞行的距离
+    private distance:number = 0;
+    
+    public get Distance() : number {
+        return this.distance;
+    }
+    
     public get Engine() : number {
         return this.nowEngine
     }
@@ -50,6 +60,8 @@ export default class Character extends cc.Component implements ITouchEvent {
     body:cc.RigidBody = null;
     partic:cc.ParticleSystem[] = null;
     audio:cc.AudioSource = null;
+    
+
     // onLoad () {}
     onLoad()
     {
@@ -61,7 +73,8 @@ export default class Character extends cc.Component implements ITouchEvent {
         this.body = this.getComponent(cc.RigidBody);
         this.partic = this.getComponentsInChildren(cc.ParticleSystem);
         this.audio = this.getComponent(cc.AudioSource);
-
+        //将上次位置设置为当前
+        this.lastpointion =  this.node.convertToWorldSpace(this.node.position);
     }
     moveTo(t:number,x:number,y:number)
     {
@@ -96,8 +109,9 @@ export default class Character extends cc.Component implements ITouchEvent {
     }
     
     update (dt) {
-         //限制最大速度
+        //限制最大速度
         this.body.linearVelocity = cc.v2(Math.max(Math.min(this.body.linearVelocity.x,this.maxSpeed) ,-this.maxSpeed),Math.max(Math.min(this.body.linearVelocity.y,this.maxSpeed),-this.maxSpeed));
+        //计算能量消耗
         if(this.particfire)
         {
             //如果引擎运行就每秒消耗能量
@@ -107,6 +121,10 @@ export default class Character extends cc.Component implements ITouchEvent {
         {
             this.die();
         }
+        //计算距离
+        this.distance += Math.abs(this.node.convertToWorldSpace(this.node.position).sub(this.lastpointion).mag());
+        this.lastpointion =  this.node.convertToWorldSpace(this.node.position);
+
         
     }
     //死亡接口
