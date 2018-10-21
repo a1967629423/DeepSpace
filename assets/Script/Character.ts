@@ -38,7 +38,6 @@ export default class Character extends cc.Component implements ITouchEvent {
         cc.director.getPhysicsManager().enabled = true;
     }
     start () {
-        cc.director.getPhysicsManager().enabled = true;
         this.body = this.getComponent(cc.RigidBody)
     }
     moveTo(t:number,x:number,y:number)
