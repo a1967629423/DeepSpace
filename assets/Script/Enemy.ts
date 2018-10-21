@@ -25,12 +25,9 @@ export default class Enemy extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
-
-    start () {
-
-    }
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
+        //碰到角色后调用死亡接口
         var ch = other.getComponent(Character);
         if(self.tag === this.dieColliderTag&&ch)
         {

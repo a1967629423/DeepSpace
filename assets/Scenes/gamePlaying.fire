@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.5905739983604129,
-      "y": 0.5905739983604129,
+      "x": 0.9849155306759383,
+      "y": 0.9849155306759383,
       "z": 1
     },
     "_quat": {
@@ -247,8 +247,9 @@
     },
     "_enabled": true,
     "label": null,
-    "text": "hello",
-    "maxSpeend": 160,
+    "maxSpeed": 160,
+    "defEngine": 100,
+    "expend": 1,
     "_id": "78rZGY9qFKNrZsf+ey+91I"
   },
   {
@@ -584,6 +585,7 @@
     },
     "_enabled": true,
     "label": null,
+    "dieColliderTag": 0,
     "trigger": 1,
     "g": 100,
     "radius": 400,
@@ -771,6 +773,7 @@
     },
     "_enabled": true,
     "label": null,
+    "dieColliderTag": 0,
     "trigger": 1,
     "g": 100,
     "radius": 400,
@@ -896,7 +899,7 @@
     },
     "_spriteFrame": null,
     "_stopped": true,
-    "playOnLoad": true,
+    "playOnLoad": false,
     "autoRemoveOnFinish": false,
     "totalParticles": 200,
     "duration": -1,
@@ -971,7 +974,7 @@
     "endRadiusVar": 0,
     "rotatePerS": 0,
     "rotatePerSVar": 0,
-    "_N$preview": true,
+    "_N$preview": false,
     "_id": "dadmvF8WZPUKxz6dHg/aju"
   },
   {
@@ -1051,7 +1054,7 @@
     },
     "_spriteFrame": null,
     "_stopped": true,
-    "playOnLoad": true,
+    "playOnLoad": false,
     "autoRemoveOnFinish": false,
     "totalParticles": 200,
     "duration": -1,
@@ -1126,7 +1129,7 @@
     "endRadiusVar": 0,
     "rotatePerS": 0,
     "rotatePerSVar": 0,
-    "_N$preview": true,
+    "_N$preview": false,
     "_id": "067VrKVFRP55eioBzcKw7O"
   },
   {

@@ -13,6 +13,8 @@ import GradeManage from "./GradeManage";
 
 const {ccclass, property} = cc._decorator;
 //角色类
+//引擎运行的时候会发出声音-完成
+//引擎能量的实现-完成
 @ccclass
 export default class Character extends cc.Component implements ITouchEvent {
     onTouch(touch: cc.Event.EventTouch,sourceNode:cc.Node) {
@@ -29,56 +31,88 @@ export default class Character extends cc.Component implements ITouchEvent {
     label: cc.Label = null;
     @property({displayName:"最大速度",range:[0,400,10],slide:false})
     maxSpeed:number = 40;
-    @property({displayName:"引擎停止工作的最小速度",range:[0,100,1]})
-    minSpeed:number = 2;
+    @property({displayName:"角色初始能量",min:0})
+    defEngine:number = 100;
+    @property({displayName:"角色运行引擎每秒消耗能量",min:0})
+    expend:number = 1;
+    //真实的能量
+    private nowEngine:number;
+    public get Engine() : number {
+        return this.nowEngine
+    }
+    addEngine(val:number)
+    {
+        this.nowEngine+=val;
+    }
+    
     // LIFE-CYCLE CALLBACKS:
     //角色的刚体组件
     body:cc.RigidBody = null;
     partic:cc.ParticleSystem[] = null;
+    audio:cc.AudioSource = null;
     // onLoad () {}
     onLoad()
     {
         //启动物理
         cc.director.getPhysicsManager().enabled = true;
+        this.nowEngine = this.defEngine;
     }
     start () {
         this.body = this.getComponent(cc.RigidBody);
         this.partic = this.getComponentsInChildren(cc.ParticleSystem);
+        this.audio = this.getComponent(cc.AudioSource);
 
     }
     moveTo(t:number,x:number,y:number)
     {
         this.node.position = new cc.Vec2(x,y);
     }
-    
+    particfire:boolean = false;
     maskTouch(position:cc.Vec2)
     {
         this.body.applyForceToCenter(position,true);
         //console.log(position.signAngle(cc.v2(0,1)));
         this.node.rotation = position.signAngle(cc.v2(0,1))*180/3.14;
-    }
-    particfire:boolean = false;
-    update (dt) {
-         //限制最大速度
-        this.body.linearVelocity = cc.v2(Math.max(Math.min(this.body.linearVelocity.x,this.maxSpeed) ,-this.maxSpeed),Math.max(Math.min(this.body.linearVelocity.y,this.maxSpeed),-this.maxSpeed));
-        if(this.body.linearVelocity.mag()<this.minSpeed&&!this.particfire)
-        {
-            this.partic.forEach((item:cc.ParticleSystem)=>{
-                item.stopSystem();
-            });
-            this.particfire = true;
-        }
-        else if(this.body.linearVelocity.mag()>=this.minSpeed&&this.particfire)
+        if(!this.particfire)
         {
             this.partic.forEach((item:cc.ParticleSystem)=>{
                 item.resetSystem();
             });
+            this.audio.play();
+            this.particfire = true;
+        }
+    }
+    maskEndTouch()
+    {
+        if(this.particfire)
+        {
+            this.partic.forEach((item:cc.ParticleSystem)=>{
+                item.stopSystem();
+            });
+            this.audio.stop();
             this.particfire = false;
         }
+
+    }
+    
+    update (dt) {
+         //限制最大速度
+        this.body.linearVelocity = cc.v2(Math.max(Math.min(this.body.linearVelocity.x,this.maxSpeed) ,-this.maxSpeed),Math.max(Math.min(this.body.linearVelocity.y,this.maxSpeed),-this.maxSpeed));
+        if(this.particfire)
+        {
+            //如果引擎运行就每秒消耗能量
+            this.nowEngine = Math.max(this.nowEngine-this.expend*dt,0);
+        }
+        if(!this.nowEngine)
+        {
+            this.die();
+        }
+        
     }
     //死亡接口
     die()
     {
+        console.log("死亡");
     }
 }
 //定义了ITouch接口但是没用上

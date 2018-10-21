@@ -51,6 +51,7 @@ export default class InputMask extends cc.Component {
     endTouchFun()
     {
         this.isTouch = false;
+        this.player.maskEndTouch();
     }
      mainCamera:cc.Camera = null;
      update (dt:Number) 
@@ -63,7 +64,7 @@ export default class InputMask extends cc.Component {
             this.controlPoint.convertToWorldSpace(this.controlPoint.position);
             this.mainCamera.getWorldToCameraPoint(this.controlPoint.convertToWorldSpace(this.controlPoint.position),ov2);
          }
-         
+         //对zoomRatio取反
          var m = (1/this.mainCamera.zoomRatio);
          this.node.scaleX =  m;
          this.node.scaleY =  m;
