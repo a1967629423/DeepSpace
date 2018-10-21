@@ -59,6 +59,7 @@ export default class Star extends Enemy  {
     }
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
+        //调用父方法
         super.onBeginContact(contact,self,other);
         if(self.tag === this.trigger&&other.getComponent(Character))
         {
