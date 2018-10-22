@@ -10,13 +10,31 @@ export default class GradeManage  {
         return this._inster;
     }
     private _nowGrade:number;
+    private _lastGrade:number;
     public get nowGrade() : number {
         return this._nowGrade;
+    }
+    
+    public get lastGrade() : number {
+        return this._lastGrade;
+    }
+    
+    constructor()
+    {
+        if (window.localStorage.grade)
+        {
+            this._lastGrade = window.localStorage.grade;
+        }
     }
     addGrade(val:number)
     {
         this._nowGrade+= this._nowGrade;
     }
+    saveGrade()
+    {
+        window.localStorage.grads = this._nowGrade;
+    }
+
     
 
     
