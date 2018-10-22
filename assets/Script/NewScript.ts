@@ -9,7 +9,7 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-//这啥，我也不知道
+//这啥，我也不知道123
 @ccclass
 export default class NewClass extends cc.Component {
 
