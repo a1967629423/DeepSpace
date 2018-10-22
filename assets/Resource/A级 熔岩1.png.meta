@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "584f04f3-6025-41d9-b0c9-ce60d1fa0ab5",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "A级 熔岩1": {
+      "ver": "1.0.3",
+      "uuid": "2bb1484f-5eaa-4913-8751-169b397856eb",
+      "rawTextureUuid": "584f04f3-6025-41d9-b0c9-ce60d1fa0ab5",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1756,
+      "height": 1756,
+      "rawWidth": 1756,
+      "rawHeight": 1756,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
