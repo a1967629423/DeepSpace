@@ -4,13 +4,13 @@ const {ccclass, property} = cc._decorator;
 //实现分数的获取
 @ccclass
 export default class GradeManage  {
-    private static _inster:GradeManage = null;
-    public static get inster() : GradeManage {
-        if(this._inster)this._inster = new GradeManage();
-        return this._inster;
+    private static _instance:GradeManage = null;
+    public static get instance() : GradeManage {
+        if(!this._instance)this._instance = new GradeManage();
+        return this._instance;
     }
-    private _nowGrade:number;
-    private _lastGrade:number;
+    private _nowGrade:number = 0;
+    private _lastGrade:number = 0;
     public get nowGrade() : number {
         return this._nowGrade;
     }
@@ -28,7 +28,8 @@ export default class GradeManage  {
     }
     addGrade(val:number)
     {
-        this._nowGrade+= this._nowGrade;
+        this._nowGrade+= val;
+        console.log(this._nowGrade);
     }
     saveGrade()
     {

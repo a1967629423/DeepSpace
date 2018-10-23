@@ -12,10 +12,11 @@ import GradeManage from "./GradeManage";
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-//角色类
-//引擎运行的时候会发出声音-完成
-//引擎能量的实现-完成
-//计算移动的距离-完成
+/**角色类
+*引擎运行的时候会发出声音-完成
+*引擎能量的实现-完成
+*计算移动的距离-完成
+*/
 @ccclass
 export default class Character extends cc.Component implements ITouchEvent {
     onTouch(touch: cc.Event.EventTouch,sourceNode:cc.Node) {
@@ -42,14 +43,22 @@ export default class Character extends cc.Component implements ITouchEvent {
     private lastpointion:cc.Vec2 = cc.v2(0,0);
     //飞行的距离
     private distance:number = 0;
-    
+    /**
+     * 飞行的距离
+     */
     public get Distance() : number {
         return this.distance;
     }
-    
+    /**
+     * 当前的能量
+     */
     public get Engine() : number {
         return this.nowEngine
     }
+    /**
+     * 充能
+     * @param val 增加的能量
+     */
     addEngine(val:number)
     {
         this.nowEngine+=val;
@@ -127,13 +136,18 @@ export default class Character extends cc.Component implements ITouchEvent {
 
         
     }
-    //死亡接口
+    /**
+     * 死亡
+     */
     die()
     {
         console.log("死亡");
     }
 }
 //定义了ITouch接口但是没用上
+/**
+ * Touch接口
+ */
 export  interface ITouchEvent{
     onTouch(touch:cc.Event.EventTouch,sourceNode:cc.Node);
     getNode():cc.Node;
