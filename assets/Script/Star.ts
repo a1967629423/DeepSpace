@@ -1,5 +1,6 @@
 import Character from "./Character";
 import Enemy from "./Enemy";
+import GraphicsEx from "./Tools/GraphicsEx";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -37,10 +38,12 @@ export default class Star extends Enemy  {
         //创建绘制节点，并绘制出一个圆
         var graphics = new cc.Node("graphics").addComponent(cc.Graphics);
         this.node.addChild(graphics.node);
-        graphics.circle(0,0,this.radius);
-        
-        graphics.strokeColor = cc.Color.RED;
-        graphics.stroke();
+        GraphicsEx.beginColor = cc.color(160,80,100,255);
+        GraphicsEx.endColor = cc.color(255,20,40,0);
+        GraphicsEx.circle(graphics,0,0,this.radius,10);
+        //graphics.circle(0,0,this.radius);
+        //graphics.strokeColor = cc.Color.RED;
+        //graphics.stroke();
     }
     update(dt:Number)
     {
