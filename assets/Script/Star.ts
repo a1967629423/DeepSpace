@@ -26,6 +26,14 @@ export default class Star extends Enemy  {
     g:number = 1;
     @property({displayName:"引力半径",min:0})
     radius:number = 0;
+    @property({displayName:"引力提示框厚度"})
+    shell:number = 1;
+    @property({displayName:"引力提示框颜色",type:cc.Color})
+    gTipColor:cc.Color = cc.color(255,0,0);
+    @property({displayName:"卫星提示框颜色",type:cc.Color})
+    sTipColor:cc.Color = cc.color(247,214,0);
+
+
     // LIFE-CYCLE CALLBACKS:
     tage:cc.Node = null;
      onLoad () {
@@ -38,9 +46,9 @@ export default class Star extends Enemy  {
         //创建绘制节点，并绘制出一个圆
         var graphics = new cc.Node("graphics").addComponent(cc.Graphics);
         this.node.addChild(graphics.node);
-        GraphicsEx.beginColor = cc.color(160,80,100,255);
-        GraphicsEx.endColor = cc.color(255,20,40,0);
-        GraphicsEx.circle(graphics,0,0,this.radius,10);
+        GraphicsEx.beginColor = cc.color(255,0,0,255);
+        GraphicsEx.endColor = cc.color(255,0,0,255);
+        GraphicsEx.circle(graphics,0,0,this.radius,this.shell);
         //graphics.circle(0,0,this.radius);
         //graphics.strokeColor = cc.Color.RED;
         //graphics.stroke();
