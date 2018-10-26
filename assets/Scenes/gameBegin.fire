@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1.485476667664552,
-      "y": 1.485476667664552,
+      "x": 0.5708333333333333,
+      "y": 0.5708333333333333,
       "z": 1
     },
     "_quat": {
@@ -935,7 +935,7 @@
     },
     "_enabled": true,
     "label": null,
-    "tagerScenes": "gamePlaying",
+    "tagerScenes": "gamePlaying - 001",
     "_id": "dd3M+d/XFCXpLCbBV401lk"
   },
   {

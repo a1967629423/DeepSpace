@@ -142,6 +142,7 @@ export default class SceneSystem extends cc.Component {
                     var  cgr = this.center.ground[(iy+i)*3+(ix+f)];
                     //cgr.node.setSiblingIndex(0);
                     ct.ground[ri*3+rf] = cgr;
+                    
                 }
                 //创建新元素
                 if(!(i==0&&f==0))
