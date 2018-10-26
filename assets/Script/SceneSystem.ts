@@ -57,7 +57,6 @@ export default class SceneSystem extends cc.Component {
                         gd.node.position = cc.v2(lx+w*f,ly+h*i);
                         gd.node.setParent(this.father);
                         gd.node.setSiblingIndex(0);
-                        gd.node.zIndex = -1;
 
                     }
                 }
@@ -125,6 +124,8 @@ export default class SceneSystem extends cc.Component {
         var ct:BackGround2 = this.center.ground[idx];
         var lx = ct.node.x;
         var ly = ct.node.y;
+        ct.node.setSiblingIndex(this.center.node.getSiblingIndex()+1);
+        //this.center.node.setSiblingIndex(ct.node.getSiblingIndex()-2);
         ct.ground[4] = ct;
         for(var i =-1;i<=1;i++)
         {
@@ -137,8 +138,7 @@ export default class SceneSystem extends cc.Component {
                 if(ix+f>=0&&ix+f<=2&&iy+i>=0&&iy+i<=2)
                 {
                     var  cgr = this.center.ground[(iy+i)*3+(ix+f)];
-                    cgr.node.setSiblingIndex(0);
-                    cgr.node.zIndex = -1;
+                    //cgr.node.setSiblingIndex(0);
                     ct.ground[ri*3+rf] = cgr;
                 }
                 //创建新元素
@@ -151,7 +151,6 @@ export default class SceneSystem extends cc.Component {
                         gd.node.position = cc.v2(lx + this.width * f, ly + this.height * i);
                         gd.node.setParent(this.father);
                         gd.node.setSiblingIndex(0);
-                        gd.node.zIndex = -1;
                     }
 
                     
