@@ -16,7 +16,8 @@ export default class BackGround2 extends cc.Component {
 
     @property(cc.Label)
     label: cc.Label = null;
-
+    @property({visible:false})
+    ground:BackGround2[] =  Array<BackGround2>(9);
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
