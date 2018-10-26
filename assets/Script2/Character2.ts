@@ -13,7 +13,7 @@ namespace m
 {
     const {ccclass, property} = cc._decorator;
     @ccclass
-export  class Charact extends cc.Component {
+export  class Character extends cc.Component {
 
     @property(cc.Label)
     label: cc.Label = null;
