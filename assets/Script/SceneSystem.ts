@@ -53,6 +53,8 @@ export default class SceneSystem extends cc.Component {
                     if(!(i==0&&f==0))
                     {
                         var gd = cc.instantiate(this.bg).getComponent(BackGround2);
+                        //创建场景内物体
+                        //添加到中心场景
                         this.center.ground[(i+1)*3+(f+1)] = gd;
                         gd.node.position = cc.v2(lx+w*f,ly+h*i);
                         gd.node.setParent(this.father);
@@ -144,9 +146,10 @@ export default class SceneSystem extends cc.Component {
                 //创建新元素
                 if(!(i==0&&f==0))
                 {
-
-                    var gd = cc.instantiate(this.bg).getComponent(BackGround2);
                     if (!ct.ground[ri * 3 + rf]) {
+                        var gd = cc.instantiate(this.bg).getComponent(BackGround2);
+                        //创建场景内物体
+                        //添加到中心场景
                         ct.ground[ri * 3 + rf] = gd;
                         gd.node.position = cc.v2(lx + this.width * f, ly + this.height * i);
                         gd.node.setParent(this.father);
