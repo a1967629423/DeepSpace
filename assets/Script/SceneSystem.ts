@@ -12,7 +12,7 @@ import BackGround2 from "./BackGround2";
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-
+//使用setparent会先移除Chile，这会导致粒子特效消失，下一步优化：讲player放在单独的node下，通过worldposition来计算局部位置
 @ccclass
 export default class SceneSystem extends cc.Component {
 
@@ -161,8 +161,13 @@ export default class SceneSystem extends cc.Component {
         }
         var ax = this.center.node.x - ct.node.x;
         var ay = this.center.node.y - ct.node.y;
+        this.center.node.removeChild(this.player.node);
+        ct.node.addChild(this.player.node);
+        
         this.center = ct;
-        this.player.node.setParent(ct.node);
+        //this.player.node.setParent(ct.node);
+        
+
         this.player.node.x+=ax;
         this.player.node.y+=ay;
 
