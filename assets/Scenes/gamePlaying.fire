@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1.0936585242005061,
-      "y": 1.0936585242005061,
+      "x": 0.38666667938232424,
+      "y": 0.38666667938232424,
       "z": 1
     },
     "_quat": {
@@ -443,7 +443,7 @@
     "label": null,
     "dieColliderTag": 0,
     "trigger": 1,
-    "g": 100,
+    "g": 12000,
     "radius": 400,
     "shell": 2,
     "gTipColor": {
@@ -642,7 +642,7 @@
     "label": null,
     "dieColliderTag": 0,
     "trigger": 1,
-    "g": 100,
+    "g": 12000,
     "radius": 400,
     "shell": 2,
     "gTipColor": {

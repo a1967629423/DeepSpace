@@ -20,9 +20,18 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class Character extends cc.Component implements ITouchEvent {
     onTouch(touch: cc.Event.EventTouch,sourceNode:cc.Node) {
-        var vect2:cc.Vec2 = new cc.Vec2();
-        var a = cc.Camera.findCamera(this.node).getCameraToWorldPoint(touch.getLocation(),vect2);
-        this.node.position =   sourceNode.convertToNodeSpace(vect2);
+        //var vect2:cc.Vec2 = new cc.Vec2();
+        //var a = cc.Camera.findCamera(this.node).getCameraToWorldPoint(touch.getLocation(),vect2);
+        //this.node.position =   sourceNode.convertToNodeSpace(vect2);
+        this.maskTouch(touch.getLocation());
+    }
+    onTouchV2(v2:cc.Vec2)
+    {
+        this.maskTouch(v2);
+    }
+    endTouch()
+    {
+        this.maskEndTouch();
     }
     getNode():cc.Node
     {
@@ -43,6 +52,7 @@ export default class Character extends cc.Component implements ITouchEvent {
     private lastpointion:cc.Vec2 = cc.v2(0,0);
     //飞行的距离
     private distance:number = 0;
+    isDie = false;
     /**
      * 飞行的距离
      */
@@ -143,6 +153,7 @@ export default class Character extends cc.Component implements ITouchEvent {
     die()
     {
         console.log("死亡");
+        this.isDie = true;
     }
 }
 //定义了ITouch接口但是没用上
@@ -151,5 +162,7 @@ export default class Character extends cc.Component implements ITouchEvent {
  */
 export  interface ITouchEvent{
     onTouch(touch:cc.Event.EventTouch,sourceNode:cc.Node);
+    onTouchV2(v2?:cc.Vec2),sourceNode?:cc.Node;
+    endTouch(touch:cc.Event.EventTouch,sourceNode:cc.Node);
     getNode():cc.Node;
 }

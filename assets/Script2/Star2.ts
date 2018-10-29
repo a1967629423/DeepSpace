@@ -1,5 +1,5 @@
-import Character from "./Character";
-
+import Star from "../Script/Star";
+import { Character2 } from "./Character2";
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -11,29 +11,42 @@ import Character from "./Character";
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-//敌人基类
-//实现碰到角色之后就会使角色死亡的功能
-@ccclass
-export default class Enemy extends cc.Component  {
 
-    @property(cc.Label)
-    label: cc.Label = null;
-    @property({displayName:"死亡碰撞盒的Tag"})
-    dieColliderTag:number = 0;
+@ccclass
+export  class Star2 extends Star {
+
+
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
+    //interface
+    start () {
+        super.start();
+    }
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
-        //碰到角色后调用死亡接口
-        var ch = other.getComponent(Character);
-        if(self.tag === this.dieColliderTag&&ch)
+        super.onBeginContact(contact,self,other);
+        var ch2:Character2 = this.tage.getComponent(Character2);
+        if(ch2)
         {
-            ch.die();
+            ch2.inStar(this);
         }
     }
+    onEndContact(contact,self:cc.Collider,other:cc.Collider)
+    {
+        var ch2:Character2 = other.getComponent(Character2);
+        if(ch2)
+        {
+            ch2.outStar(this);
+        }
+        super.onEndContact(contact,self,other);
 
-    // update (dt) {}
+
+    }
+
+    update (dt) {
+        super.update(dt);
+    }
 }
 
 

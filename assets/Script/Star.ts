@@ -1,5 +1,5 @@
 import Character from "./Character";
-import Enemy from "./Enemy";
+import Enemy,{ISuper} from "./Enemy";
 import GraphicsEx from "./Tools/GraphicsEx";
 
 // Learn TypeScript:
@@ -16,7 +16,7 @@ const {ccclass, property} = cc._decorator;
 //星球基类 继承自 敌人类
 //实现近距离加分框的绘制
 @ccclass
-export default class Star extends Enemy  {
+export default class Star extends Enemy implements ISuper<Enemy,Star> {
 
     @property({type:cc.Label,override:true})
     label: cc.Label = null;
@@ -24,6 +24,9 @@ export default class Star extends Enemy  {
     trigger:Number = 0;
     @property({displayName:"重力",min:0})
     g:number = 1;
+    /**
+     * 引力半径
+     */
     @property({displayName:"引力半径",min:0})
     radius:number = 0;
     @property({displayName:"引力提示框厚度"})
@@ -32,7 +35,7 @@ export default class Star extends Enemy  {
     gTipColor:cc.Color = cc.color(255,0,0);
     @property({displayName:"卫星提示框颜色",type:cc.Color})
     sTipColor:cc.Color = cc.color(247,214,0);
-
+    //inertface
 
     // LIFE-CYCLE CALLBACKS:
     tage:cc.Node = null;
@@ -60,9 +63,7 @@ export default class Star extends Enemy  {
             var force = this.node.getPosition().sub(this.tage.getPosition());
             var s = force.mag();
             force = force.normalize();
-            force.x/s;
-            force.y/s;
-            force.mulSelf(this.g);
+            force.mulSelf(this.g/s);
             var body = this.tage.getComponent(cc.RigidBody);
             body.applyForceToCenter(force, true);
             

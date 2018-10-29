@@ -1,4 +1,4 @@
-import Character from "./Character";
+import Character,{ITouchEvent} from "./Character";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -51,7 +51,7 @@ export default class InputMask extends cc.Component {
     endTouchFun()
     {
         this.isTouch = false;
-        this.player.maskEndTouch();
+        this.player.endTouch();
     }
      mainCamera:cc.Camera = null;
      update (dt:Number) 
@@ -71,7 +71,7 @@ export default class InputMask extends cc.Component {
          if(this.isTouch&&this.player)
          {
              
-             this.player.maskTouch(this.TouchPosition.sub(ov2).mulSelf(0.5));
+             this.player.onTouchV2(this.TouchPosition.sub(ov2).mulSelf(0.5));
          }
      }
 }

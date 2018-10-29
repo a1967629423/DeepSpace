@@ -29,7 +29,7 @@ export default class CameraFx extends cc.Component {
 
     }
 
-     update (dt) {
+    update (dt) {
          if(this.traceTager != null&&this.tagerCamera!=null)
          {
             var newVector:cc.Vec2 = new cc.Vec2();
