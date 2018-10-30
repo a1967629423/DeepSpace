@@ -57,6 +57,7 @@ export default class State_InStar extends CharacterState {
     Quit()
     {
         super.Quit();
+        clearTimeout(this.timeout);
         this.timeout = 0;
         //不重置星球位置，防止出现星球不存在
     }
