@@ -3,13 +3,20 @@ import { CharacterState } from "./State";
 export default class State_InStar extends CharacterState {
     timeout:number = 0;
     starPosition:cc.Vec2 = cc.v2(0,0);
+    //过度完成的回调
+    rfun:Function = null;
+    //旋转过度开关
+    rc:boolean = false;
     Start()
     {
         if(this.character.nowStar){
             this.starPosition = this.character.nowStar.node.getPosition();
         }
         this.timeout = setTimeout(() => {
-            this.character.changeState(this.character.RoundState);
+            this.rc = true;
+            this.rfun=()=>{
+                this.character.changeState(this.character.RoundState);
+            }
         }, 2000);
     }
     die()
@@ -26,7 +33,26 @@ export default class State_InStar extends CharacterState {
         {
             this.character.adjustVec(this.character.node.getPosition().sub(this.starPosition).normalize());
         } 
-        if(!this.character.nowStar){clearTimeout(this.timeout); this.character.changeState(this.character.IdleState)}
+        if(!this.character.nowStar){
+            clearTimeout(this.timeout); this.character.changeState(this.character.IdleState)       
+        }
+        if(this.rc)
+        {
+            var po = this.character.node.getPosition();
+            var lp = this.starPosition.sub(po);
+            //目标旋转
+            var r = lp.signAngle(cc.v2(0, 1))* 180 / 3.14 + 90;
+            if(Math.abs(r - this.character.node.rotation)<1)
+            {
+                if(this.rfun)this.rfun();
+                this.rc = false;
+            }
+            else
+            {
+                this.character.node.rotation += (r-this.character.node.rotation)*0.2; 
+            }
+        }
+
     }
     Quit()
     {
