@@ -27,11 +27,20 @@ export class Character2 extends Character implements ITouchEvent {
     rratio: number = 0.8;
     @property({ displayName: "环绕速度" })
     rspeed: number = 200;
+    /**
+     * 引擎推力向量
+     */
     dv2: cc.Vec2 = cc.v2(0, 0);
+    /**
+     * 当前所处的星球
+     */
     nowStar:Star = null;
     // LIFE-CYCLE CALLBACKS:
     // onLoad () {}
     private _nowState:CharacterState = null;
+    /**
+     * 当前状态
+     */
     public get nowState() : CharacterState {
         return this._nowState;
     }
@@ -41,6 +50,10 @@ export class Character2 extends Character implements ITouchEvent {
     DieState:State_Die = null;
     BeginState:State_Begin = null;
     IdleState:State_Idle = null;
+    /**
+     * 切换当前状态
+     * @param state 要切换的状态
+     */
     changeState(state:CharacterState)
     {
         if(this.nowState){this.nowState.Quit();}
@@ -70,17 +83,17 @@ export class Character2 extends Character implements ITouchEvent {
     }
     
     
-    protected surroundRadius: number = 0;
-    protected starPosition: cc.Vec2 = cc.v2(0, 0);
-    protected inVec2: cc.Vec2 = cc.v2(0, 0);
-    protected RotatoTo:number = 0;
-    protected RotatoTime:number = 0;
-    //环绕模式
-    round: boolean = false;
-    //设置旋转模式
-    setRotate:boolean = false;
-    //发射模式
-    lunch:boolean = false;
+    // protected surroundRadius: number = 0;
+    // protected starPosition: cc.Vec2 = cc.v2(0, 0);
+    // protected inVec2: cc.Vec2 = cc.v2(0, 0);
+    // protected RotatoTo:number = 0;
+    // protected RotatoTime:number = 0;
+    // //环绕模式
+    // round: boolean = false;
+    // //设置旋转模式
+    // setRotate:boolean = false;
+    // //发射模式
+    // lunch:boolean = false;
     start() {
         super.start();
         this.changeState(this.BeginState);
