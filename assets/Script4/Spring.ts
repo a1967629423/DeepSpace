@@ -15,6 +15,6 @@ export default class Spring extends cc.Component {
     }
     Begin()
     {
-
+        //反弹方向= (Spring方向+character速度方向)取反
     }
 }
