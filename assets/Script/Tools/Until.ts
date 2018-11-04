@@ -1,3 +1,6 @@
+import InputMask from "../inputMask";
+import CameraFx from "./CameraFx";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -42,6 +45,23 @@ export default class Until extends cc.Component {
             trans.y+=v3.y;
             trans.z+=v3.z;
         }
+    }
+    /**
+     *检测目标node是否被点击，在有InputMask的情况下 
+     * @param tager 目标node
+     */
+    public static isTouch(tager:cc.Node):boolean
+    {
+        var mworld = InputMask.Instantiation.getMoseWorldPosition();
+        var tworld = tager.getParent().convertToWorldSpaceAR(tager.getPosition());
+
+        var size = cc.v2(tager.getContentSize().width,tager.getContentSize().height);
+        size.mulSelf(1/cc.Camera.findCamera(tager).zoomRatio);
+        var ax = tager.anchorX*size.x;
+        var ay = tager.anchorY*size.y;
+        var sub = tworld.sub(mworld);
+        return sub.x>ax-size.x&&sub.y>ay-size.y&&sub.x<ax&&sub.y<ay;
+
     }
 }
 

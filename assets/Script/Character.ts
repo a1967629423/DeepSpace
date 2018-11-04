@@ -1,5 +1,6 @@
 import Until from "./Tools/Until";
 import GradeManage from "./GradeManage";
+import Star from "./Star";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -37,6 +38,10 @@ export default class Character extends cc.Component implements ITouchEvent {
     {
         return this.node;
     }
+    onTouchLocal(v2:cc.Vec2)
+    {
+        
+    }
 
     @property(cc.Label)
     label: cc.Label = null;
@@ -52,6 +57,10 @@ export default class Character extends cc.Component implements ITouchEvent {
     private lastpointion:cc.Vec2 = cc.v2(0,0);
     //飞行的距离
     private distance:number = 0;
+    /**
+     * 当前所处的星球
+     */
+    nowStar:Star = null;
     isDie = false;
     /**
      * 飞行的距离
@@ -87,7 +96,7 @@ export default class Character extends cc.Component implements ITouchEvent {
         //启动物理
         cc.director.getPhysicsManager().enabled = true;
         this.nowEngine = this.defEngine;
-        this.node.zIndex = 1;
+        this.node.zIndex = 998;
     }
     start () {
         this.body = this.getComponent(cc.RigidBody);
@@ -101,6 +110,19 @@ export default class Character extends cc.Component implements ITouchEvent {
         this.node.position = new cc.Vec2(x,y);
     }
     particfire:boolean = false;
+    changeEngineState(state:boolean)
+    {
+        this.partic.forEach((item:cc.ParticleSystem)=>{
+            if(state)
+            {
+                item.resetSystem();
+            }
+            else
+            {
+                item.stopSystem();
+            }
+        });
+    }
     maskTouch(position:cc.Vec2)
     {
         this.body.applyForceToCenter(position,true);
@@ -108,24 +130,38 @@ export default class Character extends cc.Component implements ITouchEvent {
         this.node.rotation = position.signAngle(cc.v2(0,1))*180/3.14;
         if(!this.particfire)
         {
-            this.partic.forEach((item:cc.ParticleSystem)=>{
-                item.resetSystem();
-            });
-            this.audio.play();
+            this.changeEngineState(true);
             this.particfire = true;
         }
+        // if(!this.particfire)
+        // {
+        //     this.partic.forEach((item:cc.ParticleSystem)=>{
+        //         item.resetSystem();
+        //     });
+        //     this.audio.play();
+        //     this.particfire = true;
+        // }
     }
     maskEndTouch()
     {
         if(this.particfire)
         {
-            this.partic.forEach((item:cc.ParticleSystem)=>{
-                item.stopSystem();
-            });
-            this.audio.stop();
+            this.changeEngineState(false);
+            // this.partic.forEach((item:cc.ParticleSystem)=>{
+            //     item.stopSystem();
+            // });
+            // this.audio.stop();
             this.particfire = false;
         }
 
+    }
+    inStar(star:Star)
+    {
+        this.nowStar = star;
+    }
+    outStar(star:Star)
+    {
+        this.nowStar = null;
     }
     
     update (dt) {
@@ -162,7 +198,8 @@ export default class Character extends cc.Component implements ITouchEvent {
  */
 export  interface ITouchEvent{
     onTouch(touch:cc.Event.EventTouch,sourceNode:cc.Node);
-    onTouchV2(v2?:cc.Vec2),sourceNode?:cc.Node;
+    onTouchV2(v2?:cc.Vec2,sourceNode?:cc.Node);
+    onTouchLocal(v2:cc.Vec2);
     endTouch(touch:cc.Event.EventTouch,sourceNode:cc.Node);
     getNode():cc.Node;
 }

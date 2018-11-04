@@ -1,5 +1,6 @@
 import Star from "../Script/Star";
 import { Character2 } from "./Character2";
+import Character from "../Script/Character";
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -26,15 +27,16 @@ export  class Star2 extends Star {
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
         super.onBeginContact(contact,self,other);
-        var ch2:Character2 = this.tage.getComponent(Character2);
+        var ch2:Character = this.tage.getComponent(Character);
         if(ch2)
         {
+            
             ch2.inStar(this);
         }
     }
     onEndContact(contact,self:cc.Collider,other:cc.Collider)
     {
-        var ch2:Character2 = other.getComponent(Character2);
+        var ch2:Character = other.getComponent(Character);
         if(ch2)
         {
             ch2.outStar(this);

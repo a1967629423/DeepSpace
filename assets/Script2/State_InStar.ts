@@ -2,6 +2,7 @@ import { CharacterState } from "./State";
 //在星球引力内部状态
 export default class State_InStar extends CharacterState {
     timeout:number = 0;
+    timeout1:number = 0;
     starPosition:cc.Vec2 = cc.v2(0,0);
     //过度完成的回调
     rfun:Function = null;
@@ -14,9 +15,9 @@ export default class State_InStar extends CharacterState {
         }
         this.timeout = setTimeout(() => {
             this.rc = true;
-            this.rfun=()=>{
+            this.timeout1 = setTimeout(()=>{
                 this.character.changeState(this.character.RoundState);
-            }
+            },500);
         }, 2000);
     }
     die()
@@ -58,7 +59,11 @@ export default class State_InStar extends CharacterState {
     {
         super.Quit();
         clearTimeout(this.timeout);
+        clearTimeout(this.timeout1);
         this.timeout = 0;
+        this.timeout1 = 0;
+        this.rc = false;
+        this.rfun = null;
         //不重置星球位置，防止出现星球不存在
     }
 }

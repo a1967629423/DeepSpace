@@ -27,17 +27,19 @@ export class Character2 extends Character implements ITouchEvent {
     rratio: number = 0.8;
     @property({ displayName: "环绕速度" })
     rspeed: number = 200;
+    @property(cc.ProgressBar)
+    engineBar:cc.ProgressBar = null;
+    @property(cc.Node)
+    LunchCancle:cc.Node;
     /**
      * 引擎推力向量
      */
     dv2: cc.Vec2 = cc.v2(0, 0);
-    /**
-     * 当前所处的星球
-     */
-    nowStar:Star = null;
+
+    lunchTime:number = 0;
     // LIFE-CYCLE CALLBACKS:
     // onLoad () {}
-    private _nowState:CharacterState = null;
+    protected _nowState:CharacterState = null;
     /**
      * 当前状态
      */
@@ -110,6 +112,10 @@ export class Character2 extends Character implements ITouchEvent {
         // this.dv2 = v2;
         if(this.nowState){this.nowState.onTouch(v2)};
     }
+    onTouchLocal(v2:cc.Vec2)
+    {
+        if(this.nowState){this.nowState.onTouchLocal(v2)}
+    }
 
     endTouch() {
         // this.setRotate = false;
@@ -125,7 +131,7 @@ export class Character2 extends Character implements ITouchEvent {
     }
     isset:boolean = false;
     inStar(star: Star) {
-        this.nowStar = star;
+        super.inStar(star);
         // this.lunch = false;
         // if(!this.isset)
         // {
@@ -168,7 +174,7 @@ export class Character2 extends Character implements ITouchEvent {
         // this.round = false;
         // this.lunch = false;
         if(this.nowState){this.nowState.outStar()};
-        this.nowStar = null;
+        super.outStar(star);
         //this.body.type == cc.RigidBodyType.Dynamic;
     }
     adjustVec(v2: cc.Vec2) {
@@ -176,6 +182,7 @@ export class Character2 extends Character implements ITouchEvent {
         this.body.applyForceToCenter(v2.sub(nowdir).mul(20),true);
     }
     update(dt) {
+        
         if(this.nowState){this.nowState.update(dt);}
         // if(this.body)
         // {

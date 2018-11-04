@@ -24,10 +24,23 @@ export default class InputMask extends cc.Component {
     player:Character = null;
     @property(cc.Node)
     controlPoint:cc.Node = null;
-
+    private _zoom:number = 0;
+    
+    public get zoom() : number {
+        return this._zoom;
+    }
+    
     // LIFE-CYCLE CALLBACKS:
     isTouch:boolean = false;
     TouchPosition:cc.Vec2 = cc.v2(0,0);
+    private 
+    private static _Instantiation:InputMask = null;
+    
+    public static get Instantiation() : InputMask {
+        if(!this._Instantiation)this._Instantiation = cc.find("Canvas/Main Camera/inputMask").getComponent(InputMask);
+        return this._Instantiation;
+    }
+    
      onLoad () {
         if(this.canvas)
         {
@@ -47,6 +60,7 @@ export default class InputMask extends cc.Component {
     {
         this.isTouch = true;
         this.TouchPosition = touchEvent.getLocation();
+        
     }
     endTouchFun()
     {
@@ -66,12 +80,17 @@ export default class InputMask extends cc.Component {
          }
          //对zoomRatio取反
          var m = (1/this.mainCamera.zoomRatio);
+         this._zoom = m;
          this.node.scaleX =  m;
          this.node.scaleY =  m;
          if(this.isTouch&&this.player)
          {
-             
-             this.player.onTouchV2(this.TouchPosition.sub(ov2).mulSelf(0.5));
+            this.player.onTouchLocal(this.TouchPosition);
+            this.player.onTouchV2(this.TouchPosition.sub(ov2).mulSelf(0.5));
          }
+     }
+     getMoseWorldPosition():cc.Vec2
+     {
+        return this.node.convertToWorldSpace(this.TouchPosition);
      }
 }

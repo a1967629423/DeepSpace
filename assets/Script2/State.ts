@@ -9,11 +9,14 @@ export class CharacterState
     attachment:CharacterState = null;
     /**上下文（角色） */
     character:Character2;
-    /*
-    //判断是否附着于其他状态
-    attached:boolend = false;
-    需要传入的是另一个实例而非目前使用的实例，或者传入类名，然后实例化类
-    */
+    
+    /**
+     * 被依附的状态
+     */
+    attachState:CharacterState = null
+    
+    
+    
     constructor(ch:Character2)
     {
         this.character = ch;
@@ -27,11 +30,13 @@ export class CharacterState
         //Object.create   
         if(this.attachment){this.attachment.Quit()}
         this.attachment = cs;
+        this.attachment.attachState = this;
         this.attachment.Start();
     }
     //进入状态
     Start(){if(this.attachment){this.attachment.Start()}}
     onTouch(v2:cc.Vec2){if(this.attachment){this.attachment.onTouch(v2)}}
+    onTouchLocal(v2:cc.Vec2){if(this.attachment){this.attachment.onTouchLocal(v2)}}
     endTouch(){if(this.attachment){this.attachment.endTouch()}}
     inStar(star:Star){if(this.attachment){this.attachment.inStar(star)}}
     outStar(){if(this.attachment){this.attachment.outStar()}}

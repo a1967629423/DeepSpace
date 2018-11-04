@@ -25,10 +25,16 @@ export default class CameraFx extends cc.Component {
 
     // onLoad () {}
     tageZoom:number = 1;
+    private Controlled:boolean = false;
     start () {
 
     }
-
+    private static _instantiation:CameraFx = null;
+    public static get Instantiation():CameraFx
+    {
+        if(!this._instantiation){this._instantiation = cc.find("Canvas/Main Camera").getComponent(CameraFx)}
+        return this._instantiation;
+    }
     update (dt) {
          if(this.traceTager != null&&this.tagerCamera!=null)
          {
@@ -45,19 +51,32 @@ export default class CameraFx extends cc.Component {
             newVector.x = cameraVect.x+((tagerVect.x+vect3.x-cameraVect.x)*2*dt);
             newVector.y = cameraVect.y+((tagerVect.y+vect3.y-cameraVect.y)*2*dt);
             this.tagerCamera.node.position = newVector;
-            //this.tagerCamera.zoomRatio += dt*2;
-            var body:cc.RigidBody = null;
-            body = this.traceTager.getComponent(cc.RigidBody);
-            if(body)
+            if(!this.Controlled)
             {
-                var vect2 = cc.v2(0,0);
-                body.getLinearVelocityFromWorldPoint(cc.v2(50,50),vect2);
-                this.tageZoom = Math.max(Math.min(Math.abs(1/(vect2.mag()/100)),2),0.5); 
-                //this.tagerCamera.zoomRatio= 1/(vect2.mag()/100)
+
+                //this.tagerCamera.zoomRatio += dt*2;
+                var body:cc.RigidBody = null;
+                body = this.traceTager.getComponent(cc.RigidBody);
+                if(body)
+                {
+                    var vect2 = cc.v2(0,0);
+                    body.getLinearVelocityFromWorldPoint(cc.v2(50,50),vect2);
+                    this.tageZoom = Math.max(Math.min(Math.abs(1/(vect2.mag()/100)),2),0.5); 
+                    //this.tagerCamera.zoomRatio= 1/(vect2.mag()/100)
+                }
             }
+
             this.tagerCamera.zoomRatio += (this.tageZoom- this.tagerCamera.zoomRatio)*0.1;
             //console.log(this.tagerCamera.zoomRatio)
          }
 
-     }
+    }
+    ControlCameraZoom()
+    {
+        this.Controlled = true;
+    }
+    UnControlCameraZoom()
+    {
+        this.Controlled = false;
+    }
 }
