@@ -1,4 +1,5 @@
 import Until from "./Until";
+import GlobalTime, { CoroutinesType } from "./GlobalTime";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -27,13 +28,13 @@ export default class CameraFx extends cc.Component {
     tageZoom:number = 1;
     private Controlled:boolean = false;
     start () {
-
     }
     private static _instantiation:CameraFx = null;
     public static get Instantiation():CameraFx
     {
         if(!this._instantiation){this._instantiation = cc.find("Canvas/Main Camera").getComponent(CameraFx)}
         return this._instantiation;
+
     }
     update (dt) {
          if(this.traceTager != null&&this.tagerCamera!=null)

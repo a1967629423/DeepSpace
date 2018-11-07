@@ -43,6 +43,12 @@ export default class State_InStar2 extends CharacterState2 {
             var lp = this.starPosition.sub(po);
             //目标旋转
             var r = lp.signAngle(cc.v2(0, 1))* 180 / 3.14 + 90;
+            //console.log(this.character.node.rotation-r);
+            //防止过度旋转
+            if(r -this.character.node.rotation>180)
+            {
+                this.character.node.rotation = this.character.node.rotation+360;
+            }
             if(Math.abs(r - this.character.node.rotation)<1)
             {
                 if(this.rfun)this.rfun();

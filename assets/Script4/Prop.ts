@@ -24,8 +24,8 @@ export default class Porp extends cc.Component {
         
 
     }
-    Begin()
+    Begin():boolean
     {
-
+        return true;
     }
 }
