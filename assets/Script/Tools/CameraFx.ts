@@ -28,6 +28,8 @@ export default class CameraFx extends cc.Component {
     roundMax:cc.Vec2 = cc.v2(0,0);
     @property
     goforward:boolean = false;
+    @property
+    setRound:boolean = false;
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
@@ -70,7 +72,7 @@ export default class CameraFx extends cc.Component {
             //cc.AffineTransform.transformVec2(tagerVect,tagerVect,trans);
             var cameraVect = this.tagerCamera.node.position;
             var move =  cc.v2(cameraVect.x + ((tagerVect.x + vect3.x - cameraVect.x) * 2 * dt),cameraVect.y + ((tagerVect.y + vect3.y - cameraVect.y) * 2 * dt));
-            move.clampf(this.roundMin,this.roundMax);
+            if(this.setRound)move.clampf(this.roundMin,this.roundMax);
             if(this.goforward&&move.y<this.tagerCamera.node.position.y)
             {
                 move.y=this.tagerCamera.node.position.y;
