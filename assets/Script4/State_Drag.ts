@@ -1,5 +1,6 @@
 import CharacterState3 from "./State3";
 import Until from "../Script/Tools/Until";
+import { WallType } from "./Wall";
 
 export default class State_Drag extends CharacterState3 {
 
@@ -11,7 +12,6 @@ export default class State_Drag extends CharacterState3 {
             this.character.CancelNode.active = true;
         }
         this.nowRotato = this.character.node.rotation;
-        console.log(this.nowRotato);
         this.firstTouch = this.character.firstTouchPosition;
         if(this.character.body.type != cc.RigidBodyType.Static)this.character.body.type = cc.RigidBodyType.Static;
     }
@@ -29,29 +29,38 @@ export default class State_Drag extends CharacterState3 {
         this.character.lunchDirect = this.lunchdir.normalize();   
         this.character.changeState(this.character.LunchState);
     }
+    changeToIdel()
+    {
+        this.character.node.rotation = this.nowRotato;
+        this.character.changeState(this.character.IdleState);   
+    }
     endTouch() {
         if(this.character.nowWall)
         {
-            if(this.character.nowWall.node.name === "Left"&&this.lunchdir.x>0)
+            if(this.character.nowWall.Type === WallType.Left&&this.lunchdir.x>0)
             {
                 this.changeToLunch();
-            } else if(this.character.nowWall.node.name === "Right"&&this.lunchdir.x<0)
+            } else if(this.character.nowWall.Type === WallType.Right&&this.lunchdir.x<0)
             {
                 this.changeToLunch();
             } else
             {
-                this.character.node.rotation = this.nowRotato;
-                this.character.changeState(this.character.IdleState);
+            
+                this.changeToIdel();
             }
         }
-        else
+        else if(this.lunchdir.y>0) //在地面上
         {
             this.changeToLunch();
         }
+        else
+        {
+            this.changeToIdel();
+        }
 
         if (Until.isTouch(this.character.CancelNode)) {
-            this.character.node.rotation = this.nowRotato;
-            this.character.changeState(this.character.IdleState);     
+
+            this.changeToIdel();
         }
     }
     Quit() {

@@ -1,5 +1,5 @@
 import Character from "./Character";
-import Enemy,{ISuper} from "./Enemy";
+import Enemy from "./Enemy";
 import GraphicsEx from "./Tools/GraphicsEx";
 
 // Learn TypeScript:
@@ -16,7 +16,7 @@ const {ccclass, property} = cc._decorator;
 //星球基类 继承自 敌人类
 //实现近距离加分框的绘制
 @ccclass
-export default class Star extends Enemy implements ISuper<Enemy,Star> {
+export default class Star extends Enemy {
 
     @property({type:cc.Label,override:true})
     label: cc.Label = null;

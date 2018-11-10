@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.6498019170849894,
-      "y": 0.6498019170849894,
+      "x": 0.34822022531845015,
+      "y": 0.34822022531845015,
       "z": 1
     },
     "_quat": {
@@ -1256,7 +1256,7 @@
       "a": 255
     },
     "_depth": -1,
-    "_zoomRatio": 0.5,
+    "_zoomRatio": 1,
     "_targetTexture": null,
     "_id": "7ca66Urn9IWp+14pd3ctpG"
   },
@@ -1288,10 +1288,12 @@
     "goforward": false,
     "setRound": true,
     "setZoom": true,
+    "zoomSmooth": 0.5,
+    "zoomExtent": 650,
     "zoomRang": {
       "__type__": "cc.Vec2",
-      "x": 1.5,
-      "y": 0.6
+      "x": 1.2,
+      "y": 0.2
     },
     "_id": "0aEOWudIlMH7n1HWiKTts0"
   },
@@ -2280,7 +2282,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 3000,
-      "height": 600
+      "height": 800
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2290,7 +2292,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 1013,
-      "y": 633,
+      "y": 535,
       "z": 0
     },
     "_scale": {
@@ -2388,7 +2390,7 @@
     "_size": {
       "__type__": "cc.Size",
       "width": 3000,
-      "height": 600
+      "height": 800
     },
     "_id": "dfrG3d8/RKWL6s9V9cRfaO"
   },
@@ -2667,6 +2669,7 @@
       "__id__": 64
     },
     "_enabled": true,
+    "Type": 0,
     "_id": "11cnbNxdtP9ovAgFpV3Q9Y"
   },
   {
@@ -2852,6 +2855,7 @@
       "__id__": 71
     },
     "_enabled": true,
+    "Type": 1,
     "_id": "d9vUs9sGpF6JMRRsMBItJP"
   },
   {
@@ -2897,7 +2901,7 @@
       "__id__": 71
     },
     "asset": {
-      "__uuid__": "84b7ab80-2321-467d-ad5c-89b5744e9605"
+      "__uuid__": "3e13c881-3885-4745-bc8b-f559331765c0"
     },
     "fileId": "c4fSGx1KROV4iBnSLVdvgO",
     "sync": false
@@ -3374,7 +3378,7 @@
       "__id__": 2
     },
     "wallR": {
-      "__uuid__": "84b7ab80-2321-467d-ad5c-89b5744e9605"
+      "__uuid__": "3e13c881-3885-4745-bc8b-f559331765c0"
     },
     "wallL": {
       "__uuid__": "985a9a5d-2cf9-4018-a036-b8a33cb7f671"

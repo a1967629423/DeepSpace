@@ -1,10 +1,17 @@
 import Character4 from "./Character4";
 const {ccclass, property} = cc._decorator;
+export enum WallType
+{
+    Left,Right
+}
 /**
  * 标准弹簧的定义
  */
 @ccclass
 export default class Wall extends cc.Component {
+    @property({type:cc.Enum(WallType)})
+    Type:WallType = WallType.Left;
+
     character:Character4 = null;
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {

@@ -32,6 +32,10 @@ export default class CameraFx extends cc.Component {
     setRound:boolean = false;
     @property
     setZoom:boolean = false;
+    @property
+    zoomSmooth:number = 0.6;
+    @property
+    zoomExtent:number = 10;
     @property(cc.Vec2)
     zoomRang:cc.Vec2 = cc.v2(1.5,0.6);
     // LIFE-CYCLE CALLBACKS:
@@ -49,7 +53,8 @@ export default class CameraFx extends cc.Component {
                 if (body) {
                     var vect2 = cc.v2(0, 0);
                     body.getLinearVelocityFromWorldPoint(cc.v2(50, 50), vect2);
-                    _this.tageZoom = Math.max(Math.min(Math.abs(1 / (vect2.mag() / 100)), _this.zoomRang.x), _this.zoomRang.y);
+                    _this.tageZoom = Math.max(Math.min(Math.abs(1 / (vect2.mag() / _this.zoomExtent)), _this.zoomRang.x), _this.zoomRang.y);
+                    console.log(_this.tageZoom);
                     //this.tagerCamera.zoomRatio= 1/(vect2.mag()/100)
                 }
                 yield CoroutinesType.SleepTime(0.2);
@@ -95,7 +100,7 @@ export default class CameraFx extends cc.Component {
                 // }
                 if(this.setZoom)
                 {
-                    this.tagerCamera.zoomRatio += (this.tageZoom- this.tagerCamera.zoomRatio)*0.6*dt;
+                    this.tagerCamera.zoomRatio += (this.tageZoom- this.tagerCamera.zoomRatio)*this.zoomSmooth*dt;
                 }
                  
                 // //console.log(this.tagerCamera.zoomRatio)
