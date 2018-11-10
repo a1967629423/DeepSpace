@@ -22,9 +22,9 @@ export default class Character4 extends Character {
     DragState:State_Drag = null;
     PorpApply:State_PropApply = null;
     SpringApply:State_SpringApply = null;
-
     firstTouchPosition:cc.Vec2 = cc.v2(0,0);
     lunchDirect:cc.Vec2 = cc.v2(0,0);
+    nowWall:Wall = null;
     constructor()
     {
         super();
@@ -47,6 +47,7 @@ export default class Character4 extends Character {
     }
     onWall(stype:Wall)
     {
+        this.nowWall = stype;
         if(this.nowState)this.nowState.onWall(stype);
     }
     onProp(ptype:Porp)
@@ -78,6 +79,10 @@ export default class Character4 extends Character {
     maskTouch()
     {
 
+    }
+    die()
+    {
+        if(this.nowState)this.nowState.die();
     }
 
 

@@ -24,14 +24,34 @@ export default class State_Drag extends CharacterState3 {
         
 
     }
+    changeToLunch()
+    {
+        this.character.lunchDirect = this.lunchdir.normalize();   
+        this.character.changeState(this.character.LunchState);
+    }
     endTouch() {
+        if(this.character.nowWall)
+        {
+            if(this.character.nowWall.node.name === "Left"&&this.lunchdir.x>0)
+            {
+                this.changeToLunch();
+            } else if(this.character.nowWall.node.name === "Right"&&this.lunchdir.x<0)
+            {
+                this.changeToLunch();
+            } else
+            {
+                this.character.node.rotation = this.nowRotato;
+                this.character.changeState(this.character.IdleState);
+            }
+        }
+        else
+        {
+            this.changeToLunch();
+        }
+
         if (Until.isTouch(this.character.CancelNode)) {
             this.character.node.rotation = this.nowRotato;
             this.character.changeState(this.character.IdleState);     
-        }
-        else {
-            this.character.lunchDirect = this.lunchdir.normalize();   
-            this.character.changeState(this.character.LunchState);
         }
     }
     Quit() {

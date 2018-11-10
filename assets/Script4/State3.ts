@@ -14,6 +14,7 @@ export default class CharacterState3 {
     onTouchV2(v2:cc.Vec2){}
     onTouchLocal(v2:cc.Vec2){}
     endTouch(){}
+    die(){}
     Quit(){}
 
 }
