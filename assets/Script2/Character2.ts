@@ -22,7 +22,7 @@ import State_Idle from "./State_Idle";
 
 const { ccclass, property } = cc._decorator;
 @ccclass
-export class Character2 extends Character implements ITouchEvent {
+export default class Character2 extends Character implements ITouchEvent {
     @property({ displayName: "环绕轨道的半径比" })
     rratio: number = 0.8;
     @property({ displayName: "环绕速度" })
@@ -30,7 +30,7 @@ export class Character2 extends Character implements ITouchEvent {
     @property(cc.ProgressBar)
     engineBar:cc.ProgressBar = null;
     @property(cc.Node)
-    LunchCancle:cc.Node;
+    LunchCancle:cc.Node = null;
     /**
      * 引擎推力向量
      */

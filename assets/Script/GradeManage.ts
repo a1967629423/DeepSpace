@@ -19,6 +19,7 @@ export default class GradeManage  {
         return this._lastGrade;
     }
     
+    
     constructor()
     {
         if (window.localStorage.grade)

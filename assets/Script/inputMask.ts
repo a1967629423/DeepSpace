@@ -33,7 +33,7 @@ export default class InputMask extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
     isTouch:boolean = false;
     TouchPosition:cc.Vec2 = cc.v2(0,0);
-    private 
+    private EndMessing:boolean = false;
     private static _Instantiation:InputMask = null;
     
     public static get Instantiation() : InputMask {
@@ -59,13 +59,13 @@ export default class InputMask extends cc.Component {
     touchFun(touchEvent:cc.Event.EventTouch)
     {
         this.isTouch = true;
+        this.EndMessing = false;
         this.TouchPosition = touchEvent.getLocation();
         
     }
     endTouchFun()
     {
         this.isTouch = false;
-        this.player.endTouch();
     }
      mainCamera:cc.Camera = null;
      update (dt:Number) 
@@ -83,11 +83,20 @@ export default class InputMask extends cc.Component {
          this._zoom = m;
          this.node.scaleX =  m;
          this.node.scaleY =  m;
-         if(this.isTouch&&this.player)
+         if(this.player)
          {
-            this.player.onTouchLocal(this.TouchPosition);
-            this.player.onTouchV2(this.TouchPosition.sub(ov2).mulSelf(0.5));
+            if(this.isTouch)
+            {
+               this.player.onTouchLocal(this.TouchPosition);
+               this.player.onTouchV2(this.TouchPosition.sub(ov2).mulSelf(0.5));
+            }
+            else if(!this.EndMessing)
+            {
+                this.EndMessing = true;
+                this.player.endTouch();
+            }
          }
+
      }
      getMoseWorldPosition():cc.Vec2
      {

@@ -4,7 +4,7 @@ const {ccclass, property} = cc._decorator;
  * 标准弹簧的定义
  */
 @ccclass
-export default class Spring extends cc.Component {
+export default class Wall extends cc.Component {
     character:Character4 = null;
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
@@ -13,15 +13,15 @@ export default class Spring extends cc.Component {
         if(ch4)
         {
             this.character = ch4;
-            ch4.onSpring(this);
+            ch4.onWall(this);
         }
     }
     Begin()
     {
         //var springDir = cc.v2(Math.cos(this.character.node.rotation+90),Math.sin(this.character.node.rotation+90)).normalize();
-        var direct = cc.v2(Math.cos(this.node.rotation*Math.PI/180),-Math.sin(this.node.rotation*Math.PI/180));
-        console.log(this.node.rotation);
-        console.log(direct);
-        this.character.body.linearVelocity = this.character.body.linearVelocity.add(direct.mul(1000));
+        //var direct = cc.v2(Math.cos(this.node.rotation*Math.PI/180),-Math.sin(this.node.rotation*Math.PI/180));
+        //console.log(this.node.rotation);
+        //console.log(direct);
+        //this.character.body.linearVelocity = this.character.body.linearVelocity.add(direct.mul(1000));
     }
 }

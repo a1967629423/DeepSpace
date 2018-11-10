@@ -8,7 +8,7 @@ export default class grade extends cc.Component {
     @property(cc.Label)
     label: cc.Label = null;
     @property(cc.Label)
-    valLabel:cc.Label;
+    valLabel:cc.Label = null;
 
     // LIFE-CYCLE CALLBACKS:
 

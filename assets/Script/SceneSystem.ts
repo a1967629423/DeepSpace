@@ -20,6 +20,10 @@ export default class SceneSystem extends cc.Component {
     label: cc.Label = null;
     @property(cc.Prefab)
     bg: cc.Prefab = null;
+    @property
+    bgwidth:number = 2000;
+    @property
+    bgheight:number = 2000;
     @property(cc.Prefab)
     Star: cc.Prefab = null;
     @property(cc.Node)
@@ -39,8 +43,8 @@ export default class SceneSystem extends cc.Component {
                 this.center = cc.instantiate(this.bg).getComponent(BackGround2);
             }
             var cnode = this.center.node;
-            var w = this.width = cnode.width;
-            var h = this.height = cnode.height;
+            var w = this.width = this.bgwidth;
+            var h = this.height =this.bgheight;
             var lx = cnode.x;
             var ly = cnode.y;
             //设置中心

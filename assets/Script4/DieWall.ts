@@ -1,3 +1,5 @@
+import Wall from "./Wall";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -9,26 +11,15 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const {ccclass, property} = cc._decorator;
-//实现背景图变化接口
-//实现无限大功能
-@ccclass
-export default class BackGround2 extends cc.Component {
 
-    @property(cc.Label)
-    label: cc.Label = null;
-    @property({visible:false})
-    ground:BackGround2[] =  Array<BackGround2>(9);
-    // LIFE-CYCLE CALLBACKS:
+@ccclass
+export default class DieWall extends Wall {
 
     // onLoad () {}
 
-    start () {
-        this.node.zIndex = 5;
-    }
-    backgroundChange()
-    {
-        
-    }
-
     // update (dt) {}
+    Begin()
+    {
+        this.character.die();
+    }
 }

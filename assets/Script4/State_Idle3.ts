@@ -7,6 +7,7 @@ export default class State_Idle3 extends CharacterState3 {
     {
         console.log("change Idle")
 
+
     }
     onTouchV2(v2:cc.Vec2)
     {

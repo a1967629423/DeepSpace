@@ -31,9 +31,9 @@ export default class Star extends Enemy implements ISuper<Enemy,Star> {
     radius:number = 0;
     @property({displayName:"引力提示框厚度"})
     shell:number = 1;
-    @property({displayName:"引力提示框颜色",type:cc.Color})
+    @property({displayName:"引力提示框颜色"})
     gTipColor:cc.Color = cc.color(255,0,0);
-    @property({displayName:"卫星提示框颜色",type:cc.Color})
+    @property({displayName:"卫星提示框颜色"})
     sTipColor:cc.Color = cc.color(247,214,0);
     //inertface
 

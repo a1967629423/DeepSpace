@@ -1,5 +1,5 @@
 import Character from "../Script/Character";
-import Spring from "./Spring";
+import Wall from "./Wall";
 import Porp from "./prop";
 import CharacterState3 from "./State3";
 import State_Idle3 from "./State_Idle3";
@@ -43,10 +43,11 @@ export default class Character4 extends Character {
         if(this.nowState)this.nowState.Quit();
         cs.Start();
         this._nowState = cs;
+        
     }
-    onSpring(stype:Spring)
+    onWall(stype:Wall)
     {
-        if(this.nowState)this.nowState.onSpring(stype);
+        if(this.nowState)this.nowState.onWall(stype);
     }
     onProp(ptype:Porp)
     {
@@ -56,6 +57,7 @@ export default class Character4 extends Character {
     {
         super.start();
         this.changeState(this.IdleState);
+        this.node.zIndex = 1;
     }
     update(dt)
     {
@@ -72,6 +74,10 @@ export default class Character4 extends Character {
     endTouch()
     {
         if(this.nowState)this.nowState.endTouch();
+    }
+    maskTouch()
+    {
+
     }
 
 

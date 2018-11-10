@@ -1,9 +1,9 @@
 
-const {ccclass, property} = cc._decorator;
+
 /**
  * 绘图扩展类
  */
-@ccclass
+
 export default class GraphicsEx  {
     //static
     public static beginColor:cc.Color = cc.color(255,255,255);
