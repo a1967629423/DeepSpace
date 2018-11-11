@@ -82,10 +82,10 @@ export default class SceneSystem2 extends SceneSystem {
                     {
                         var twall = cc.instantiate(this.dieWall)
                         var box =  twall.getComponent(cc.PhysicsBoxCollider);
-                        box.size.width += addWidth;
+                        box.size.width += this.dieWallWidthRang*Math.random();
                         box.offset = 
-                        cc.v2(wall.getContentSize().width/2,wall.getContentSize().height/2);
-                        twall.position = cc.v2(this.wallWidth-wall.width,i*200);
+                        cc.v2(twall.getContentSize().width/2,twall.getContentSize().height/2);
+                        twall.position = cc.v2(this.wallWidth-twall.width,i*200);
                         twall.getComponent(DieWall).Type = WallType.Right;
                         wallGroup.addChild(twall);
                     }

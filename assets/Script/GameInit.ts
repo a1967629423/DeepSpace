@@ -18,7 +18,7 @@ export default class GameInit extends cc.Component {
      onLoad () {
          //启动物理
         cc.director.getPhysicsManager().enabled = true;
-        cc.game.setFrameRate(60);
+        //cc.game.setFrameRate(60);
      }
 
     // update (dt) {}
