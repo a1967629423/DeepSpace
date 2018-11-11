@@ -93,8 +93,6 @@ export default class Character extends cc.Component implements ITouchEvent {
     // onLoad () {}
     onLoad()
     {
-        //启动物理
-        cc.director.getPhysicsManager().enabled = true;
         this.nowEngine = this.defEngine;
         this.node.zIndex = 998;
     }

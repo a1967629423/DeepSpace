@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.42870938501451766,
-      "y": 0.42870938501451766,
+      "x": 0.33701823552449545,
+      "y": 0.33701823552449545,
       "z": 1
     },
     "_quat": {
@@ -3902,6 +3902,9 @@
       },
       {
         "__id__": 115
+      },
+      {
+        "__id__": 117
       }
     ],
     "_active": true,
@@ -4198,5 +4201,76 @@
     "_enabled": true,
     "speedTime": 1,
     "_id": "177/TkwEpCNZz93U7feC8e"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "GameInit",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 110
+    },
+    "_children": [],
+    "_active": true,
+    "_level": 2,
+    "_components": [
+      {
+        "__id__": 118
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_quat": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_zIndex": 0,
+    "groupIndex": 0,
+    "_id": "e7LPO96pRCqYRFr3pggiOQ"
+  },
+  {
+    "__type__": "7fdfd9QctxIS43HLMDsz2TG",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 117
+    },
+    "_enabled": true,
+    "_id": "a8frPdq51BfqCs/WQplzF3"
   }
 ]
