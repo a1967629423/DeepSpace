@@ -38,6 +38,10 @@ export default class SceneSystem extends cc.Component {
     width: number = 0;
     height: number = 0;
     start() {
+        setTimeout(()=>{this.Init()})
+    }
+    Init()
+    {
         if (this.bg) {
             if (this.center == null) {
                 this.center = cc.instantiate(this.bg).getComponent(BackGround2);
@@ -55,9 +59,10 @@ export default class SceneSystem extends cc.Component {
                     if (!(i == 0 && f == 0)) {
                         var gd = cc.instantiate(this.bg).getComponent(BackGround2);
                         //创建场景内物体
-                        this.createrSomething(gd);
+                        var idx = (i + 1) * 3 + (f + 1);
+                        this.createrSomething(gd,idx)
                         //添加到中心场景
-                        this.center.ground[(i + 1) * 3 + (f + 1)] = gd;
+                        this.center.ground[idx] = gd;
                         gd.node.position = cc.v2(lx + w * f, ly + h * i);
                         gd.node.setParent(this.father);
                         gd.node.setSiblingIndex(0);
@@ -66,9 +71,8 @@ export default class SceneSystem extends cc.Component {
                 }
             }
         }
-
     }
-    createrSomething(bg:BackGround2)
+    createrSomething(bg:BackGround2,idx:number)
     {
         if (this.Star) {
             for (let index = 1; index <= 2; index++) {
@@ -81,44 +85,47 @@ export default class SceneSystem extends cc.Component {
     }
 
     update(dt) {
-        var x = this.player.position.x;
-        var y = this.player.position.y;
-        if (x < 0) {
-            if (y < 0) {
-                //左下角
-                this.ReSetCenter(0);
-
-
-            } else if (y > this.height) {
-                //左上角
-                this.ReSetCenter(6);
+        setTimeout(()=>{
+            var x = this.player.position.x;
+            var y = this.player.position.y;
+            if (x < 0) {
+                if (y < 0) {
+                    //左下角
+                    this.ReSetCenter(0);
+    
+    
+                } else if (y > this.height) {
+                    //左上角
+                    this.ReSetCenter(6);
+                }
+                else {
+                    //左中部
+                    this.ReSetCenter(3);
+                }
+    
+            } else if (x > this.width) {
+                if (y < 0) {
+                    //右下角
+                    this.ReSetCenter(2)
+                } else if (y > this.height) {
+    
+                    this.ReSetCenter(8);
+                }
+                else {
+                    this.ReSetCenter(5);
+                }
             }
             else {
-                //左中部
-                this.ReSetCenter(3);
+                if (y < 0) {
+                    this.ReSetCenter(1);
+                } else if (y > this.height) {
+                    this.ReSetCenter(7);
+    
+                }
+    
             }
-
-        } else if (x > this.width) {
-            if (y < 0) {
-                //右下角
-                this.ReSetCenter(2)
-            } else if (y > this.height) {
-
-                this.ReSetCenter(8);
-            }
-            else {
-                this.ReSetCenter(5);
-            }
-        }
-        else {
-            if (y < 0) {
-                this.ReSetCenter(1)
-            } else if (y > this.height) {
-                this.ReSetCenter(7);
-
-            }
-
-        }
+            
+        })
 
     }
     ReSetCenter(idx: number) {
@@ -140,6 +147,7 @@ export default class SceneSystem extends cc.Component {
                     var cgr = this.center.ground[(iy + i) * 3 + (ix + f)];
                     //cgr.node.setSiblingIndex(0);
                     ct.ground[ri * 3 + rf] = cgr;
+                    //增加废弃地图块回收机制
 
                 }
                 //创建新元素
@@ -147,9 +155,10 @@ export default class SceneSystem extends cc.Component {
                     if (!ct.ground[ri * 3 + rf]) {
                         var gd = cc.instantiate(this.bg).getComponent(BackGround2);
                         //创建场景内物体
-                        this.createrSomething(gd);
+                        var idx = ri * 3 + rf;
+                        this.createrSomething(gd,idx);
                         //添加到中心场景
-                        ct.ground[ri * 3 + rf] = gd;
+                        ct.ground[idx] = gd;
                         gd.node.position = cc.v2(lx + this.width * f, ly + this.height * i);
                         gd.node.setParent(this.father);
                         gd.node.setSiblingIndex(0);
@@ -160,14 +169,14 @@ export default class SceneSystem extends cc.Component {
                 //清理不需要的元素
             }
         }
-        var ax = this.center.node.x - ct.node.x;
-        var ay = this.center.node.y - ct.node.y;
+        //var ax = this.center.node.x - ct.node.x;
+        //var ay = this.center.node.y - ct.node.y;
         //this.center.node.removeChild(this.player.node);
         //ct.node.addChild(this.player.node);
 
         this.center = ct;
-        this.setPlayStar();
-
+        //this.setPlayStar();
+        this.player.setParent(this.center.node);
         //this.player.node.x+=ax;
         //this.player.node.y+=ay;
     }

@@ -22,25 +22,29 @@ export default class SceneSystem2 extends SceneSystem {
     @property(cc.Prefab)
     Prop:cc.Prefab = null;
     wallWidth:number = 0;
-    createrSomething(bg:BackGround2)
+    createrSomething(bg:BackGround2,idx:number)
     {
-        this.wallWidth = this.rX-this.lX;
-        var wall = new cc.Node("Wall");
-        var RoundWall = new cc.Node("Round");
-        var DieWall = new cc.Node("DieWalls");
-        wall.zIndex = 0;
-        RoundWall.zIndex = 0;
-        DieWall.zIndex = 1;
-        DieWall.position = cc.v2(this.lX,0);
-        wall.addChild(RoundWall);
-        wall.addChild(DieWall);
-        bg.node.addChild(wall);
+        if(idx === 7)
+        {
+            this.wallWidth = this.rX-this.lX;
+            var wall = new cc.Node("Wall");
+            var RoundWall = new cc.Node("Round");
+            var DieWall = new cc.Node("DieWalls");
+            wall.zIndex = 0;
+            RoundWall.zIndex = 0;
+            DieWall.zIndex = 1;
+            DieWall.position = cc.v2(this.lX,0);
+            wall.addChild(RoundWall);
+            wall.addChild(DieWall);
+            bg.node.addChild(wall);
+    
+            //生成墙壁
+            setTimeout(()=>{this.createWall(RoundWall)}); 
+            //生成死亡墙
+            setTimeout(()=>{this.createDieWall(DieWall)});
+            //生成道具
+        }
 
-        //生成墙壁
-        this.createWall(RoundWall);
-        //生成死亡墙
-        this.createDieWall(DieWall);
-        //生成道具
     }
     createWall(wallGroup:cc.Node)
     {
@@ -73,10 +77,22 @@ export default class SceneSystem2 extends SceneSystem {
                 {
                     wall.position = cc.v2(0,i*200);
                     wall.getComponent(DieWall).Type = WallType.Left;
+                    random = Math.random();
+                    if(random>0.8)
+                    {
+                        var twall = cc.instantiate(this.dieWall)
+                        var box =  twall.getComponent(cc.PhysicsBoxCollider);
+                        box.size.width += addWidth;
+                        box.offset = 
+                        cc.v2(wall.getContentSize().width/2,wall.getContentSize().height/2);
+                        twall.position = cc.v2(this.wallWidth-wall.width,i*200);
+                        twall.getComponent(DieWall).Type = WallType.Right;
+                        wallGroup.addChild(twall);
+                    }
                 }
                 else
                 {
-                    wall.position = cc.v2(this.wallWidth-wall.width);
+                    wall.position = cc.v2(this.wallWidth-wall.width,i*200);
                     wall.getComponent(DieWall).Type = WallType.Right;
                 }
                 wallGroup.addChild(wall);
