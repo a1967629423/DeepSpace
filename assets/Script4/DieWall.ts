@@ -18,8 +18,9 @@ export default class DieWall extends Wall {
     // onLoad () {}
 
     // update (dt) {}
-    Begin()
+    onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
+        super.onBeginContact(contact,self,other);
         this.character.die();
     }
 }

@@ -37,15 +37,22 @@ export default class State_Drag extends CharacterState3 {
     endTouch() {
         if(this.character.nowWall)
         {
-            if(this.character.nowWall.Type === WallType.Left&&this.lunchdir.x>0)
+            if(this.lunchdir.y>=0)
             {
-                this.changeToLunch();
-            } else if(this.character.nowWall.Type === WallType.Right&&this.lunchdir.x<0)
+                if(this.character.nowWall.Type === WallType.Left&&this.lunchdir.x>0)
+                {
+                    this.changeToLunch();
+                } else if(this.character.nowWall.Type === WallType.Right&&this.lunchdir.x<0)
+                {
+                    this.changeToLunch();
+                } else
+                {
+                
+                    this.changeToIdel();
+                }
+            }
+            else
             {
-                this.changeToLunch();
-            } else
-            {
-            
                 this.changeToIdel();
             }
         }

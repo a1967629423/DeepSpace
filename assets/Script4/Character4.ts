@@ -7,6 +7,7 @@ import State_Lunch3 from "./State_Lunch3";
 import State_Drag from "./State_Drag";
 import State_PropApply from "./State_PropApply";
 import State_SpringApply from "./State_SpringApply";
+import State_Die3 from "./State_Die3";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -22,6 +23,7 @@ export default class Character4 extends Character {
     DragState:State_Drag = null;
     PorpApply:State_PropApply = null;
     SpringApply:State_SpringApply = null;
+    DieState:State_Die3 = null;
     firstTouchPosition:cc.Vec2 = cc.v2(0,0);
     lunchDirect:cc.Vec2 = cc.v2(0,0);
     nowWall:Wall = null;
@@ -33,6 +35,7 @@ export default class Character4 extends Character {
         this.DragState = new State_Drag(this);
         this.PorpApply = new State_PropApply(this);
         this.SpringApply = new State_SpringApply(this);
+        this.DieState = new State_Die3(this);
     }
     /**
      * 改变状态
@@ -82,7 +85,7 @@ export default class Character4 extends Character {
     }
     die()
     {
-        if(this.nowState)this.nowState.die();
+        if(this.nowState&&this.nowState.die())this.changeState(this.DieState);
     }
 
 

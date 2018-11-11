@@ -54,7 +54,6 @@ export default class CameraFx extends cc.Component {
                     var vect2 = cc.v2(0, 0);
                     body.getLinearVelocityFromWorldPoint(cc.v2(50, 50), vect2);
                     _this.tageZoom = Math.max(Math.min(Math.abs(1 / (vect2.mag() / _this.zoomExtent)), _this.zoomRang.x), _this.zoomRang.y);
-                    console.log(_this.tageZoom);
                     //this.tagerCamera.zoomRatio= 1/(vect2.mag()/100)
                 }
                 yield CoroutinesType.SleepTime(0.2);

@@ -25,7 +25,6 @@ export default class State_Lunch3  extends CharacterState3 {
         //此处先暂时不转移到相应状态
         if(!this.Ignore)
         {
-            console.log(this.Ignore);
             spring.Begin();
             this.character.body.linearVelocity  = cc.v2(0,0);
             this.character.changeState(this.character.IdleState);
@@ -42,5 +41,10 @@ export default class State_Lunch3  extends CharacterState3 {
             }
         }
     }
+    die()
+    {
+        return super.die();
+    }
+
 
 }
