@@ -13,7 +13,7 @@ export default class State_Drag extends CharacterState3 {
         }
         this.nowRotato = this.character.node.rotation;
         this.firstTouch = this.character.firstTouchPosition;
-        if(this.character.body.type != cc.RigidBodyType.Static)this.character.body.type = cc.RigidBodyType.Static;
+        setTimeout(()=>{if(this.character.body.type != cc.RigidBodyType.Static)this.character.body.type = cc.RigidBodyType.Static});
     }
     onTouchV2(v2: cc.Vec2) {
 
