@@ -22,10 +22,14 @@ export default class SceneSystem2 extends SceneSystem {
     @property(cc.Prefab)
     Prop:cc.Prefab = null;
     wallWidth:number = 0;
+    dieWallInstance:cc.Node = null;
+    wallLInstance:cc.Node = null;
+    wallRInstance:cc.Node = null;
     createrSomething(bg:BackGround2,idx:number)
     {
         if(idx === 7)
         {
+            
             this.wallWidth = this.rX-this.lX;
             var wall = new cc.Node("Wall");
             var RoundWall = new cc.Node("Round");
@@ -37,17 +41,21 @@ export default class SceneSystem2 extends SceneSystem {
             wall.addChild(RoundWall);
             wall.addChild(DieWall);
             bg.node.addChild(wall);
-    
+            
             //生成墙壁
-            setTimeout(()=>{this.createWall(RoundWall)}); 
+            setTimeout(()=>{
+                this.createWall(RoundWall);
+                this.createDieWall(DieWall);
+            }); 
             //生成死亡墙
-            setTimeout(()=>{this.createDieWall(DieWall)});
             //生成道具
         }
 
     }
     createWall(wallGroup:cc.Node)
     {
+        if(!this.wallRInstance)this.wallRInstance = cc.instantiate(this.wallR);
+        if(!this.wallLInstance)this.wallLInstance = cc.instantiate(this.wallL);
         if(this.wallR&&this.wallL)
         {
 
@@ -61,10 +69,11 @@ export default class SceneSystem2 extends SceneSystem {
     {
         if(this.dieWall)
         {
+            if(!this.dieWallInstance)this.dieWallInstance = cc.instantiate(this.dieWall)
             for(var i =0;i<10;i++)
             {
                 var random = Math.random();
-                var wall = cc.instantiate(this.dieWall);
+                var wall = cc.instantiate<cc.Node>(this.dieWallInstance);
                 wall.setAnchorPoint(cc.v2(0,0));
 
                 var addWidth = this.dieWallWidthRang*Math.random();
@@ -80,7 +89,7 @@ export default class SceneSystem2 extends SceneSystem {
                     random = Math.random();
                     if(random>0.8)
                     {
-                        var twall = cc.instantiate(this.dieWall)
+                        var twall = cc.instantiate(this.dieWallInstance)
                         var box =  twall.getComponent(cc.PhysicsBoxCollider);
                         box.size.width += this.dieWallWidthRang*Math.random();
                         box.offset = 

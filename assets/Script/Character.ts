@@ -95,9 +95,10 @@ export default class Character extends cc.Component implements ITouchEvent {
     {
         this.nowEngine = this.defEngine;
         this.node.zIndex = 998;
+        this.body = this.getComponent(cc.RigidBody);
     }
     start () {
-        this.body = this.getComponent(cc.RigidBody);
+        
         this.partic = this.getComponentsInChildren(cc.ParticleSystem);
         this.audio = this.getComponent(cc.AudioSource);
         //将上次位置设置为当前

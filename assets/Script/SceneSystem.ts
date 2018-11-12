@@ -86,8 +86,9 @@ export default class SceneSystem extends cc.Component {
 
     update(dt) {
         setTimeout(()=>{
-            var x = this.player.position.x;
-            var y = this.player.position.y;
+            var lposition = this.center.node.convertToNodeSpaceAR(this.player.position);
+            var x =lposition.x;
+            var y =lposition.y;
             if (x < 0) {
                 if (y < 0) {
                     //左下角
@@ -169,14 +170,21 @@ export default class SceneSystem extends cc.Component {
                 //清理不需要的元素
             }
         }
-        //var ax = this.center.node.x - ct.node.x;
-        //var ay = this.center.node.y - ct.node.y;
-        //this.center.node.removeChild(this.player.node);
-        //ct.node.addChild(this.player.node);
+        // var ax = this.center.node.x - ct.node.x;
+        // var ay = this.center.node.y - ct.node.y;
 
+        
         this.center = ct;
         //this.setPlayStar();
-        this.player.setParent(this.center.node);
+        // var ch = this.player.getComponent(Character);
+        // //var len = ch.body.linearVelocity;
+        // //ch.body.linearVelocity = cc.v2(0,0);
+        // this.player.x+=ax;
+        // this.player.y+=ay;
+        // ct.node.addChild(this.player);
+        //this.player.setParent(this.center.node);
+        //ch.body.linearVelocity = len;
+        
         //this.player.node.x+=ax;
         //this.player.node.y+=ay;
     }

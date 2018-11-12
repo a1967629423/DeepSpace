@@ -120,7 +120,7 @@
     },
     "_enabled": true,
     "_type": 0,
-    "_allowSleep": true,
+    "_allowSleep": false,
     "_gravityScale": 1,
     "_linearDamping": 0,
     "_angularDamping": 0,
@@ -189,7 +189,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "3e13c881-3885-4745-bc8b-f559331765c0"
     },
     "fileId": "c4fSGx1KROV4iBnSLVdvgO",
     "sync": false

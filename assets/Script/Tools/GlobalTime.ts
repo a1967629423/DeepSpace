@@ -105,7 +105,7 @@ class CoroutinesProgram {
         }
         else
         {
-            this.reDoneFun(this);
+            this.reDoneFun(this);           
         }
     }
 }
@@ -119,7 +119,7 @@ export default class GlobalTime extends cc.Component {
         if(!this._instantiation){this._instantiation = cc.find("System/GlobalTime").getComponent(GlobalTime)}
         return this._instantiation;
     }
-    private coroutines:CoroutinesProgram[] = new Array();
+    private coroutines:CoroutinesProgram[];
     Coroutines(iteralbe:IterableIterator<CoroutinesType>)
     {
         var co:CoroutinesProgram = new CoroutinesProgram(iteralbe);
@@ -132,10 +132,21 @@ export default class GlobalTime extends cc.Component {
                 }
             })
         }
-        this.coroutines.push(co);
+        if(this.coroutines)
+        {
+            this.coroutines.push(co);
+        }
+        else
+        {
+            this.coroutines = new Array();
+        }
+        
+    }
+    onLoad()
+    {
+        this.coroutines = new Array();
     }
     start () {
-        
     }
     
     // LIFE-CYCLE CALLBACKS:
