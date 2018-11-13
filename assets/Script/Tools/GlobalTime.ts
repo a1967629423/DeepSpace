@@ -105,7 +105,9 @@ class CoroutinesProgram {
         }
         else
         {
-            this.reDoneFun(this);           
+            this.reDoneFun(this);
+            this.type = null;
+            this.Iter = null;         
         }
     }
 }

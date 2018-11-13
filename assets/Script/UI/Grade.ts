@@ -19,10 +19,10 @@ export default class grade extends cc.Component {
 
     }
 
-     update (dt) {
-         if(this.valLabel)
-         {
-            this.valLabel.string = GradeManage.instance.nowGrade.toFixed(1).toString();
-         }
-     }
+    //  update (dt) {
+    //      if(this.valLabel)
+    //      {
+    //         this.valLabel.string = GradeManage.instance.nowGrade.toFixed(1).toString();
+    //      }
+    //  }
 }

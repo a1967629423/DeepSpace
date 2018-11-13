@@ -87,6 +87,8 @@ export default class CameraFx extends cc.Component {
             // newVector.x = cameraVect.x + ((tagerVect.x + vect3.x - cameraVect.x) * 2 * dt);
             // newVector.y = cameraVect.y + ((tagerVect.y + vect3.y - cameraVect.y) * 2 * dt);
             this.tagerCamera.node.position = move;
+            cameraVect = null;
+            move = null;
 
 
             if (!this.Controlled) {
@@ -103,7 +105,7 @@ export default class CameraFx extends cc.Component {
                 //     }
                 // }
                 if (this.setZoom) {
-                    setTimeout(() => { this.tagerCamera.zoomRatio += (this.tageZoom - this.tagerCamera.zoomRatio) * this.zoomSmooth * dt });
+                    this.tagerCamera.zoomRatio += (this.tageZoom - this.tagerCamera.zoomRatio) * this.zoomSmooth * dt ;
                 }
 
                 // //console.log(this.tagerCamera.zoomRatio)

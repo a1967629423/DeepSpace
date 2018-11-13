@@ -17,6 +17,12 @@ const {ccclass, property} = cc._decorator;
 export default class NodeSync extends cc.Component {
     @property(cc.Node)
     tageNode:cc.Node = null;
+    @property
+    Synclocation:boolean = true;
+    @property
+    SyncSize:boolean = false;
+    @property
+    workInStart:boolean = false;
     start()
     {
         // var _this = this;
@@ -28,11 +34,30 @@ export default class NodeSync extends cc.Component {
         //         yield CoroutinesType.frame;
         //     }
         // })())
+        if(this.workInStart)
+        {
+            if(this.Synclocation)
+            {
+               this.node.position =  this.node.getParent().convertToNodeSpaceAR(this.tageNode.getParent().convertToWorldSpaceAR(this.tageNode.position));
+            }
+            if(this.SyncSize)
+            {
+                this.node.setContentSize(this.tageNode.getContentSize());
+            }
+        }
     }
      update (dt) {
-         if(this.tageNode)
+         if(this.tageNode&&!this.workInStart)
          {
-             this.node.position =  this.node.getParent().convertToNodeSpaceAR(this.tageNode.getParent().convertToWorldSpaceAR(this.tageNode.position));
+             if(this.Synclocation)
+             {
+                this.node.position =  this.node.getParent().convertToNodeSpaceAR(this.tageNode.getParent().convertToWorldSpaceAR(this.tageNode.position));
+             }
+             if(this.SyncSize)
+             {
+                 this.node.setContentSize(this.tageNode.getContentSize());
+             }
+            
          }
      }
 }

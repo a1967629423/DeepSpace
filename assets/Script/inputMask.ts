@@ -44,16 +44,16 @@ export default class InputMask extends cc.Component {
      onLoad () {
         if(this.canvas)
         {
-            this.node.width = this.canvas.node.width;
-            this.node.height = this.canvas.node.height;
+            this.node.width = cc.winSize.width
+            this.node.height = cc.winSize.height;
         }
 
      }
 
     start () {
-        this.node.on(cc.Node.EventType.TOUCH_START,(touch)=>{this.touchFun(touch)});
-        this.node.on(cc.Node.EventType.TOUCH_MOVE,(touch)=>{this.touchFun(touch)});
-        this.node.on(cc.Node.EventType.TOUCH_END,()=>{this.endTouchFun()});
+        this.node.on(cc.Node.EventType.TOUCH_START,this.touchFun,this);
+        this.node.on(cc.Node.EventType.TOUCH_MOVE,this.touchFun,this);
+        this.node.on(cc.Node.EventType.TOUCH_END,this.endTouchFun,this);
         
     }
     touchFun(touchEvent:cc.Event.EventTouch)
@@ -83,6 +83,7 @@ export default class InputMask extends cc.Component {
          this._zoom = m;
          this.node.scaleX =  m;
          this.node.scaleY =  m;
+         m = null;
          if(this.player)
          {
             if(this.isTouch)
