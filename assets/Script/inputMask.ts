@@ -40,6 +40,10 @@ export default class InputMask extends cc.Component {
         if(!this._Instantiation)this._Instantiation = cc.find("Canvas/Main Camera/inputMask").getComponent(InputMask);
         return this._Instantiation;
     }
+    private static clearInstantiation()
+    {
+        this._Instantiation = null;
+    }
     
      onLoad () {
         if(this.canvas)
@@ -102,5 +106,13 @@ export default class InputMask extends cc.Component {
      getMoseWorldPosition():cc.Vec2
      {
         return this.node.convertToWorldSpace(this.TouchPosition);
+     }
+     //重新开始游戏时需要清空实例
+     onDestroy()
+     {
+        this.node.off(cc.Node.EventType.TOUCH_START,this.touchFun,this)
+        this.node.off(cc.Node.EventType.TOUCH_MOVE,this.touchFun,this)
+        this.node.off(cc.Node.EventType.TOUCH_END,this.endTouchFun,this)
+        InputMask.clearInstantiation(); 
      }
 }

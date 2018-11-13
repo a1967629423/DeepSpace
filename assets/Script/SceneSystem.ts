@@ -21,9 +21,9 @@ export default class SceneSystem extends cc.Component {
     @property(cc.Prefab)
     bg: cc.Prefab = null;
     @property
-    bgwidth:number = 2000;
+    bgwidth: number = 2000;
     @property
-    bgheight:number = 2000;
+    bgheight: number = 2000;
     @property(cc.Prefab)
     Star: cc.Prefab = null;
     @property(cc.Node)
@@ -38,17 +38,16 @@ export default class SceneSystem extends cc.Component {
     width: number = 0;
     height: number = 0;
     start() {
-        setTimeout(()=>{this.Init()})
+        setTimeout(() => { this.Init() })
     }
-    Init()
-    {
+    Init() {
         if (this.bg) {
             if (this.center == null) {
                 this.center = cc.instantiate(this.bg).getComponent(BackGround2);
             }
             var cnode = this.center.node;
             var w = this.width = this.bgwidth;
-            var h = this.height =this.bgheight;
+            var h = this.height = this.bgheight;
             var lx = cnode.x;
             var ly = cnode.y;
             //设置中心
@@ -60,7 +59,7 @@ export default class SceneSystem extends cc.Component {
                         var gd = cc.instantiate(this.bg).getComponent(BackGround2);
                         //创建场景内物体
                         var idx = (i + 1) * 3 + (f + 1);
-                        this.createrSomething(gd,idx)
+                        this.createrSomething(gd, idx)
                         //添加到中心场景
                         this.center.ground[idx] = gd;
                         gd.node.position = cc.v2(lx + w * f, ly + h * i);
@@ -72,60 +71,62 @@ export default class SceneSystem extends cc.Component {
             }
         }
     }
-    createrSomething(bg:BackGround2,idx:number)
-    {
+    createrSomething(bg: BackGround2, idx: number) {
         if (this.Star) {
             for (let index = 1; index <= 2; index++) {
                 var star = cc.instantiate(this.Star)
                 star.zIndex = 100;
-                star.position = cc.v2(Math.random() * 400+500*index, Math.random() * 400+500*index);
+                star.position = cc.v2(Math.random() * 400 + 500 * index, Math.random() * 400 + 500 * index);
                 bg.node.addChild(star);
             }
         }
     }
 
     update(dt) {
-        setTimeout(()=>{
-            var lposition = this.center.node.convertToNodeSpaceAR(this.player.position);
-            var x =lposition.x;
-            var y =lposition.y;
-            if (x < 0) {
-                if (y < 0) {
-                    //左下角
-                    this.ReSetCenter(0);
-    
-    
-                } else if (y > this.height) {
-                    //左上角
-                    this.ReSetCenter(6);
+        setTimeout(() => {
+            //重新开始游戏时，node还未初始化
+            if (this.center) {
+                var lposition = this.center.node.convertToNodeSpaceAR(this.player.position);
+                var x = lposition.x;
+                var y = lposition.y;
+                if (x < 0) {
+                    if (y < 0) {
+                        //左下角
+                        this.ReSetCenter(0);
+
+
+                    } else if (y > this.height) {
+                        //左上角
+                        this.ReSetCenter(6);
+                    }
+                    else {
+                        //左中部
+                        this.ReSetCenter(3);
+                    }
+
+                } else if (x > this.width) {
+                    if (y < 0) {
+                        //右下角
+                        this.ReSetCenter(2)
+                    } else if (y > this.height) {
+
+                        this.ReSetCenter(8);
+                    }
+                    else {
+                        this.ReSetCenter(5);
+                    }
                 }
                 else {
-                    //左中部
-                    this.ReSetCenter(3);
+                    if (y < 0) {
+                        this.ReSetCenter(1);
+                    } else if (y > this.height) {
+                        this.ReSetCenter(7);
+
+                    }
+
                 }
-    
-            } else if (x > this.width) {
-                if (y < 0) {
-                    //右下角
-                    this.ReSetCenter(2)
-                } else if (y > this.height) {
-    
-                    this.ReSetCenter(8);
-                }
-                else {
-                    this.ReSetCenter(5);
-                }
+
             }
-            else {
-                if (y < 0) {
-                    this.ReSetCenter(1);
-                } else if (y > this.height) {
-                    this.ReSetCenter(7);
-    
-                }
-    
-            }
-            
         })
 
     }
@@ -157,7 +158,7 @@ export default class SceneSystem extends cc.Component {
                         var gd = cc.instantiate(this.bg).getComponent(BackGround2);
                         //创建场景内物体
                         var idx = ri * 3 + rf;
-                        this.createrSomething(gd,idx);
+                        this.createrSomething(gd, idx);
                         //添加到中心场景
                         ct.ground[idx] = gd;
                         gd.node.position = cc.v2(lx + this.width * f, ly + this.height * i);
@@ -173,7 +174,7 @@ export default class SceneSystem extends cc.Component {
         // var ax = this.center.node.x - ct.node.x;
         // var ay = this.center.node.y - ct.node.y;
 
-        
+
         this.center = ct;
         //this.setPlayStar();
         // var ch = this.player.getComponent(Character);
@@ -184,13 +185,12 @@ export default class SceneSystem extends cc.Component {
         // ct.node.addChild(this.player);
         //this.player.setParent(this.center.node);
         //ch.body.linearVelocity = len;
-        
+
         //this.player.node.x+=ax;
         //this.player.node.y+=ay;
     }
-    setPlayStar()
-    {
-         this.player.setParent(this.center.node);
+    setPlayStar() {
+        this.player.setParent(this.center.node);
         // if(this.player.nowStar)
         // {
         //     this.player.nowStar.node.setParent(this.center.node);

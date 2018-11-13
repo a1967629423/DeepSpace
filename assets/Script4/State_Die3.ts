@@ -8,7 +8,8 @@ export default class State_Die3 extends CharacterState3 {
         
         setTimeout(()=>{
             setTimeout(()=>{
-                this.character.node.destroy();
+                //this.character.node.destroy();
+                cc.game.restart();
             },2000)
             if(this.character.body.type!== cc.RigidBodyType.Dynamic)this.character.body.type = cc.RigidBodyType.Dynamic;
 

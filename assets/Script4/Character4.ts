@@ -85,7 +85,7 @@ export default class Character4 extends Character {
     }
     die()
     {
-        if(this.nowState&&this.nowState.die())this.changeState(this.DieState);
+        if(this.nowState&&this._nowState!= this.DieState&&this.nowState.die())this.changeState(this.DieState);
     }
 
 
