@@ -12,6 +12,7 @@ export default class State_Drag extends CharacterState3 {
             this.character.CancelNode.active = true;
         }
         this.nowRotato = this.character.node.rotation;
+        console.log(this.nowRotato);
         this.firstTouch = this.character.firstTouchPosition;
         setTimeout(()=>{if(this.character.body.type != cc.RigidBodyType.Static)this.character.body.type = cc.RigidBodyType.Static});
     }
@@ -26,13 +27,19 @@ export default class State_Drag extends CharacterState3 {
     }
     changeToLunch()
     {
-        this.character.lunchDirect = this.lunchdir.normalize();   
-        this.character.changeState(this.character.LunchState);
+        if(this.character.nowState!==this.character.LunchState)
+        {
+            this.character.lunchDirect = this.lunchdir.normalize();   
+            this.character.changeState(this.character.LunchState);
+        }
     }
     changeToIdel()
     {
-        this.character.node.rotation = this.nowRotato;
-        this.character.changeState(this.character.IdleState);   
+        if(this.character.nowState!==this.character.IdleState)
+        {
+            this.character.node.rotation = this.nowRotato;
+            this.character.changeState(this.character.IdleState);  
+        }
     }
     endTouch() {
         if(this.character.nowWall)
@@ -64,7 +71,6 @@ export default class State_Drag extends CharacterState3 {
         {
             this.changeToIdel();
         }
-
         if (Until.isTouch(this.character.CancelNode)) {
 
             this.changeToIdel();
