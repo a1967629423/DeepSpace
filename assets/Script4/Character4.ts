@@ -14,6 +14,8 @@ const {ccclass, property} = cc._decorator;
 export default class Character4 extends Character {
     @property({type:cc.Node,displayName:"取消Node"})
     CancelNode:cc.Node = null;
+    @property({type:cc.Node,displayName:"死亡后弹窗Node"})
+    DieLayoutNode:cc.Node = null;
     private _nowState:CharacterState3 = null;
     public get nowState() : CharacterState3 {
         return this._nowState;

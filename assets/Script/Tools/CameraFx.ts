@@ -48,7 +48,7 @@ export default class CameraFx extends cc.Component {
     start() {
         var _this = this;
         GlobalTime.Instantiation.Coroutines((function* () {
-            while (_this.traceTager != null && !_this.Controlled) {
+            while (_this.traceTager&& !_this.Controlled) {
             var body: cc.RigidBody = null;
             body = _this.traceTager.getComponent(Character).body;
             if (body) {
@@ -70,25 +70,30 @@ export default class CameraFx extends cc.Component {
         return this._instantiation;
 
     }
+
     update(dt) {
         if (this.traceTager != null && this.tagerCamera != null) {
             //调后追踪的任务优先级
-            var tagerVect = this.traceTager.getParent().convertToWorldSpaceAR(this.traceTager.position);
-            //this.traceTager.getParent().getLocalMatrix(mat4);
-            //mat4.getTranslation(vect3);
-            //var trans = this.traceTager.getParent().getNodeToParentTransform();
-            //cc.AffineTransform.transformVec2(tagerVect,tagerVect,trans);
-            var cameraVect = this.tagerCamera.node.getParent().convertToWorldSpaceAR(this.tagerCamera.node.position);
-            var move = cc.v2(this.tagerCamera.node.x + ((tagerVect.x - cameraVect.x) * 2 * dt), this.tagerCamera.node.y + ((tagerVect.y - cameraVect.y) * 2 * dt));
-            if (this.setRound) move.clampf(this.roundMin, this.roundMax);
-            if (this.goforward && move.y < this.tagerCamera.node.position.y) {
-                move.y = this.tagerCamera.node.position.y;
+            if(this.traceTager)
+            {
+                var tagerVect = this.traceTager.getParent().convertToWorldSpaceAR(this.traceTager.position);
+                //this.traceTager.getParent().getLocalMatrix(mat4);
+                //mat4.getTranslation(vect3);
+                //var trans = this.traceTager.getParent().getNodeToParentTransform();
+                //cc.AffineTransform.transformVec2(tagerVect,tagerVect,trans);
+                var cameraVect = this.tagerCamera.node.getParent().convertToWorldSpaceAR(this.tagerCamera.node.position);
+                var move = cc.v2(this.tagerCamera.node.x + ((tagerVect.x - cameraVect.x) * 2 * dt), this.tagerCamera.node.y + ((tagerVect.y - cameraVect.y) * 2 * dt));
+                if (this.setRound) move.clampf(this.roundMin, this.roundMax);
+                if (this.goforward && move.y < this.tagerCamera.node.position.y) {
+                    move.y = this.tagerCamera.node.position.y;
+                }
+                // newVector.x = cameraVect.x + ((tagerVect.x + vect3.x - cameraVect.x) * 2 * dt);
+                // newVector.y = cameraVect.y + ((tagerVect.y + vect3.y - cameraVect.y) * 2 * dt);
+                this.tagerCamera.node.position = move;
+                cameraVect = null;
+                move = null;
             }
-            // newVector.x = cameraVect.x + ((tagerVect.x + vect3.x - cameraVect.x) * 2 * dt);
-            // newVector.y = cameraVect.y + ((tagerVect.y + vect3.y - cameraVect.y) * 2 * dt);
-            this.tagerCamera.node.position = move;
-            cameraVect = null;
-            move = null;
+
 
 
             if (!this.Controlled) {
@@ -119,5 +124,9 @@ export default class CameraFx extends cc.Component {
     }
     UnControlCameraZoom() {
         this.Controlled = false;
+    }
+    onDestroy()
+    {
+        CameraFx._instantiation = null;
     }
 }

@@ -11,35 +11,21 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class ScenesChange extends cc.Component {
-
-    @property(cc.Label)
-    label: cc.Label = null;
+export default class AnimationPlay extends cc.Component {
+    @property(cc.Animation)
+    tage:cc.Animation = null;
     @property
-    tagerScenes = "gamePlaying";
-    @property
-    changeTime:number = 1.0;
+    AnimationName: string = '';
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
-
-    start () {
-
-    }
-    change(event,scenesname:string=null)
+    play(event,data:string = null)
     {
-        if(!scenesname)
-        {
-            scenesname = this.tagerScenes;
-        }
-        cc.director.getScene().runAction(cc.fadeOut(this.changeTime));
-        setTimeout(()=>{
-            cc.director.loadScene(scenesname,()=>{
-                cc.director.getScene().runAction(cc.fadeIn(1.0));
-            })
-        },this.changeTime*1000);
+        if(!data)data = this.AnimationName;
+        this.tage.play(data);
     }
+
 
     // update (dt) {}
 }

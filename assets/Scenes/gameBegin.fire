@@ -41,8 +41,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.4828515688578288,
-      "y": 0.4828515688578288,
+      "x": 0.5043164253234863,
+      "y": 0.5043164253234863,
       "z": 1
     },
     "_quat": {
@@ -818,6 +818,7 @@
     "_enabled": true,
     "label": null,
     "tagerScenes": "gamePlaying",
+    "changeTime": 1,
     "_id": "c8SkkRtFhLu4D5Vmx9Az3y"
   },
   {
@@ -924,7 +925,7 @@
     },
     "component": "ScenesChange",
     "handler": "change",
-    "customEventData": ""
+    "customEventData": "gamePlaying - 003"
   },
   {
     "__type__": "2deb4uT2khJYbOnFbnKVHjA",
@@ -935,7 +936,8 @@
     },
     "_enabled": true,
     "label": null,
-    "tagerScenes": "gamePlaying - 003",
+    "tagerScenes": "",
+    "changeTime": 1,
     "_id": "dd3M+d/XFCXpLCbBV401lk"
   },
   {

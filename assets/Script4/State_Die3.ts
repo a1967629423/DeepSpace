@@ -7,13 +7,18 @@ export default class State_Die3 extends CharacterState3 {
         console.log("change Die");
         
         setTimeout(()=>{
+            if(this.character.DieLayoutNode)
+            {
+                this.character.DieLayoutNode.active = true;
+            }
             setTimeout(()=>{
-                //this.character.node.destroy();
-                cc.game.restart();
+                this.character.destroy();
+                this.character.node.destroy();
             },2000)
+            CameraFx.Instantiation.traceTager = null;
             if(this.character.body.type!== cc.RigidBodyType.Dynamic)this.character.body.type = cc.RigidBodyType.Dynamic;
 
-            CameraFx.Instantiation.traceTager = null;
+            
             
  
         },100);
