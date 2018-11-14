@@ -166,4 +166,9 @@ export default class GlobalTime extends cc.Component {
              }
          }
      }
+     onDestroy()
+     {
+         //super.onDestroy();
+         GlobalTime._instantiation = null;
+     }
 }
