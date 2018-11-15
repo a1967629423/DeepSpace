@@ -21,9 +21,7 @@ export default class State_Drag extends CharacterState3 {
         this.lunchdir = v2.sub(this.firstTouch).negSelf();
         var rotation = this.lunchdir.signAngle(cc.v2(0, 1)) * 180 / Math.PI;
         this.character.node.rotation = rotation;
-        if(this.character.node.rotation>=0&&this.character.node.rotation<4){
-            this.changeToIdel();
-        }
+
 
 
     }
