@@ -30,6 +30,7 @@ export default class NewClass extends cc.Component {
     _u:number = 0;
     private ctagevec:cc.Vec2 = cc.v2(0,0);
     private tagevec:cc.Vec2 = cc.v2(0,0);
+    //缩放减少比例
     private parent:cc.Node = null;
     start () {
         if(this.tage)
@@ -48,7 +49,7 @@ export default class NewClass extends cc.Component {
 
     update (dt) {
         this.parent.y = this._v%this.tage.height;
-        this.parent.x = Math.max(Math.min(this._u,this.tage.width/2) ,-this.tage.width/2) 
+        this.parent.x = Math.max(Math.min(this._u,this.tage.width/2) ,-this.tage.width/2);
         this._v =-this.play.y*0.2;
         this._u = -this.play.x*0.2;
     }

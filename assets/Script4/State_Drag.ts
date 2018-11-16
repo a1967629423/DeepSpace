@@ -12,18 +12,18 @@ export default class State_Drag extends CharacterState3 {
             this.character.CancelNode.active = true;
         }
         this.nowRotato = this.character.node.rotation;
-        console.log(this.nowRotato);
         this.firstTouch = this.character.firstTouchPosition;
         setTimeout(() => { if (this.character.body.type != cc.RigidBodyType.Static) this.character.body.type = cc.RigidBodyType.Static });
     }
     onTouchV2(v2: cc.Vec2) {
-
-        this.lunchdir = v2.sub(this.firstTouch).negSelf();
-        var rotation = this.lunchdir.signAngle(cc.v2(0, 1)) * 180 / Math.PI;
-        this.character.node.rotation = rotation;
-
-
-
+        
+        var dir = v2.sub(this.firstTouch).negSelf();
+        var rotation = dir.signAngle(cc.v2(0, 1)) * 180 / Math.PI;
+        if(Math.abs(rotation)>4)
+        {
+            this.lunchdir = dir;
+            this.character.node.rotation = rotation;
+        }
     }
     changeToLunch() {
         if (this.character.nowState !== this.character.LunchState) {
