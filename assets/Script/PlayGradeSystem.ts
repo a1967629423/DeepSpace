@@ -10,8 +10,8 @@ export default class PlayGradeSystem extends cc.Component {
 
     @property(cc.Label)
     label: cc.Label = null;
-    @property(Character)
-    player:Character = null;
+    @property(cc.Node)
+    player:cc.Node = null;
     @property({displayName:"每次记录间隔的时间",min:0.1})
     interval:number = 1;
     time:number = 0;
@@ -24,9 +24,9 @@ export default class PlayGradeSystem extends cc.Component {
     }
 
      update (dt) {
-         if(this.player&&this.time-this.interval>0)
+         if(this.player&&this.time-this.interval>0&&this.player.isValid)
          {
-             var distance = this.player.Distance;
+            var distance =  this.player.y;
             GradeManage.instance.addGrade(Math.max(distance-this.lastDistance,0));
             this.lastDistance  = distance;
             this.time = 0;
@@ -35,5 +35,9 @@ export default class PlayGradeSystem extends cc.Component {
          {
              this.time +=dt;
          }
+     }
+     onDestroy()
+     {
+        GradeManage.instance.clearGrade();
      }
 }

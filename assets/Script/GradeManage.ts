@@ -30,11 +30,14 @@ export default class GradeManage  {
     addGrade(val:number)
     {
         this._nowGrade+= val;
-        console.log(this._nowGrade);
     }
     saveGrade()
     {
         window.localStorage.grads = this._nowGrade;
+    }
+    clearGrade()
+    {
+        this._nowGrade = 0;
     }
 
     
