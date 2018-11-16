@@ -37,6 +37,12 @@ export default class SceneSystem extends cc.Component {
     // onLoad () {}
     width: number = 0;
     height: number = 0;
+    private static _instance:SceneSystem = null;
+    public static get Instance():SceneSystem
+    {
+        if(!this._instance)this._instance = cc.find("System/SceneSystem").getComponent(SceneSystem);
+        return this._instance;
+    }
     start() {
         setTimeout(() => { this.Init() })
     }
@@ -70,6 +76,7 @@ export default class SceneSystem extends cc.Component {
                 }
             }
         }
+        this.center.changToCenter();
     }
     createrSomething(bg: BackGround2, idx: number) {
         if (this.Star) {
@@ -176,6 +183,7 @@ export default class SceneSystem extends cc.Component {
 
 
         this.center = ct;
+        ct.changToCenter();
         //this.setPlayStar();
         // var ch = this.player.getComponent(Character);
         // //var len = ch.body.linearVelocity;
@@ -195,5 +203,9 @@ export default class SceneSystem extends cc.Component {
         // {
         //     this.player.nowStar.node.setParent(this.center.node);
         // }
+    }
+    onDestroy()
+    {
+        SceneSystem._instance = null;
     }
 }

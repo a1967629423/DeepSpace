@@ -15,10 +15,11 @@ export default class Wall extends cc.Component {
     character:Character4 = null;
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
-        console.log("spring")
+        
         var ch4 =other.node.getComponent(Character4);
         if(ch4)
         {
+            console.log("spring")
             this.character = ch4;
             ch4.onWall(this);
         }

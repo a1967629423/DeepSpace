@@ -2,6 +2,7 @@ import SceneSystem from "../Script/SceneSystem";
 import BackGround2 from "../Script/BackGround2";
 import DieWall from "./DieWall";
 import { WallType } from "./Wall";
+import DieObjectManage from "./Manage/DieObjectManage";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -21,10 +22,16 @@ export default class SceneSystem2 extends SceneSystem {
     dieWallWidthRang:number = 10;
     @property(cc.Prefab)
     Prop:cc.Prefab = null;
+    @property(cc.Prefab)
+    dieObject:cc.Prefab = null;
     wallWidth:number = 0;
     dieWallInstance:cc.Node = null;
     wallLInstance:cc.Node = null;
     wallRInstance:cc.Node = null;
+    public static get Instance():SceneSystem2
+    {
+        return <SceneSystem2>super.Instance
+    }
     createrSomething(bg:BackGround2,idx:number)
     {
         if(idx === 7)
@@ -46,6 +53,7 @@ export default class SceneSystem2 extends SceneSystem {
             setTimeout(()=>{
                 this.createWall(RoundWall);
                 this.createDieWall(DieWall);
+                this.createDieObjectManage(bg);
             }); 
             //生成死亡墙
             //生成道具
@@ -108,5 +116,18 @@ export default class SceneSystem2 extends SceneSystem {
 
             }
         }
+    }
+    createDieObjectManage(bg:BackGround2)
+    {
+        var dieManage = new cc.Node();
+        dieManage.x = this.lX;
+        dieManage.y = bg.node.height;
+        var objectmanage = dieManage.addComponent(DieObjectManage);
+        objectmanage.DieObjectPerfab = this.dieObject;
+        objectmanage.bg = bg;
+        objectmanage.generateHeight = 2000;
+        objectmanage.generateNumber = 5;
+        objectmanage.generateTime = 1.5;
+        bg.node.addChild(dieManage);
     }
 }

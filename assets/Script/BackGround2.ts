@@ -29,6 +29,10 @@ export default class BackGround2 extends cc.Component {
     {
         
     }
+    changToCenter()
+    {
+        this.node.emit("changeToCenter",this);
+    }
 
     // update (dt) {}
 }

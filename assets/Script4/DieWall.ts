@@ -21,6 +21,6 @@ export default class DieWall extends Wall {
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
         super.onBeginContact(contact,self,other);
-        this.character.die();
+        if(this.character)this.character.die();
     }
 }
