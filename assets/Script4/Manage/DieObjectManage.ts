@@ -8,7 +8,7 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class DieObjectManage extends cc.Component {
     @property(cc.Prefab)
-    ObjectPerfab: cc.Prefab = null;
+    ObjectPerfab: cc.Prefab[] = null;
     @property(BackGround2)
     background: BackGround2 = null;
     @property({ step: 1 })
@@ -20,7 +20,7 @@ export default class DieObjectManage extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
-    protected prefab_ins: cc.Node;
+    protected prefab_ins: cc.Node[];
     protected childNumber: number;
     protected unActiveChild: cc.Node[];
     protected Camera: cc.Camera;
@@ -29,7 +29,14 @@ export default class DieObjectManage extends cc.Component {
         this.childNumber = this.generateNumber;
         this.unActiveChild = new Array<cc.Node>();
         if (this.ObjectPerfab && this.generateNumber > 0) {
-            if (!this.prefab_ins) this.prefab_ins = cc.instantiate(this.ObjectPerfab);
+            if (!this.prefab_ins)
+            {
+                this.prefab_ins = new Array<cc.Node>();
+                for(var a of this.ObjectPerfab)
+                {
+                    this.prefab_ins.push(cc.instantiate(a));
+                }
+            }
             for (var i = 0; i < this.generateNumber; i++) {
                 this.generateObject(i);
             }
@@ -43,7 +50,8 @@ export default class DieObjectManage extends cc.Component {
         }
     }
     generateObject(i: number) {
-        var ch = cc.instantiate(this.prefab_ins).getComponent(DieObject);
+        var rp = Math.floor(Math.random()*this.prefab_ins.length);
+        var ch = cc.instantiate(this.prefab_ins[rp]).getComponent(DieObject);
         if (ch) {
             var r = Math.random();
             var h = Math.floor(Math.random() * this.generateHeight);

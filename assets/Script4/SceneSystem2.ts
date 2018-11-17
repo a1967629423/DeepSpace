@@ -22,9 +22,9 @@ export default class SceneSystem2 extends SceneSystem {
     @property
     dieWallWidthRang:number = 10;
     @property(cc.Prefab)
-    Prop:cc.Prefab = null;
+    Props:cc.Prefab[] = new Array<cc.Prefab>();
     @property(cc.Prefab)
-    dieObject:cc.Prefab = null;
+    dieObject:cc.Prefab[] = new  Array<cc.Prefab>();
     wallWidth:number = 0;
     dieWallInstance:cc.Node = null;
     wallLInstance:cc.Node = null;
@@ -139,7 +139,7 @@ export default class SceneSystem2 extends SceneSystem {
         var pm = new cc.Node();
         pm.x = this.lX;
         var om = pm.addComponent(PropManage);
-        om.ObjectPerfab = this.Prop;
+        om.ObjectPerfab = this.Props;
         om.generateNumber = 5;
         bg.node.addChild(pm);
     }

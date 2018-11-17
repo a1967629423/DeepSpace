@@ -5789,12 +5789,16 @@
       "__uuid__": "800edf0d-1af4-47b9-830e-bb56d3cdf442"
     },
     "dieWallWidthRang": 10,
-    "Prop": {
-      "__uuid__": "c68b7845-da07-4e09-9982-92d5058e971b"
-    },
-    "dieObject": {
-      "__uuid__": "9fa36bbc-e3a2-402e-bb6f-975fd29d83e7"
-    },
+    "Props": [
+      {
+        "__uuid__": "c68b7845-da07-4e09-9982-92d5058e971b"
+      }
+    ],
+    "dieObject": [
+      {
+        "__uuid__": "9fa36bbc-e3a2-402e-bb6f-975fd29d83e7"
+      }
+    ],
     "_id": "42rTz2cn9AY6dWmHYndYlY"
   },
   {
