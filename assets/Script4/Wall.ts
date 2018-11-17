@@ -11,17 +11,19 @@ export enum WallType
 export default class Wall extends cc.Component {
     @property({type:cc.Enum(WallType)})
     Type:WallType = WallType.Left;
-
+    SelfCollider:number = 0;
     character:Character4 = null;
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
-        
-        var ch4 =other.node.getComponent(Character4);
-        if(ch4)
+        if(self.tag===this.SelfCollider)
         {
-            console.log("spring")
-            this.character = ch4;
-            ch4.onWall(this);
+            var ch4 =other.node.getComponent(Character4);
+            if(ch4)
+            {
+                console.log("spring")
+                this.character = ch4;
+                ch4.onWall(this);
+            }
         }
     }
     Begin()

@@ -3,8 +3,9 @@ import BackGround2 from "../Script/BackGround2";
 import DieWall from "./DieWall";
 import { WallType } from "./Wall";
 import DieObjectManage from "./Manage/DieObjectManage";
-const {ccclass, property} = cc._decorator;
+import PropManage from "./Manage/PropManage";
 
+const {ccclass, property} = cc._decorator;
 @ccclass
 export default class SceneSystem2 extends SceneSystem {
     player:cc.Node;
@@ -52,11 +53,14 @@ export default class SceneSystem2 extends SceneSystem {
             //生成墙壁
             setTimeout(()=>{
                 this.createWall(RoundWall);
+                //生成死亡墙
                 this.createDieWall(DieWall);
                 this.createDieObjectManage(bg);
+                //生成道具
+                this.createPropManage(bg);
             }); 
-            //生成死亡墙
-            //生成道具
+            
+            
         }
 
     }
@@ -122,12 +126,21 @@ export default class SceneSystem2 extends SceneSystem {
         var dieManage = new cc.Node();
         dieManage.x = this.lX;
         dieManage.y = bg.node.height;
-        var objectmanage = dieManage.addComponent(DieObjectManage);
-        objectmanage.DieObjectPerfab = this.dieObject;
-        objectmanage.bg = bg;
-        objectmanage.generateHeight = 2000;
-        objectmanage.generateNumber = 5;
-        objectmanage.generateTime = 1.5;
+        var obm = dieManage.addComponent(DieObjectManage);
+        obm.ObjectPerfab = this.dieObject;
+        obm.background = bg;
+        obm.generateHeight = 2000;
+        obm.generateNumber = 5;
+        obm.generateTime = 1.5;
         bg.node.addChild(dieManage);
+    }
+    createPropManage(bg:BackGround2)
+    {
+        var pm = new cc.Node();
+        pm.x = this.lX;
+        var om = pm.addComponent(PropManage);
+        om.ObjectPerfab = this.Prop;
+        om.generateNumber = 5;
+        bg.node.addChild(pm);
     }
 }

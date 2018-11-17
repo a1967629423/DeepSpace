@@ -33,12 +33,9 @@ export default class State_Lunch3  extends CharacterState3 {
     onPorp(porp:Porp)
     {
         //此处先暂时不转移到相应状态
-        if(!this.Ignore)
+        if(!porp.Begin())
         {
-            if(!porp.Begin())
-            {
-                this.character.changeState(this.character.IdleState);
-            }
+            this.character.changeState(this.character.IdleState);
         }
     }
     die()

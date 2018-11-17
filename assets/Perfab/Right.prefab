@@ -53,7 +53,7 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 1,
       "y": 0
     },
     "_position": {
@@ -162,7 +162,7 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 10,
+      "x": -10,
       "y": -1000
     },
     "_size": {
