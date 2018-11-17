@@ -1,10 +1,10 @@
-import Porp from "./prop";
 import GradeManage from "../Script/GradeManage";
+import PorpObject from "./PropObject";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class DefaultProp extends Porp {
+export default class DefaultProp extends PorpObject {
     @property
     Grade:number = 100;
     // LIFE-CYCLE CALLBACKS:

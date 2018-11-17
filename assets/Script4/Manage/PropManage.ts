@@ -1,6 +1,6 @@
-import Porp from "../prop";
 import BackGround2 from "../../Script/BackGround2";
 import SceneSystem2 from "../SceneSystem2";
+import PorpObject from "../PropObject";
 
 const { ccclass, property } = cc._decorator;
 @ccclass
@@ -42,7 +42,7 @@ export default class PropManage extends cc.Component {
         var r = Math.random();
         if (r > 0.2) {
             var x = Math.random()*(SceneSystem2.Instance.rX-SceneSystem2.Instance.lX);
-            var po = cc.instantiate(this.prefab_ins).getComponent(Porp);
+            var po = cc.instantiate(this.prefab_ins).getComponent(PorpObject);
             if(po)
             {
                 po.node.y = i *300;

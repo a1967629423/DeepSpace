@@ -1,12 +1,13 @@
 import CharacterState3 from "./State3";
 import Wall from "./Wall";
-import Porp from "./prop";
+import PorpObject from "./PropObject";
 
 export default class State_Lunch3  extends CharacterState3 {
     lunchDir:cc.Vec2 = cc.v2(0,0);
     Ignore:boolean;
     Start()
     {
+        
         this.Ignore = true;
         console.log("change Lunch");
         this.lunchDir = this.character.lunchDirect;
@@ -30,7 +31,7 @@ export default class State_Lunch3  extends CharacterState3 {
             this.character.changeState(this.character.IdleState);
         }
     }
-    onPorp(porp:Porp)
+    onPorp(porp:PorpObject)
     {
         //此处先暂时不转移到相应状态
         if(!porp.Begin())

@@ -1,6 +1,6 @@
 import Character4 from "./Character4";
 import Wall from "./Wall";
-import Porp from "./prop";
+import Porpp from "./prop";
 export default class CharacterState3 {
     /**
      * 附着在此状态上的状态
@@ -29,7 +29,7 @@ export default class CharacterState3 {
     }
     Start(){}
     onWall(stype:Wall){if(this.attachment)this.attachment.onWall(stype)}
-    onPorp(ptype:Porp){if(this.attachment)this.attachment.onPorp(ptype)}
+    onPorp(ptype:Porpp){if(this.attachment)this.attachment.onPorp(ptype)}
     update(dt:number){if(this.attachment)this.attachment.update(dt)}
     onTouchV2(v2:cc.Vec2){if(this.attachment)this.attachment.onTouchV2(v2)}
     onTouchLocal(v2:cc.Vec2){if(this.attachment)this.onTouchLocal(v2)}

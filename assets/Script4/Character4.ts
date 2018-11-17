@@ -1,6 +1,5 @@
 import Character from "../Script/Character";
 import Wall from "./Wall";
-import Porp from "./prop";
 import CharacterState3 from "./State3";
 import State_Idle3 from "./State_Idle3";
 import State_Lunch3 from "./State_Lunch3";
@@ -8,6 +7,7 @@ import State_Drag from "./State_Drag";
 import State_PropApply from "./State_PropApply";
 import State_SpringApply from "./State_SpringApply";
 import State_Die3 from "./State_Die3";
+import PorpObject from "./PropObject";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -55,7 +55,7 @@ export default class Character4 extends Character {
         this.nowWall = stype;
         if(this.nowState)this.nowState.onWall(stype);
     }
-    onProp(ptype:Porp)
+    onProp(ptype:PorpObject)
     {
         if(this.nowState)this.nowState.onPorp(ptype);
     }
