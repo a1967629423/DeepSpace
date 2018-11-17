@@ -5788,7 +5788,7 @@
     "dieWall": {
       "__uuid__": "800edf0d-1af4-47b9-830e-bb56d3cdf442"
     },
-    "dieWallWidthRang": 30,
+    "dieWallWidthRang": 10,
     "Prop": {
       "__uuid__": "c68b7845-da07-4e09-9982-92d5058e971b"
     },
