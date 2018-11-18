@@ -4,6 +4,7 @@ import SceneSystem from "../../Script/SceneSystem";
 import GlobalTime, { CoroutinesType } from "../../Script/Tools/GlobalTime";
 import SceneSystem2 from "../SceneSystem2";
 import BackGround2 from "../../Script/BackGround2";
+import GameInit from "../../Script/GameInit";
 const { ccclass, property } = cc._decorator;
 @ccclass
 export default class DieObjectManage extends cc.Component {
@@ -17,6 +18,8 @@ export default class DieObjectManage extends cc.Component {
     generateHeight: number = 100;
     @property
     generateTime: number = 1.5;
+    @property
+    generateMaxCout:number = 3;
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
@@ -24,28 +27,38 @@ export default class DieObjectManage extends cc.Component {
     protected childNumber: number;
     protected unActiveChild: cc.Node[];
     protected Camera: cc.Camera;
+    protected static ManageCout:number = 0;
     start() {
-        this.Camera = cc.Camera.findCamera(this.node);
-        this.childNumber = this.generateNumber;
-        this.unActiveChild = new Array<cc.Node>();
-        if (this.ObjectPerfab && this.generateNumber > 0) {
-            if (!this.prefab_ins)
-            {
-                this.prefab_ins = new Array<cc.Node>();
-                for(var a of this.ObjectPerfab)
+        if(DieObjectManage.ManageCout<=this.generateMaxCout)
+        {
+            DieObjectManage.ManageCout++;
+            GameInit.instance.node.once("gameEnd",this.gameEnd,this);
+            this.Camera = cc.Camera.findCamera(this.node);
+            this.childNumber = this.generateNumber;
+            this.unActiveChild = new Array<cc.Node>();
+            if (this.ObjectPerfab && this.generateNumber > 0) {
+                if (!this.prefab_ins)
                 {
-                    this.prefab_ins.push(cc.instantiate(a));
+                    this.prefab_ins = new Array<cc.Node>();
+                    for(var a of this.ObjectPerfab)
+                    {
+                        this.prefab_ins.push(cc.instantiate(a));
+                    }
+                }
+                for (var i = 0; i < this.generateNumber; i++) {
+                    this.generateObject(i);
+                }
+                if (this.background) {
+                    this.background.node.on("changeToCenter",this.bgChange,this);
+                    
                 }
             }
-            for (var i = 0; i < this.generateNumber; i++) {
-                this.generateObject(i);
-            }
-            if (this.background) {
-                this.background.node.on("changeToCenter",this.bgChange,this);
-                
+            else {
+                this.node.destroy();
             }
         }
-        else {
+        else
+        {
             this.node.destroy();
         }
     }
@@ -94,17 +107,25 @@ export default class DieObjectManage extends cc.Component {
         this.childNumber--;
         if (this.childNumber <= 0) {
             this.node.destroy();
+            DieObjectManage.ManageCout--;
+            console.log("ok");
         }
     }
     randomActiveChild() {
         if (this.unActiveChild.length > 0) {
             var camera = this.Camera;
-            this.unActiveChild[0].y += this.node.convertToNodeSpaceAR(camera.node.getParent().convertToWorldSpaceAR(camera.node.position)).y + 960
-
+            var addy = this.node.convertToNodeSpaceAR(camera.node.getParent().convertToWorldSpaceAR(camera.node.position)).y + 960;
+            this.unActiveChild[0].y += addy
+            this.unActiveChild[0].getComponent(DieObject).Destroy_Y+= addy;
             this.unActiveChild[0].active = true;
             this.unActiveChild.splice(0, 1);
 
         }
+    }
+    gameEnd()
+    {
+        DieObjectManage.ManageCout = 0;
+        console.log(DieObjectManage.ManageCout)
     }
 
     // update (dt) {}

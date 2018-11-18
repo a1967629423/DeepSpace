@@ -84,40 +84,43 @@ export default class SceneSystem2 extends SceneSystem {
             if(!this.dieWallInstance)this.dieWallInstance = cc.instantiate(this.dieWall)
             for(var i =0;i<10;i++)
             {
-                var random = Math.random();
-                var wall = cc.instantiate<cc.Node>(this.dieWallInstance);
-                wall.setAnchorPoint(cc.v2(0,0));
-
-                var addWidth = this.dieWallWidthRang*Math.random();
-                wall.width += addWidth;
-                var box =  wall.getComponent(cc.PhysicsBoxCollider);
-                box.size.width += addWidth;
-                box.offset = 
-                cc.v2(wall.getContentSize().width/2,wall.getContentSize().height/2);
-                if(random>0.5)
+                var c = Math.random()
+                if(c>0.41)
                 {
-                    wall.position = cc.v2(0,i*200);
-                    wall.getComponent(DieWall).Type = WallType.Left;
-                    random = Math.random();
-                    if(random>0.8)
+                    var random = Math.random();
+                    var wall = cc.instantiate<cc.Node>(this.dieWallInstance);
+                    wall.setAnchorPoint(cc.v2(0,0));
+    
+                    var addWidth = this.dieWallWidthRang*Math.random();
+                    wall.width += addWidth;
+                    var box =  wall.getComponent(cc.PhysicsBoxCollider);
+                    box.size.width += addWidth;
+                    box.offset = 
+                    cc.v2(wall.getContentSize().width/2,wall.getContentSize().height/2);
+                    if(random>0.5)
                     {
-                        var twall = cc.instantiate(this.dieWallInstance)
-                        var box =  twall.getComponent(cc.PhysicsBoxCollider);
-                        box.size.width += this.dieWallWidthRang*Math.random();
-                        box.offset = 
-                        cc.v2(twall.getContentSize().width/2,twall.getContentSize().height/2);
-                        twall.position = cc.v2(this.wallWidth-twall.width,i*200);
-                        twall.getComponent(DieWall).Type = WallType.Right;
-                        wallGroup.addChild(twall);
+                        wall.position = cc.v2(0,i*200);
+                        wall.getComponent(DieWall).Type = WallType.Left;
+                        random = Math.random();
+                        if(random>0.8)
+                        {
+                            var twall = cc.instantiate(this.dieWallInstance)
+                            var box =  twall.getComponent(cc.PhysicsBoxCollider);
+                            box.size.width += this.dieWallWidthRang*Math.random();
+                            box.offset = 
+                            cc.v2(twall.getContentSize().width/2,twall.getContentSize().height/2);
+                            twall.position = cc.v2(this.wallWidth-twall.width,i*200);
+                            twall.getComponent(DieWall).Type = WallType.Right;
+                            wallGroup.addChild(twall);
+                        }
                     }
+                    else
+                    {
+                        wall.position = cc.v2(this.wallWidth-wall.width,i*200);
+                        wall.getComponent(DieWall).Type = WallType.Right;
+                    }
+                    wallGroup.addChild(wall);
                 }
-                else
-                {
-                    wall.position = cc.v2(this.wallWidth-wall.width,i*200);
-                    wall.getComponent(DieWall).Type = WallType.Right;
-                }
-                wallGroup.addChild(wall);
-
             }
         }
     }
@@ -130,8 +133,9 @@ export default class SceneSystem2 extends SceneSystem {
         obm.ObjectPerfab = this.dieObject;
         obm.background = bg;
         obm.generateHeight = 2000;
-        obm.generateNumber = 5;
-        obm.generateTime = 1.5;
+        obm.generateNumber = 3;
+        obm.generateMaxCout = 2;
+        obm.generateTime = 2;
         bg.node.addChild(dieManage);
     }
     createPropManage(bg:BackGround2)

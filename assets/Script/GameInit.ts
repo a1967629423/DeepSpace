@@ -14,12 +14,35 @@ const {ccclass, property} = cc._decorator;
 export default class GameInit extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
-
+    private static _instance:GameInit = null;
+    public static get instance()
+    {
+        if(!this._instance)this._instance = cc.find("System/GameInit").getComponent(GameInit);
+        return this._instance;
+    }
      onLoad () {
          //启动物理
         cc.director.getPhysicsManager().enabled = true;
         //cc.game.setFrameRate(60);
         
+     }
+     gameRestart()
+     {
+         this.node.emit("gameEnd");
+         this.node.emit("gameRestart");
+     }
+     gameClose()
+     {
+         this.node.emit("gameEnd");
+     }
+     gameSceneChange()
+     {
+         this.node.emit("gameEnd");
+     }
+     onDestroy()
+     {
+         this.node.emit("gameEnd");
+         GameInit._instance = null;
      }
 
     // update (dt) {}

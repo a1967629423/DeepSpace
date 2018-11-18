@@ -1,3 +1,5 @@
+import GameInit from "../GameInit";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -35,6 +37,8 @@ export default class ScenesChange extends cc.Component {
         }
         cc.director.getScene().runAction(cc.fadeOut(this.changeTime));
         setTimeout(()=>{
+            //TODO:用GameInit取代change操作
+            GameInit.instance.gameSceneChange();
             cc.director.loadScene(scenesname,()=>{
                 cc.director.getScene().runAction(cc.fadeIn(1.0));
             })
