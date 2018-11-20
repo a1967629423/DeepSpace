@@ -8,7 +8,7 @@ import State_PropApply from "./State_PropApply";
 import State_SpringApply from "./State_SpringApply";
 import State_Die3 from "./State_Die3";
 import PorpObject from "./PropObject";
-import State_Begin3 from "./State_Begin";
+import State_Begin3 from "./State_Begin3";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
