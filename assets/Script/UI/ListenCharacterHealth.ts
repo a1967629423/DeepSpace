@@ -1,4 +1,4 @@
-import Wall from "./Wall";
+import Character4 from "../../Script4/Character4";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -13,15 +13,23 @@ import Wall from "./Wall";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class DieWall extends Wall {
+export default class ListenCharacterHealth extends cc.Component {
+
+    // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
+    @property(Character4)
+    ch4:Character4 = null;
+    @property(cc.ProgressBar)
+    bar:cc.ProgressBar = null;
+    start () {
+        if(this.ch4&&this.bar)
+        {
+            this.ch4.node.on("healthChange",(health:number)=>{
+                this.bar.progress = health/this.ch4.healthMax;
+            })
+        }
+    }
 
     // update (dt) {}
-    die:boolean = true;
-    Begin()
-    {
-        super.Begin();
-        this.character.die();
-    }
 }

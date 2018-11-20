@@ -109,7 +109,7 @@ export default class SceneSystem2 extends SceneSystem {
                             box.size.width += this.dieWallWidthRang*Math.random();
                             box.offset = 
                             cc.v2(twall.getContentSize().width/2,twall.getContentSize().height/2);
-                            twall.position = cc.v2(this.wallWidth-twall.width,i*200);
+                            twall.position = cc.v2(this.wallWidth-twall.width,100+i*200);
                             twall.getComponent(DieWall).Type = WallType.Right;
                             wallGroup.addChild(twall);
                         }

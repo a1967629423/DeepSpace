@@ -8,6 +8,7 @@ import State_PropApply from "./State_PropApply";
 import State_SpringApply from "./State_SpringApply";
 import State_Die3 from "./State_Die3";
 import PorpObject from "./PropObject";
+import State_Begin3 from "./State_Begin";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -16,10 +17,13 @@ export default class Character4 extends Character {
     CancelNode:cc.Node = null;
     @property({type:cc.Node,displayName:"死亡后弹窗Node"})
     DieLayoutNode:cc.Node = null;
+    @property({displayName:"最大生命值",step:1})
+    healthMax:number = 3;
     private _nowState:CharacterState3 = null;
     public get nowState() : CharacterState3 {
         return this._nowState;
     }
+    BeginState:State_Begin3 = null;
     IdleState:State_Idle3 = null;
     LunchState:State_Lunch3 = null;
     DragState:State_Drag = null;
@@ -29,6 +33,19 @@ export default class Character4 extends Character {
     firstTouchPosition:cc.Vec2 = cc.v2(0,0);
     lunchDirect:cc.Vec2 = cc.v2(0,0);
     nowWall:Wall = null;
+    private _health:number = 0;
+    public get health():number
+    {
+        return this._health;
+    }
+    public set health(val)
+    {
+        if(val<=this.healthMax)
+        {
+            this.node.emit("healthChange",val,val-this._health);
+            this._health = val;
+        }
+    }
     constructor()
     {
         super();
@@ -38,6 +55,7 @@ export default class Character4 extends Character {
         this.PorpApply = new State_PropApply(this);
         this.SpringApply = new State_SpringApply(this);
         this.DieState = new State_Die3(this);
+        this.BeginState = new State_Begin3(this);
     }
     /**
      * 改变状态
@@ -46,8 +64,8 @@ export default class Character4 extends Character {
     changeState(cs:CharacterState3)
     {
         if(this.nowState)this.nowState.Quit();
-        cs.Start();
         this._nowState = cs;
+        cs.Start();
         
     }
     onWall(stype:Wall)
@@ -62,7 +80,7 @@ export default class Character4 extends Character {
     start()
     {
         super.start();
-        this.changeState(this.IdleState);
+        this.changeState(this.BeginState);
         this.node.zIndex = 1;
     }
     update(dt)
