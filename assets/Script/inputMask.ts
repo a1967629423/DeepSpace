@@ -1,5 +1,4 @@
 import Character,{ITouchEvent} from "./Character";
-
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -55,6 +54,7 @@ export default class InputMask extends cc.Component {
      }
 
     start () {
+        this.node.on(cc.Node.EventType.TOUCH_START,this.clickFun,this);
         this.node.on(cc.Node.EventType.TOUCH_START,this.touchFun,this);
         this.node.on(cc.Node.EventType.TOUCH_MOVE,this.touchFun,this);
         this.node.on(cc.Node.EventType.TOUCH_END,this.endTouchFun,this);
@@ -66,6 +66,10 @@ export default class InputMask extends cc.Component {
         this.EndMessing = false;
         this.TouchPosition = touchEvent.getLocation();
         
+    }
+    clickFun(touchEvent:cc.Event.EventTouch)
+    {
+        this.player.onClick(touchEvent.getLocation());
     }
     endTouchFun()
     {

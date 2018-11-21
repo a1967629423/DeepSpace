@@ -16,12 +16,8 @@ export default class State_Idle3 extends CharacterState3 {
         // {
         //     this.character.firstTouchPosition = v2;
         //     this.character.changeState(this.character.DragState);
-        // }
-        var dir = cc.v2(1,0.5);
-        if(this.character.nowWall.Type===WallType.Right)dir.x*=-1;
-        this.character.lunchDirect = dir;
-        this.character.body.linearVelocity = cc.v2(0,0);
-        this.character.changeState(this.character.LunchState);
+        //
+
     }
     onWall(wall:Wall)
     {
@@ -34,6 +30,14 @@ export default class State_Idle3 extends CharacterState3 {
     update()
     {
         this.character.body.linearVelocity = cc.v2(0,1).mul(300);
+    }
+    onClick(v2:cc.Vec2)
+    {
+        var dir = cc.v2(1,0.5);
+        if(this.character.nowWall.Type===WallType.Right)dir.x*=-1;
+        this.character.lunchDirect = dir;
+        this.character.body.linearVelocity = cc.v2(0,0);
+        this.character.changeState(this.character.LunchState);
     }
 
 }

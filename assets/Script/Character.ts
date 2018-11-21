@@ -122,6 +122,8 @@ export default class Character extends cc.Component implements ITouchEvent {
             }
         });
     }
+    onClick(v2:cc.Vec2)
+    {}
     maskTouch(position:cc.Vec2)
     {
         this.body.applyForceToCenter(position,true);

@@ -90,6 +90,7 @@ export default class Character4 extends Character {
     onTouchV2(v2:cc.Vec2)
     {
         if(this.nowState)this.nowState.onTouchV2(v2);
+        
     }
     onTouchLocal(v2:cc.Vec2)
     {
@@ -97,7 +98,13 @@ export default class Character4 extends Character {
     }
     endTouch()
     {
+        
         if(this.nowState)this.nowState.endTouch();
+        
+    }
+    onClick(v2:cc.Vec2)
+    {
+        if(this.nowState)this.nowState.onClick(v2);
     }
     maskTouch()
     {
