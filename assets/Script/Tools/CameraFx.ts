@@ -23,12 +23,21 @@ export default class CameraFx extends cc.Component {
     tagerCamera: cc.Camera = null;
     @property(cc.Node)
     traceTager: cc.Node = null;
+    @property
+    traceX: boolean = true;
+    @property
+    traceY: boolean = true;
+    @property
+    applySmooth: boolean = true;
     @property(cc.Vec2)
     roundMin: cc.Vec2 = cc.v2(0, 0);
     @property(cc.Vec2)
     roundMax: cc.Vec2 = cc.v2(0, 0);
     @property
     goforward: boolean = false;
+    /**
+     * 设置跟踪包围盒
+     */
     @property
     setRound: boolean = false;
     @property
@@ -39,30 +48,33 @@ export default class CameraFx extends cc.Component {
     zoomExtent: number = 10;
     @property(cc.Vec2)
     zoomRang: cc.Vec2 = cc.v2(1.5, 0.6);
+
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
     tageZoom: number = 1;
     private Controlled: boolean = false;
-    private traceBody:cc.RigidBody = null;
+    private traceBody: cc.RigidBody = null;
     start() {
         var _this = this;
         GlobalTime.Instantiation.Coroutines((function* () {
-            while (_this.traceTager&& !_this.Controlled) {
-            var body: cc.RigidBody = null;
-            body = _this.traceTager.getComponent(Character).body;
-            if (body) {
-                var vect2 = body.linearVelocity;
+            while (_this.traceTager && !_this.Controlled) {
+                var body: cc.RigidBody = null;
+                var _ch = _this.traceTager.getComponent(Character);
+                if (_ch)
+                    body = _ch.body;
+                if (body) {
+                    var vect2 = body.linearVelocity;
 
-                _this.tageZoom = Math.max(Math.min(Math.abs(1 / (vect2.mag() / _this.zoomExtent)), _this.zoomRang.x), _this.zoomRang.y);
-                //this.tagerCamera.zoomRatio= 1/(vect2.mag()/100)
-            }
+                    _this.tageZoom = Math.max(Math.min(Math.abs(1 / (vect2.mag() / _this.zoomExtent)), _this.zoomRang.x), _this.zoomRang.y);
+                    //this.tagerCamera.zoomRatio= 1/(vect2.mag()/100)
+                }
                 yield CoroutinesType.SleepTime(0.2);
             }
 
-        })())
+        })());
         var ch = this.traceTager.getComponent(Character);
-        this.traceBody = ch.body;
+        if (ch) this.traceBody = ch.body;
     }
     private static _instantiation: CameraFx = null;
     public static get Instantiation(): CameraFx {
@@ -74,22 +86,35 @@ export default class CameraFx extends cc.Component {
     update(dt) {
         if (this.traceTager != null && this.tagerCamera != null) {
             //调后追踪的任务优先级
-            if(this.traceTager)
-            {
+            if (this.traceTager) {
                 var tagerVect = this.traceTager.getParent().convertToWorldSpaceAR(this.traceTager.position);
                 //this.traceTager.getParent().getLocalMatrix(mat4);
                 //mat4.getTranslation(vect3);
                 //var trans = this.traceTager.getParent().getNodeToParentTransform();
                 //cc.AffineTransform.transformVec2(tagerVect,tagerVect,trans);
                 var cameraVect = this.tagerCamera.node.getParent().convertToWorldSpaceAR(this.tagerCamera.node.position);
-                var move = cc.v2(this.tagerCamera.node.x + ((tagerVect.x - cameraVect.x) * 2 * dt), this.tagerCamera.node.y + ((tagerVect.y - cameraVect.y) * 2 * dt));
+                var move: cc.Vec2 = cc.v2(0,0);
+                if (this.applySmooth) {
+                    move = cc.v2(this.tagerCamera.node.x +
+                        (this.traceX ? ((tagerVect.x - cameraVect.x) * 2 * dt) : 0),
+                        this.tagerCamera.node.y +
+                        (this.traceY ? ((tagerVect.y - cameraVect.y) * 2 * dt) : 0));
+                }
+                else {
+                    //DOTO:改成加上增加的距离
+                    move.x = this.traceX?tagerVect.x:this.tagerCamera.node.x;
+                    move.y = this.traceY?tagerVect.y:this.tagerCamera.node.y;
+                }
+
+
+
                 if (this.setRound) move.clampf(this.roundMin, this.roundMax);
                 if (this.goforward && move.y < this.tagerCamera.node.position.y) {
                     move.y = this.tagerCamera.node.position.y;
                 }
                 // newVector.x = cameraVect.x + ((tagerVect.x + vect3.x - cameraVect.x) * 2 * dt);
                 // newVector.y = cameraVect.y + ((tagerVect.y + vect3.y - cameraVect.y) * 2 * dt);
-                this.tagerCamera.node.position = move;
+                this.tagerCamera.node.position = move;//this.tagerCamera.node.getParent().convertToNodeSpaceAR(move);
                 cameraVect = null;
                 move = null;
             }
@@ -110,7 +135,7 @@ export default class CameraFx extends cc.Component {
                 //     }
                 // }
                 if (this.setZoom) {
-                    this.tagerCamera.zoomRatio += (this.tageZoom - this.tagerCamera.zoomRatio) * this.zoomSmooth * dt ;
+                    this.tagerCamera.zoomRatio += (this.tageZoom - this.tagerCamera.zoomRatio) * this.zoomSmooth * dt;
                 }
 
                 // //console.log(this.tagerCamera.zoomRatio)
@@ -125,8 +150,7 @@ export default class CameraFx extends cc.Component {
     UnControlCameraZoom() {
         this.Controlled = false;
     }
-    onDestroy()
-    {
+    onDestroy() {
         CameraFx._instantiation = null;
     }
 }

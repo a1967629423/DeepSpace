@@ -33,7 +33,7 @@ export default class State_Idle3 extends CharacterState3 {
     }
     onClick(v2:cc.Vec2)
     {
-        var dir = cc.v2(1,0.5);
+        var dir = cc.v2(900,300).normalize();
         if(this.character.nowWall.Type===WallType.Right)dir.x*=-1;
         this.character.lunchDirect = dir;
         this.character.body.linearVelocity = cc.v2(0,0);
