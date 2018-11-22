@@ -6,8 +6,10 @@ export default class State_Begin3 extends CharacterState3 {
 
     Start()
     {
-        this.character.lunchDirect = cc.v2(-1,0.2).normalize();
-        this.character.changeState(this.character.LunchState);
+        setTimeout(()=>{
+            this.character.lunchDirect = cc.v2(-1,0.2).normalize();
+            this.character.changeState(this.character.LunchState);
+        },600)
     }
 
 }
