@@ -44,8 +44,8 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.9532315188915873,
-      "y": 0.9532315188915873,
+      "x": 0.337018235524496,
+      "y": 0.337018235524496,
       "z": 1
     },
     "_quat": {
@@ -3696,6 +3696,8 @@
       "__id__": 114
     },
     "healthMax": 3,
+    "moveSpeed": 300,
+    "lunchSpeed": 900,
     "_id": "b8+CYBb8BJJZfPTCSKO4q5"
   },
   {
@@ -3856,7 +3858,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Node",
+    "_name": "cameraTage",
     "_objFlags": 0,
     "_parent": {
       "__id__": 105
@@ -3887,7 +3889,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": -18,
-      "y": -554,
+      "y": 615,
       "z": 0
     },
     "_scale": {
@@ -5150,7 +5152,7 @@
       "y": 99999999
     },
     "goforward": false,
-    "setRound": true,
+    "setRound": false,
     "setZoom": false,
     "zoomSmooth": 0.5,
     "zoomExtent": 650,
