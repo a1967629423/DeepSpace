@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "b9c803c3-b949-495e-b034-51f2d5fe3ca6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "背景 宿舍楼": {
+      "ver": "1.0.3",
+      "uuid": "f9072ad6-d7f2-43b7-9081-49422557e34a",
+      "rawTextureUuid": "b9c803c3-b949-495e-b034-51f2d5fe3ca6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 4336,
+      "height": 4892,
+      "rawWidth": 4336,
+      "rawHeight": 4892,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

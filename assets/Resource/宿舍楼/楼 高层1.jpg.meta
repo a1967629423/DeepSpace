@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "bbed3ef2-f8fb-4a44-9feb-d98a35157017",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "楼 高层1": {
+      "ver": "1.0.3",
+      "uuid": "635fa474-9bc1-4930-8fe8-ed3f4610f74e",
+      "rawTextureUuid": "bbed3ef2-f8fb-4a44-9feb-d98a35157017",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 251,
+      "height": 400,
+      "rawWidth": 251,
+      "rawHeight": 400,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

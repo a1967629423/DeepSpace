@@ -23,6 +23,8 @@ export default class NodeSync extends cc.Component {
     SyncSize:boolean = false;
     @property
     workInStart:boolean = false;
+    @property
+    negation:boolean = false;
     start()
     {
         // var _this = this;
@@ -38,24 +40,34 @@ export default class NodeSync extends cc.Component {
         {
             if(this.Synclocation)
             {
-               this.node.position =  this.node.getParent().convertToNodeSpaceAR(this.tageNode.getParent().convertToWorldSpaceAR(this.tageNode.position));
+               this.tracePosition();
             }
             if(this.SyncSize)
             {
-                this.node.setContentSize(this.tageNode.getContentSize());
+                this.traceSize();
             }
         }
+    }
+    tracePosition()
+    {
+        var po =this.node.getParent().convertToNodeSpaceAR(this.tageNode.getParent().convertToWorldSpaceAR(this.tageNode.position));
+        this.node.position =  this.negation?po.neg():po;
+        po = null;
+    }
+    traceSize()
+    {
+        this.node.setContentSize(this.tageNode.getContentSize());
     }
      update (dt) {
          if(this.tageNode&&!this.workInStart)
          {
              if(this.Synclocation)
              {
-                this.node.position =  this.node.getParent().convertToNodeSpaceAR(this.tageNode.getParent().convertToWorldSpaceAR(this.tageNode.position));
+                this.tracePosition();
              }
              if(this.SyncSize)
              {
-                 this.node.setContentSize(this.tageNode.getContentSize());
+                 this.traceSize();
              }
             
          }
