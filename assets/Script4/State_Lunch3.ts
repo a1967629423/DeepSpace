@@ -19,7 +19,7 @@ export default class State_Lunch3  extends CharacterState3 {
     }
     update(dt:number)
     {
-        this.character.body.linearVelocity = this.lunchDir.mul(900);
+        this.character.body.linearVelocity = this.lunchDir.mul(this.character.lunchSpeed);
     }
 
     onWall(spring:Wall)

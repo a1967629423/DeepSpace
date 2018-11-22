@@ -19,6 +19,10 @@ export default class Character4 extends Character {
     DieLayoutNode:cc.Node = null;
     @property({displayName:"最大生命值",step:1})
     healthMax:number = 3;
+    @property({displayName:"在墙壁上的移动速度"})
+    moveSpeed:number = 300;
+    @property({displayName:"发射速度"})
+    lunchSpeed:number = 900;
     private _nowState:CharacterState3 = null;
     public get nowState() : CharacterState3 {
         return this._nowState;
