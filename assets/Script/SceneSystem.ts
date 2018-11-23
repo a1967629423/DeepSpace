@@ -92,7 +92,7 @@ export default class SceneSystem extends cc.Component {
     update(dt) {
         setTimeout(() => {
             //重新开始游戏时，node还未初始化
-            if (this.center) {
+            if (this.center&&this.player) {
                 var lposition = this.center.node.convertToNodeSpaceAR(this.player.position);
                 var x = lposition.x;
                 var y = lposition.y;

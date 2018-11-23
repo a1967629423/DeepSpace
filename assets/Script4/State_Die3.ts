@@ -1,5 +1,6 @@
 import CharacterState3 from "./State3";
 import CameraFx from "../Script/Tools/CameraFx";
+import SceneSystem2 from "./SceneSystem2";
 
 export default class State_Die3 extends CharacterState3 {
     Start()
@@ -16,6 +17,7 @@ export default class State_Die3 extends CharacterState3 {
                 this.character.node.destroy();
             },2000)
             CameraFx.Instantiation.traceTager = null;
+            SceneSystem2.Instance.player = null;
             if(this.character.body.type!== cc.RigidBodyType.Dynamic)this.character.body.type = cc.RigidBodyType.Dynamic;
 
             

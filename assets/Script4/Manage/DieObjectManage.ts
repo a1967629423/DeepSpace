@@ -108,9 +108,15 @@ export default class DieObjectManage extends cc.Component {
     childDestroy() {
         this.childNumber--;
         if (this.childNumber <= 0) {
-            this.node.destroy();
-            DieObjectManage.ManageCout--;
-            console.log("ok");
+            //将删除自己的步骤移动到删除子结点之后
+            setTimeout(()=>{
+                if(cc.isValid(this.node))
+                {
+                    this.node.destroy();
+                    DieObjectManage.ManageCout--;
+                    console.log("ok");
+                }
+            })
         }
     }
     randomActiveChild() {
@@ -127,7 +133,7 @@ export default class DieObjectManage extends cc.Component {
     gameEnd()
     {
         DieObjectManage.ManageCout = 0;
-        console.log(DieObjectManage.ManageCout)
+        //console.log(DieObjectManage.ManageCout)
     }
 
     // update (dt) {}

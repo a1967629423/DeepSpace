@@ -9,8 +9,12 @@ export default class DieObject extends DieWall {
      update (dt) {
          if(this.node.y<this.Destroy_Y)
          {
-             this.node.emit("destroy",this);
+             
              this.destroy();
          }
+     }
+     onDestroy()
+     {
+        this.node.emit("destroy",this);
      }
 }
