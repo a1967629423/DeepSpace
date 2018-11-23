@@ -29,6 +29,8 @@ export default class DieObjectManage extends cc.Component {
     protected Camera: cc.Camera;
     protected static ManageCout:number = 0;
     start() {
+        //super.start();
+        //if(this.dieobjectManageGroup)this.node.setParent(this.dieobjectManageGroup);
         if(DieObjectManage.ManageCout<=this.generateMaxCout)
         {
             DieObjectManage.ManageCout++;

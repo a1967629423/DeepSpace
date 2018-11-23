@@ -141,6 +141,7 @@ export default class GlobalTime extends cc.Component {
         else
         {
             this.coroutines = new Array();
+            this.coroutines.push(co);
         }
         
     }

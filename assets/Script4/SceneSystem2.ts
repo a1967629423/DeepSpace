@@ -21,6 +21,8 @@ export default class SceneSystem2 extends SceneSystem {
     dieWall:cc.Prefab = null;
     @property
     dieWallWidthRang:number = 10;
+    @property(cc.Node)
+    dieObjectManageGrop:cc.Node = null;
     @property(cc.Prefab)
     Props:cc.Prefab[] = new Array<cc.Prefab>();
     @property(cc.Prefab)
@@ -136,7 +138,9 @@ export default class SceneSystem2 extends SceneSystem {
         obm.generateNumber = 3;
         obm.generateMaxCout = 2;
         obm.generateTime = 2;
-        bg.node.addChild(dieManage);
+        if(!this.dieObjectManageGrop)bg.node.addChild(dieManage);
+        else
+        this.dieObjectManageGrop.addChild(dieManage);
     }
     createPropManage(bg:BackGround2)
     {

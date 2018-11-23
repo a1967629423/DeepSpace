@@ -26,23 +26,32 @@ export default class GameInit extends cc.Component {
         //cc.game.setFrameRate(60);
         
      }
+     start()
+     {
+        setTimeout(()=>{this.gameStart()},600);
+     }
      gameRestart()
      {
-         this.node.emit("gameEnd");
-         this.node.emit("gameRestart");
+        this.node.emit("gameEnd");
+        this.node.emit("gameRestart");
      }
      gameClose()
      {
-         this.node.emit("gameEnd");
+        this.node.emit("gameEnd");
      }
      gameSceneChange()
      {
-         this.node.emit("gameEnd");
+        this.node.emit("gameEnd");
      }
      onDestroy()
      {
-         this.node.emit("gameEnd");
-         GameInit._instance = null;
+        this.node.emit("gameEnd");
+        GameInit._instance = null;
+     }
+     gameStart()
+     {
+        this.node.emit("gameStart");
+
      }
 
     // update (dt) {}

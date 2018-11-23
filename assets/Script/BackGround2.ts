@@ -1,3 +1,6 @@
+import GlobalTime, { CoroutinesType } from "./Tools/GlobalTime";
+import Until from "./Tools/Until";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -21,9 +24,11 @@ export default class BackGround2 extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
-
+    changeNormal:boolean = false;
+    ca:cc.Camera;
     start () {
         this.node.zIndex = 5;
+        this.ca = cc.Camera.findCamera(this.node);
     }
     backgroundChange()
     {
@@ -32,6 +37,28 @@ export default class BackGround2 extends cc.Component {
     changToCenter()
     {
         this.node.emit("changeToCenter",this);
+    }
+    update(dt)
+    {
+        // if(Until.inView(cc.Camera.findCamera(this.node),this.node))
+        // {
+        //     console.log("BackGroundRe");
+        //     this.destroy();
+        // }
+    }
+    changeToNromal()
+    {
+        this.changeNormal = true;
+         var _this = this;
+        
+        GlobalTime.Instantiation.Coroutines((function*(){
+            while(Until.inView(_this.ca,cc.rect(_this.node.x,_this.node.y,2000,2000)))
+            {
+                yield CoroutinesType.second;
+            }
+            console.log("backggroundre");
+            _this.node.destroy();
+        })())
     }
 
     // update (dt) {}

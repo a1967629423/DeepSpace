@@ -180,8 +180,7 @@ export default class SceneSystem extends cc.Component {
         }
         // var ax = this.center.node.x - ct.node.x;
         // var ay = this.center.node.y - ct.node.y;
-
-
+        this.center.changeToNromal();
         this.center = ct;
         ct.changToCenter();
         //this.setPlayStar();

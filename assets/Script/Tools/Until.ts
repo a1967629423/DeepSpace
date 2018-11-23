@@ -63,5 +63,17 @@ export default class Until extends cc.Component {
         return sub.x>ax-size.x&&sub.y>ay-size.y&&sub.x<ax&&sub.y<ay;
 
     }
+    private static _viewRect = null;
+    static get ViewRect():cc.Rect
+    {
+        if(!this._viewRect)this._viewRect = cc.rect(0,0,cc.winSize.height,cc.winSize.width);
+        return this._viewRect;
+    }
+    public static inView(Camera:cc.Camera,obrect:cc.Rect):boolean
+    {
+        var CameraViewRect = this.ViewRect;
+        CameraViewRect.center = Camera.node.getParent().convertToWorldSpaceAR(Camera.node.position);
+        return CameraViewRect.intersects(obrect);
+    }
 }
 
