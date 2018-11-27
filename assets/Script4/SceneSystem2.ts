@@ -64,7 +64,8 @@ export default class SceneSystem2 extends SceneSystem {
     }
     createrSomething(bg:BackGround2,idx:number)
     {
-        this.nowCreateBackground = bg;
+        //因为setTimeOut调整执行顺序所以不能在这使用
+        //this.nowCreateBackground = bg;
         //if(this._nowState)this._nowState.createSomething(bg,idx );
         if(idx === 7)
         {
@@ -83,6 +84,7 @@ export default class SceneSystem2 extends SceneSystem {
             
             //生成墙壁
             setTimeout(()=>{
+                this.nowCreateBackground = bg;
                 this.createWall(RoundWall);
                 //生成死亡墙
                 this.createDieWall(DieWall);

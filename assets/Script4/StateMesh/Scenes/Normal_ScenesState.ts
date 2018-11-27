@@ -80,14 +80,14 @@ export default class Normal_ScenesState extends ScenesState {
         obm.generateTime = 2;
         dieManage.setParent(Group);
     }
-    createPropManage(wallGroup:cc.Node)
+    createPropManage(Group:cc.Node)
     {
         var pm = new cc.Node();
         pm.x = this.context.lX;
         var om = pm.addComponent(PropManage);
         om.ObjectPerfab = this.context.Props;
         om.generateNumber = 5;
-        pm.setParent(wallGroup);
+        pm.setParent(Group);
     }
 
 }

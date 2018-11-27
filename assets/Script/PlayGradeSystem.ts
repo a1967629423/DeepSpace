@@ -25,7 +25,7 @@ export default class PlayGradeSystem extends cc.Component {
     }
 
     update (dt) {
-         if(this.player)
+         if(this.player&&this.player.isValid)
          {
             if(this.time-this.interval>0&&this.player.isValid)
             {
