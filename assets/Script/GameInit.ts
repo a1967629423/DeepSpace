@@ -51,7 +51,6 @@ export default class GameInit extends cc.Component {
      gameStart()
      {
         this.node.emit("gameStart");
-
      }
 
     // update (dt) {}

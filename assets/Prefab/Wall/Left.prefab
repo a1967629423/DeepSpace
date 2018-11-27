@@ -36,10 +36,13 @@
       },
       {
         "__id__": 7
+      },
+      {
+        "__id__": 8
       }
     ],
     "_prefab": {
-      "__id__": 8
+      "__id__": 9
     },
     "_opacity": 255,
     "_color": {
@@ -195,6 +198,17 @@
     },
     "_enabled": true,
     "cout": 5,
+    "_id": ""
+  },
+  {
+    "__type__": "d111cOa6QZKy7DCNOh5MyYK",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "assetsGropName": "Normal",
     "_id": ""
   },
   {

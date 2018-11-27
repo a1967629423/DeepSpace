@@ -66,7 +66,7 @@ class CoroutinesProgram {
         {
             if(!this.type||this.type.Enum == CoroutinesTypeEnum.frame)
             {
-                var ne = this.Iter.next();
+                var ne = this.Iter.next(dt);
                 this.type = ne.value;
                 this.done = ne.done;
             }
@@ -76,7 +76,7 @@ class CoroutinesProgram {
                 else
                 {
                     this.time= 0;
-                    var ne = this.Iter.next();
+                    var ne = this.Iter.next(dt);
                     this.type = ne.value;
                     this.done = ne.done;
                 }
@@ -86,7 +86,7 @@ class CoroutinesProgram {
                 else
                 {
                     this.time = 0;
-                    var ne = this.Iter.next();
+                    var ne = this.Iter.next(dt);
                     this.type = ne.value;
                     this.done = ne.done;
 
@@ -97,7 +97,7 @@ class CoroutinesProgram {
                 else
                 {
                     this.frame = 0;
-                    var ne = this.Iter.next();
+                    var ne = this.Iter.next(dt);
                     this.type = ne.value;
                     this.done = ne.done;
                 }

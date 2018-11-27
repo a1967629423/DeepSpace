@@ -1,5 +1,6 @@
 import Character from "./Character";
 import GradeManage from "./GradeManage";
+import GameInit from "./GameInit";
 
 const {ccclass, property} = cc._decorator;
 /** 角色计分系统
@@ -19,25 +20,34 @@ export default class PlayGradeSystem extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
-
+    lastY:number = 0;
     start () {
     }
 
-     update (dt) {
-         if(this.player&&this.time-this.interval>0&&this.player.isValid)
+    update (dt) {
+         if(this.player)
          {
-            var distance =  this.player.y;
-            GradeManage.instance.addGrade(Math.max(distance-this.lastDistance,0));
-            this.lastDistance  = distance;
-            this.time = 0;
+            if(this.time-this.interval>0&&this.player.isValid)
+            {
+                var distance =  this.player.y;
+                GradeManage.instance.addGrade(Math.max(distance-this.lastDistance,0));
+                this.lastDistance  = distance;
+                this.time = 0;
+            }
+            else
+            {
+                this.time +=dt;
+            }
+            if(this.player.y-this.lastY>8000)
+            {
+                GameInit.instance.node.emit("changeBackground");
+                this.lastY = this.player.y;
+            }
          }
-         else
-         {
-             this.time +=dt;
-         }
-     }
-     onDestroy()
-     {
+
+    }
+    onDestroy()
+    {
         GradeManage.instance.clearGrade();
-     }
+    }
 }

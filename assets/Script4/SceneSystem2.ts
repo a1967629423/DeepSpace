@@ -4,6 +4,9 @@ import DieWall from "./DieWall";
 import { WallType } from "./Wall";
 import DieObjectManage from "./Manage/DieObjectManage";
 import PropManage from "./Manage/PropManage";
+import ScenesState from "./StateMesh/Scenes/ScenesState";
+import AssetsName from "../Script/Tools/AssetsName";
+import Normal_ScenesState from "./StateMesh/Scenes/Normal_ScenesState";
 
 const {ccclass, property} = cc._decorator;
 @ccclass
@@ -31,12 +34,38 @@ export default class SceneSystem2 extends SceneSystem {
     dieWallInstance:cc.Node = null;
     wallLInstance:cc.Node = null;
     wallRInstance:cc.Node = null;
+    nowCreateBackground:BackGround2 = null;
+    //StateMesh
+    normalState:Normal_ScenesState = null;
+    private _nowState:ScenesState = null;
+    public get nowState():ScenesState
+    {
+        return this._nowState;
+    }
+    changeState(ns:ScenesState)
+    {
+        if(this._nowState)this._nowState.Quit();
+        this._nowState = ns;
+        ns.Start();
+    }
     public static get Instance():SceneSystem2
     {
         return <SceneSystem2>super.Instance
     }
+    constructor()
+    {
+        super();
+        this.normalState = new Normal_ScenesState(this);
+    }
+    start()
+    {
+        super.start();
+        this.changeState(this.normalState);
+    }
     createrSomething(bg:BackGround2,idx:number)
     {
+        this.nowCreateBackground = bg;
+        //if(this._nowState)this._nowState.createSomething(bg,idx );
         if(idx === 7)
         {
             
@@ -60,95 +89,24 @@ export default class SceneSystem2 extends SceneSystem {
                 this.createDieObjectManage(bg);
                 //生成道具
                 this.createPropManage(bg);
-            }); 
-            
-            
+            });           
         }
 
     }
     createWall(wallGroup:cc.Node)
     {
-        if(!this.wallRInstance)this.wallRInstance = cc.instantiate(this.wallR);
-        if(!this.wallLInstance)this.wallLInstance = cc.instantiate(this.wallL);
-        if(this.wallR&&this.wallL)
-        {
-
-            var  right = cc.instantiate(this.wallR);
-            var left = cc.instantiate(this.wallL);
-            wallGroup.addChild(right);
-            wallGroup.addChild(left);
-        }
+        if(this._nowState)this._nowState.createWall(wallGroup);
     }
     createDieWall(wallGroup:cc.Node)
     {
-        if(this.dieWall)
-        {
-            if(!this.dieWallInstance)this.dieWallInstance = cc.instantiate(this.dieWall)
-            for(var i =0;i<10;i++)
-            {
-                var c = Math.random()
-                if(c>0.41)
-                {
-                    var random = Math.random();
-                    var wall = cc.instantiate<cc.Node>(this.dieWallInstance);
-                    wall.setAnchorPoint(cc.v2(0,0));
-    
-                    var addWidth = this.dieWallWidthRang*Math.random();
-                    wall.width += addWidth;
-                    var box =  wall.getComponent(cc.PhysicsBoxCollider);
-                    box.size.width += addWidth;
-                    box.offset = 
-                    cc.v2(wall.getContentSize().width/2,wall.getContentSize().height/2);
-                    if(random>0.5)
-                    {
-                        wall.position = cc.v2(0,i*200);
-                        wall.getComponent(DieWall).Type = WallType.Left;
-                        random = Math.random();
-                        if(random>0.8)
-                        {
-                            var twall = cc.instantiate(this.dieWallInstance)
-                            var box =  twall.getComponent(cc.PhysicsBoxCollider);
-                            box.size.width += this.dieWallWidthRang*Math.random();
-                            box.offset = 
-                            cc.v2(twall.getContentSize().width/2,twall.getContentSize().height/2);
-                            twall.position = cc.v2(this.wallWidth-twall.width,100+i*200);
-                            twall.getComponent(DieWall).Type = WallType.Right;
-                            wallGroup.addChild(twall);
-                        }
-                    }
-                    else
-                    {
-                        wall.position = cc.v2(this.wallWidth-wall.width,i*200);
-                        wall.getComponent(DieWall).Type = WallType.Right;
-                    }
-                    wallGroup.addChild(wall);
-                }
-            }
-        }
+        if(this._nowState)this._nowState.createDieWall(wallGroup);
     }
     createDieObjectManage(bg:BackGround2)
     {
-        var dieManage = new cc.Node();
-        dieManage.x = this.lX;
-        dieManage.y = bg.node.height;
-        var obm = dieManage.addComponent(DieObjectManage);
-        obm.ObjectPerfab = this.dieObject;
-        obm.background = bg;
-        obm.generateHeight = 2000;
-        obm.generateNumber = 3;
-        obm.generateMaxCout = 2;
-        obm.generateTime = 2;
-        if(!this.dieObjectManageGrop)bg.node.addChild(dieManage);
-        else
-        this.dieObjectManageGrop.addChild(dieManage);
+        if(this._nowState)this._nowState.createDieObjectManage(this.dieObjectManageGrop?this.dieObjectManageGrop:bg.node);
     }
     createPropManage(bg:BackGround2)
     {
-        var pm = new cc.Node();
-        pm.x = this.lX;
-        var om = pm.addComponent(PropManage);
-        om.ObjectPerfab = this.Props;
-        om.generateNumber = 5;
-        bg.node.addChild(pm);
+        if(this._nowState)this._nowState.createPropManage(bg.node);
     }
 }
