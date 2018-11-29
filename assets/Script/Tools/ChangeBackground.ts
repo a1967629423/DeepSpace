@@ -1,5 +1,6 @@
 import GameInit from "../GameInit";
 import GlobalTime, { CoroutinesType } from "./GlobalTime";
+import SceneSystem2 from "../../Script4/SceneSystem2";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -22,7 +23,9 @@ export default class ChangeBackground extends cc.Component {
     start () {
         if(this.mask)
         {
-            GameInit.instance.node.on("changeBackground",()=>{
+            GameInit.instance.node.on("styleChangeComplete",()=>{
+                //获得当前的组，准备切换背景
+                var group = SceneSystem2.Instance.nowGrop;
                 var _this = this;
                 GlobalTime.Instantiation.Coroutines((function*(){
                     var time = 0;

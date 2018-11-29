@@ -10,13 +10,18 @@ import GlobalTime, { CoroutinesType } from "./GlobalTime";
 // Learn life-cycle callbacks:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
+enum SyncEnum
+{
+    disable,mainCamera,mainPlay
+}
 const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class NodeSync extends cc.Component {
     @property(cc.Node)
     tageNode:cc.Node = null;
+    @property({type:cc.Enum(SyncEnum)})
+    SyncTypeEnum:SyncEnum = SyncEnum.disable;
     @property
     Synclocation:boolean = true;
     @property
@@ -25,6 +30,18 @@ export default class NodeSync extends cc.Component {
     workInStart:boolean = false;
     @property
     negation:boolean = false;
+    onLoad()
+    {
+        switch (this.SyncTypeEnum) {
+            case SyncEnum.mainCamera:
+                this.tageNode = cc.Camera.main.node;
+                break;
+            case SyncEnum.mainPlay:
+            break;
+            default:
+                break;
+        }
+    }
     start()
     {
         // var _this = this;

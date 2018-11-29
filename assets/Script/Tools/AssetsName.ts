@@ -14,4 +14,6 @@ const {ccclass, property} = cc._decorator;
 export default class AssetsName extends cc.Component {
     @property
     assetsGropName: string = '';
+    @property
+    assetsType:string = '';
 }

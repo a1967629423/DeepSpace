@@ -8,9 +8,12 @@ import GameInit from "../../../Script/GameInit";
 export default class Normal_ScenesState extends ScenesState {
     Start()
     {
-        GameInit.instance.node.once("changeBackground",()=>{
-            this.context.changeState(this.context.ChangeState);
-        });
+        GameInit.instance.node.on("changeBackground",this.changeToChangeState,this);
+    }
+    changeToChangeState()
+    {
+        GameInit.instance.node.off("changeBackground",this.changeToChangeState,this);
+        if(this.context.nowState!=this.context.ChangeState)this.context.changeState(this.context.ChangeState);
     }
     createDieWall(wallGroup:cc.Node)
     {

@@ -52,9 +52,21 @@ export default class GameInit extends cc.Component {
      {
         this.node.emit("gameStart");
      }
+     /**
+      * 角色达到指定位置开始切换场景
+      * @param node 消息发起者
+      */
      changeBackground(node:cc.Node)
      {
         this.node.emit("changeBackground",node);
+     }
+     /**
+      * 场景样式切换完毕
+      * @param node 消息发起者
+      */
+     styleChangeComplete(node:cc.Node)
+     {
+        this.node.emit("styleChangeComplete",node);
      }
 
     // update (dt) {}
