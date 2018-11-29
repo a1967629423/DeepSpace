@@ -40,7 +40,7 @@ export default class PlayGradeSystem extends cc.Component {
             }
             if(this.player.y-this.lastY>8000)
             {
-                GameInit.instance.node.emit("changeBackground");
+                GameInit.instance.changeBackground(this.node);
                 this.lastY = this.player.y;
             }
          }

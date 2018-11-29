@@ -52,6 +52,10 @@ export default class GameInit extends cc.Component {
      {
         this.node.emit("gameStart");
      }
+     changeBackground(node:cc.Node)
+     {
+        this.node.emit("changeBackground",node);
+     }
 
     // update (dt) {}
 }

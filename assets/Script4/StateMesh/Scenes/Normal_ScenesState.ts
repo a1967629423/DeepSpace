@@ -1,15 +1,23 @@
 import ScenesState from "./ScenesState";
 import DieWall from "../../DieWall";
-import { WallType } from "../../Wall";
+import Wall, { WallType } from "../../Wall";
 import DieObjectManage from "../../Manage/DieObjectManage";
 import PropManage from "../../Manage/PropManage";
+import GameInit from "../../../Script/GameInit";
 
 export default class Normal_ScenesState extends ScenesState {
+    Start()
+    {
+        GameInit.instance.node.once("changeBackground",()=>{
+            this.context.changeState(this.context.ChangeState);
+        });
+    }
     createDieWall(wallGroup:cc.Node)
     {
-        if(this.context.dieWall)
+        var _dieWall = this.context.getAssest(this.context.nowGrop,"dieWall");
+        if(_dieWall)
         {
-            if(!this.context.dieWallInstance)this.context.dieWallInstance = cc.instantiate(this.context.dieWall)
+            if(!this.context.dieWallInstance)this.context.dieWallInstance = cc.instantiate(_dieWall)
             for(var i =0;i<10;i++)
             {
                 var c = Math.random()
@@ -54,13 +62,17 @@ export default class Normal_ScenesState extends ScenesState {
     }
     createWall(wallGroup:cc.Node)
     {
-        if(!this.context.wallRInstance)this.context.wallRInstance = cc.instantiate(this.context.wallR);
-        if(!this.context.wallLInstance)this.context.wallLInstance = cc.instantiate(this.context.wallL);
-        if(this.context.wallR&&this.context.wallL)
+        var wallL = this.context.getAssest(this.context.nowGrop,"wall");
+        if(wallL)
         {
+            
+            var  left = cc.instantiate(wallL);
+            var right = cc.instantiate(left); 
+            right.getComponent(Wall).Type = WallType.Right;
+            right.x+=this.context.wallWidth;
+            right.anchorX = 0;
+            right.getComponent(cc.PhysicsBoxCollider).offset.x *=-1;
 
-            var  right = cc.instantiate(this.context.wallR);
-            var left = cc.instantiate(this.context.wallL);
             wallGroup.addChild(right);
             wallGroup.addChild(left);
         }

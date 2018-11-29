@@ -7,10 +7,15 @@ import PropManage from "./Manage/PropManage";
 import ScenesState from "./StateMesh/Scenes/ScenesState";
 import AssetsName from "../Script/Tools/AssetsName";
 import Normal_ScenesState from "./StateMesh/Scenes/Normal_ScenesState";
+import Change_ScenesState from "./StateMesh/Scenes/Change_ScenesState";
 
 const {ccclass, property} = cc._decorator;
 @ccclass
 export default class SceneSystem2 extends SceneSystem {
+    @property(cc.Prefab)
+    walls_l:cc.Prefab[] = Array<cc.Prefab>()
+    @property(cc.Prefab)
+    dieWalls_l:cc.Prefab[] = Array<cc.Prefab>()
     player:cc.Node;
     @property(cc.Prefab)
     wallR:cc.Prefab = null;
@@ -37,7 +42,9 @@ export default class SceneSystem2 extends SceneSystem {
     nowCreateBackground:BackGround2 = null;
     //StateMesh
     normalState:Normal_ScenesState = null;
+    ChangeState:Change_ScenesState = null;
     private _nowState:ScenesState = null;
+    assetsDate:Object = null;
     public get nowState():ScenesState
     {
         return this._nowState;
@@ -48,6 +55,7 @@ export default class SceneSystem2 extends SceneSystem {
         this._nowState = ns;
         ns.Start();
     }
+    nowGrop:string = "Normal";
     public static get Instance():SceneSystem2
     {
         return <SceneSystem2>super.Instance
@@ -55,7 +63,47 @@ export default class SceneSystem2 extends SceneSystem {
     constructor()
     {
         super();
+        this.assetsDate = new Object();
         this.normalState = new Normal_ScenesState(this);
+        this.ChangeState = new Change_ScenesState(this);
+    }
+    onLoad()
+    {
+        //将资源按组创建实例并保存
+        this.walls_l.forEach((value:cc.Prefab)=>{
+            this.initAssets(value,"wall");
+        });
+        this.dieWalls_l.forEach((value:cc.Prefab)=>{
+            this.initAssets(value,"dieWall");
+        });
+
+    }
+    initAssets(value:cc.Prefab,typeName:string)
+    {
+        var cn = cc.instantiate(value);
+        var assets = cn.getComponent(AssetsName);
+        if(assets)
+        {
+            if(this.assetsDate[assets.assetsGropName])
+            {
+                this.assetsDate[assets.assetsGropName][typeName] = cn;
+            }
+            else
+            {
+                var ob = new Object();
+                ob[typeName] = cn;
+                this.assetsDate[assets.assetsGropName] = ob;
+            }
+        }
+    }
+    /**
+     * 将资源从组中取出
+     * @param groupName 资源组名
+     * @param type 资源类型名
+     */
+    getAssest(groupName:string,type:string):cc.Node
+    {
+        return this.assetsDate[groupName]?this.assetsDate[groupName][type]:undefined;
     }
     start()
     {
@@ -66,10 +114,10 @@ export default class SceneSystem2 extends SceneSystem {
     {
         //因为setTimeOut调整执行顺序所以不能在这使用
         //this.nowCreateBackground = bg;
-        //if(this._nowState)this._nowState.createSomething(bg,idx );
+        
         if(idx === 7)
         {
-            
+            if(this._nowState)this._nowState.createSomething(bg,idx );
             this.wallWidth = this.rX-this.lX;
             var wall = new cc.Node("Wall");
             var RoundWall = new cc.Node("Round");
