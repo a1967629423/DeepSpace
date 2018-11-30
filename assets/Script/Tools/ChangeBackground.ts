@@ -25,7 +25,7 @@ export default class ChangeBackground extends cc.Component {
         {
             GameInit.instance.node.on("styleChangeComplete",()=>{
                 //获得当前的组，准备切换背景
-                var group = SceneSystem2.Instance.nowGrop;
+                var group = SceneSystem2.Instance.nowGroup;
                 var _this = this;
                 GlobalTime.Instantiation.Coroutines((function*(){
                     var time = 0;

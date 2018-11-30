@@ -8,7 +8,7 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
     onLoad () {
-        cc.dynamicAtlasManager.enabled = false;
+        if(!window.Title)window.Title = this
         this._material = new TitleMaterial();
         
     },

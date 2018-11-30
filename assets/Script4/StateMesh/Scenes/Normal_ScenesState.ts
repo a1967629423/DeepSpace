@@ -17,7 +17,7 @@ export default class Normal_ScenesState extends ScenesState {
     }
     createDieWall(wallGroup:cc.Node)
     {
-        var _dieWall = this.context.getAssest(this.context.nowGrop,"dieWall");
+        var _dieWall = this.context.getAssest(this.context.nowGroup,"dieWall");
         if(_dieWall)
         {
             if(!this.context.dieWallInstance)this.context.dieWallInstance = cc.instantiate(_dieWall)
@@ -65,14 +65,15 @@ export default class Normal_ScenesState extends ScenesState {
     }
     createWall(wallGroup:cc.Node)
     {
-        var wallL = this.context.getAssest(this.context.nowGrop,"wall");
+        var wallL = this.context.getAssest(this.context.nowGroup,"wall");
         if(wallL)
         {
             
             var  left = cc.instantiate(wallL);
-            var right = cc.instantiate(left); 
+            var right = cc.instantiate(left);
+            left.x = this.context.lX;
             right.getComponent(Wall).Type = WallType.Right;
-            right.x+=this.context.wallWidth;
+            right.x= this.context.rX;
             right.anchorX = 0;
             right.getComponent(cc.PhysicsBoxCollider).offset.x *=-1;
 

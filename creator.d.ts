@@ -3,7 +3,11 @@
 The main namespace of Cocos2d-JS, all engine core classes, functions, properties and constants are defined in this namespace.
 !#zh
 Cocos 引擎的主要命名空间，引擎代码中所有的类，函数，属性和常量都在这个命名空间中定义。 */
-declare module cc {	
+declare module cc {
+	export class dynamicAtlasManager
+	{
+		static enabled:boolean;
+	}
 	/** The current version of Cocos2d being used.<br/>
 	Please DO NOT remove this String, it is an important flag for bug tracking.<br/>
 	If you post a bug to forum, please attach this flag. */
@@ -24377,3 +24381,10 @@ declare let CC_TEST: boolean;
 declare let CC_WECHATGAME: boolean;
 /** Running in the bricks. */
 declare let CC_QQPLAY: boolean;
+declare  class Remix extends cc.Component{
+	targetTex:cc.Texture2D;	
+	cout:number;
+}
+declare class Title extends cc.Component{
+	cout:number;
+}

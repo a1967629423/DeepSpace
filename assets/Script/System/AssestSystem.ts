@@ -15,6 +15,7 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class AssetsSystem extends cc.Component {
+
     private static _instance:AssetsSystem = null;
     public static get instance():AssetsSystem
     {
@@ -24,9 +25,20 @@ export default class AssetsSystem extends cc.Component {
     @property([cc.Prefab])
     Assets:cc.Prefab[] = new Array<cc.Prefab>();
     _assetsGroup:Object = new Object();
+    @property({multiline:true,displayName:"样式出现顺序",tooltip:"使用';'进行分割"})
+    Groups___:String = "Normal;";
+    Groups:string[] = [];
+    nowGroupindex = 0;
+    public get nowGroup():string
+    {
+        if(this.nowGroupindex>=this.Groups.length)this.nowGroupindex = 0;
+        return this.Groups[this.nowGroupindex];
+    }
     onLoad()
     {
         this.Assets.forEach(this.initAssets.bind(this));
+        let reg = /\S+?(?=;)/g;
+        this.Groups = this.Groups___.match(reg);
     }
     initAssets(value:cc.Prefab)
     {

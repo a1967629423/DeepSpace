@@ -13,7 +13,6 @@ import AssetsSystem from "../Script/System/AssestSystem";
 const {ccclass, property} = cc._decorator;
 @ccclass
 export default class SceneSystem2 extends SceneSystem {
-    player:cc.Node;
     @property(cc.Prefab)
     wallR:cc.Prefab = null;
     @property
@@ -51,7 +50,19 @@ export default class SceneSystem2 extends SceneSystem {
         this._nowState = ns;
         ns.Start();
     }
-    nowGrop:string = "Normal";
+
+    set nowGroupindex(val)
+    {
+        AssetsSystem.instance.nowGroupindex = val;
+    }
+    get nowGroupindex():number
+    {
+        return AssetsSystem.instance.nowGroupindex;
+    }
+    get nowGroup():string
+    {
+        return AssetsSystem.instance.nowGroup;
+    }
     public static get Instance():SceneSystem2
     {
         return <SceneSystem2>super.Instance
@@ -106,6 +117,10 @@ export default class SceneSystem2 extends SceneSystem {
                 //生成道具
                 this.createPropManage(bg);
             });           
+        }
+        else
+        {
+            bg.node.destroy();
         }
 
     }
