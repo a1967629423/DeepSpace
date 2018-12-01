@@ -5,15 +5,12 @@ import GlobalTime, { CoroutinesType } from "../../Script/Tools/GlobalTime";
 import SceneSystem2 from "../SceneSystem2";
 import BackGround2 from "../../Script/BackGround2";
 import GameInit from "../../Script/GameInit";
+import Creator from "./Creator";
 const { ccclass, property } = cc._decorator;
 @ccclass
-export default class DieObjectManage extends cc.Component {
-    @property(cc.Prefab)
-    ObjectPerfab: cc.Prefab[] = null;
+export default class DieObjectManage extends Creator {
     @property(BackGround2)
     background: BackGround2 = null;
-    @property({ step: 1 })
-    generateNumber: number = 0;
     @property
     generateHeight: number = 100;
     @property
@@ -23,10 +20,8 @@ export default class DieObjectManage extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
-    protected prefab_ins: cc.Node[];
-    protected childNumber: number;
     protected unActiveChild: cc.Node[];
-    protected Camera: cc.Camera;
+    protected _Camera: cc.Camera;
     protected static ManageCout:number = 0;
     start() {
         //super.start();
@@ -34,39 +29,27 @@ export default class DieObjectManage extends cc.Component {
         if(DieObjectManage.ManageCout<=this.generateMaxCout)
         {
             DieObjectManage.ManageCout++;
-            GameInit.instance.node.once("gameEnd",this.gameEnd,this);
-            this.Camera = cc.Camera.findCamera(this.node);
-            this.childNumber = this.generateNumber;
-            this.unActiveChild = new Array<cc.Node>();
-            if (this.ObjectPerfab && this.generateNumber > 0) {
-                if (!this.prefab_ins)
-                {
-                    this.prefab_ins = new Array<cc.Node>();
-                    for(var a of this.ObjectPerfab)
-                    {
-                        this.prefab_ins.push(cc.instantiate(a));
-                    }
-                }
-                for (var i = 0; i < this.generateNumber; i++) {
-                    this.generateObject(i);
-                }
-                if (this.background) {
-                    this.background.node.on("changeToCenter",this.bgChange,this);
-                    
-                }
-            }
-            else {
-                this.node.destroy();
-            }
+            super.start();
         }
         else
         {
             this.node.destroy();
         }
     }
-    generateObject(i: number) {
-        var rp = Math.floor(Math.random()*this.prefab_ins.length);
-        var ch = cc.instantiate(this.prefab_ins[rp]).getComponent(DieObject);
+    Init()
+    {
+        super.Init();
+        GameInit.instance.node.once("gameEnd",this.gameEnd,this);
+        this._Camera = cc.Camera.findCamera(this.node);
+        this.childNumber = this.generateNumber;
+        this.unActiveChild = new Array<cc.Node>();
+        if(this.background)
+        {
+            this.background.node.once("changeToCenter",this.bgChange,this);
+        }
+    }
+    generateObject(i: number):cc.Node {
+        var ch = cc.instantiate(this.prefab_ins).getComponent(DieObject);
         if (ch) {
             var r = Math.random();
             var h = Math.floor(Math.random() * this.generateHeight);
@@ -84,11 +67,12 @@ export default class DieObjectManage extends cc.Component {
             }
             ch.node.y = h;
             ch.Destroy_Y = -SceneSystem.Instance.bgheight;
-            ch.node.once("destroy", this.childDestroy, this);
             this.node.addChild(ch.node);
             this.changeActive(ch);
+            return ch.node;
 
         }
+        return super.generateObject(i);
     }
     changeActive(ch: DieObject) {
         ch.node.active = false;//进入等待激活
@@ -105,35 +89,25 @@ export default class DieObjectManage extends cc.Component {
         })());
 
     }
-    childDestroy() {
-        this.childNumber--;
-        if (this.childNumber <= 0) {
-            //将删除自己的步骤移动到删除子结点之后
-            setTimeout(()=>{
-                if(cc.isValid(this.node))
-                {
-                    this.node.destroy();
-                    DieObjectManage.ManageCout--;
-                    console.log("ok");
-                }
-            })
-        }
-    }
     randomActiveChild() {
         if (this.unActiveChild.length > 0) {
-            var camera = this.Camera;
+            var camera = this._Camera;
             var addy = this.node.convertToNodeSpaceAR(camera.node.getParent().convertToWorldSpaceAR(camera.node.position)).y + 960;
             this.unActiveChild[0].y += addy
             this.unActiveChild[0].getComponent(DieObject).Destroy_Y+= addy;
             this.unActiveChild[0].active = true;
             this.unActiveChild.splice(0, 1);
-
         }
     }
     gameEnd()
     {
         DieObjectManage.ManageCout = 0;
         //console.log(DieObjectManage.ManageCout)
+    }
+    onDestroy()
+    {
+        super.onDestroy();
+        DieObjectManage.ManageCout--;
     }
 
     // update (dt) {}

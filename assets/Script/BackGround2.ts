@@ -56,9 +56,13 @@ export default class BackGround2 extends cc.Component {
             {
                 yield CoroutinesType.second;
             }
-            console.log("backggroundre");
+            console.log("background to destory");
             _this.node.destroy();
         })())
+    }
+    onDestroy()
+    {
+        this.ground = null;
     }
 
     // update (dt) {}

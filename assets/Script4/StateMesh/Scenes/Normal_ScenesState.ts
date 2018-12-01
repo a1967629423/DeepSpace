@@ -88,7 +88,7 @@ export default class Normal_ScenesState extends ScenesState {
         dieManage.x = this.context.lX;
         dieManage.y = this.context.nowCreateBackground.node.height;
         var obm = dieManage.addComponent(DieObjectManage);
-        obm.ObjectPerfab = this.context.dieObject;
+        obm.ObjectPerfab = this.context.getAssest(this.context.nowGroup,"dieObject");
         obm.background = this.context.nowCreateBackground;
         obm.generateHeight = 2000;
         obm.generateNumber = 3;
@@ -101,7 +101,7 @@ export default class Normal_ScenesState extends ScenesState {
         var pm = new cc.Node();
         pm.x = this.context.lX;
         var om = pm.addComponent(PropManage);
-        om.ObjectPerfab = this.context.Props;
+        om.ObjectPerfab = this.context.getAssest(this.context.nowGroup,"prop");
         om.generateNumber = 5;
         pm.setParent(Group);
     }
