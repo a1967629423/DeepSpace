@@ -51,6 +51,7 @@ export default class Character extends cc.Component implements ITouchEvent {
     defEngine:number = 100;
     @property({displayName:"角色运行引擎每秒消耗能量",min:0})
     expend:number = 1;
+    exist:boolean = true;
     //真实的能量
     private nowEngine:number;
     //上次的位置

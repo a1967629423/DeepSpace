@@ -30,7 +30,7 @@ export default class Distance extends cc.Component {
     }
 
      update (dt) {
-         if(this.player&&this.valLabel&&this.time>0.2)
+         if(this.player&&this.player.exist&&this.valLabel&&this.time>0.2)
          {
              this.valLabel.string = this.player.Distance.toFixed(0).toString();
              this.time=0;
