@@ -1,4 +1,4 @@
-import CharacterState3 from "./State3";
+import CharacterState3, { OperatorStruct } from "./State3";
 import Until from "../Script/Tools/Until";
 import Wall, { WallType } from "./Wall";
 import PorpObject from "./PropObject";
@@ -19,13 +19,17 @@ export default class State_Idle3 extends CharacterState3 {
         //
 
     }
-    onWall(wall:Wall)
+    onWall(wall:Wall,op:OperatorStruct)
     {
-        this.character.LunchState.onWall(wall);
+        //this.character.LunchState.onWall(wall,op);
+        if(op.canOperator)
+        {
+            wall.Begin();
+        }
     }
-    onPorp(p:PorpObject)
+    onPorp(p:PorpObject,op)
     {
-        this.character.LunchState.onPorp(p);
+        this.character.LunchState.onPorp(p,op);
     }
     update()
     {

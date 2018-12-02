@@ -1,6 +1,6 @@
 import Character from "../Script/Character";
 import Wall from "./Wall";
-import CharacterState3 from "./State3";
+import CharacterState3, { OperatorStruct } from "./State3";
 import State_Idle3 from "./State_Idle3";
 import State_Lunch3 from "./State_Lunch3";
 import State_Drag from "./State_Drag";
@@ -9,6 +9,7 @@ import State_SpringApply from "./State_SpringApply";
 import State_Die3 from "./State_Die3";
 import PorpObject from "./PropObject";
 import State_Begin3 from "./State_Begin3";
+import State_Global from "./State_Global";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -24,6 +25,11 @@ export default class Character4 extends Character {
     @property({displayName:"发射速度"})
     lunchSpeed:number = 900;
     private _nowState:CharacterState3 = null;
+    private _globalState:CharacterState3 = null;
+    public get globalState():CharacterState3
+    {
+        return this._globalState;
+    }
     public get nowState() : CharacterState3 {
         return this._nowState;
     }
@@ -34,9 +40,14 @@ export default class Character4 extends Character {
     PorpApply:State_PropApply = null;
     SpringApply:State_SpringApply = null;
     DieState:State_Die3 = null;
+    private GState:State_Global = null;
     firstTouchPosition:cc.Vec2 = cc.v2(0,0);
     lunchDirect:cc.Vec2 = cc.v2(0,0);
-    nowWall:Wall = null;
+    private _nowWall:Wall = null;
+    public get nowWall()
+    {
+        return this._nowWall;
+    }
     private _health:number = 0;
     public get health():number
     {
@@ -60,6 +71,7 @@ export default class Character4 extends Character {
         this.SpringApply = new State_SpringApply(this);
         this.DieState = new State_Die3(this);
         this.BeginState = new State_Begin3(this);
+        this.GState = new State_Global(this);
     }
     /**
      * 改变状态
@@ -74,12 +86,28 @@ export default class Character4 extends Character {
     }
     onWall(stype:Wall)
     {
-        this.nowWall = stype;
-        if(this.nowState)this.nowState.onWall(stype);
+        if(cc.isValid(stype,true))
+        {
+            this._nowWall = stype;
+            var op = OperatorStruct.getinstance();
+            if(this._globalState)this._globalState.onWall(stype,op)
+            if(this.nowState)this.nowState.onWall(stype,op);
+        }
     }
     onProp(ptype:PorpObject)
     {
-        if(this.nowState)this.nowState.onPorp(ptype);
+        if(cc.isValid(ptype,true))
+        {
+            var op = OperatorStruct.getinstance();
+            if(this.globalState)this.globalState.onPorp(ptype,op)
+            if(this.nowState)this.nowState.onPorp(ptype,op);
+        }
+    }
+    onLoad()
+    {
+        super.onLoad();
+        this._globalState = this.GState;
+        this._globalState.Start();
     }
     start()
     {
@@ -89,6 +117,9 @@ export default class Character4 extends Character {
     }
     update(dt)
     {
+        this.distance += Math.abs(this.node.y-this.lastY);
+        this.lastY = this.node.y;
+        if(this._globalState)this._globalState.update(dt);
         if(this.nowState)this.nowState.update(dt);
     }
     onTouchV2(v2:cc.Vec2)
@@ -117,6 +148,13 @@ export default class Character4 extends Character {
     die()
     {
         if(this.nowState&&this._nowState!= this.DieState&&this.nowState.die())this.changeState(this.DieState);
+    }
+    onDestroy()
+    {
+        if(this._nowState)this._nowState.Quit();
+        if(this._globalState)this._globalState.Quit();
+        this._nowState = null;
+        this._globalState = null;
     }
 
 

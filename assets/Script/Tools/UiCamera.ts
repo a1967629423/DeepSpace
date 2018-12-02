@@ -1,5 +1,3 @@
-import Character from "../Character";
-
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -13,31 +11,30 @@ import Character from "../Character";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class Distance extends cc.Component {
+export default class UICamera extends cc.Component {
+    @property(cc.Sprite)
+    TageSprite:cc.Sprite = null;
 
-    @property(cc.Label)
-    label: cc.Label = null;
-    @property(Character)
-    player:Character = null;
-    @property(cc.Label)
-    valLabel:cc.Label = null;
-    time:number = 0;
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
-
-    start () {
+    camera:cc.Camera = null;
+    start()
+    {
+        this.camera = this.getComponent(cc.Camera);
+        if(this.TageSprite&&this.camera)
+        {
+            var render = new cc.RenderTexture();
+            var size = cc.winSize;
+            render.initWithSize(
+                size.width,size.height);
+                this.camera.targetTexture = render;
+            var fram = new cc.SpriteFrame();
+            fram.setTexture(render);
+            this.camera.render(this.node);
+            this.TageSprite.spriteFrame = fram;
+        }
     }
-
      update (dt) {
-         if(this.player&&this.valLabel&&this.time>0.2)
-         {
-             this.valLabel.string = this.player.Distance.toFixed(0).toString();
-             this.time=0;
-         }
-         else
-         {
-             this.time+=dt;
-         }
      }
 }

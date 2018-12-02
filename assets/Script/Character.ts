@@ -55,8 +55,9 @@ export default class Character extends cc.Component implements ITouchEvent {
     private nowEngine:number;
     //上次的位置
     private lastpointion:cc.Vec2 = cc.v2(0,0);
+    protected lastY:number = 0;
     //飞行的距离
-    private distance:number = 0;
+    protected distance:number = 0;
     /**
      * 当前所处的星球
      */
@@ -103,6 +104,7 @@ export default class Character extends cc.Component implements ITouchEvent {
         this.audio = this.getComponent(cc.AudioSource);
         //将上次位置设置为当前
         this.lastpointion =  this.node.convertToWorldSpace(this.node.position);
+        this.lastY = this.node.y;
     }
     moveTo(t:number,x:number,y:number)
     {

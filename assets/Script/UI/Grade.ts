@@ -22,7 +22,7 @@ export default class grade extends cc.Component {
      update (dt) {
          if(this.valLabel)
          {
-            this.valLabel.string = GradeManage.instance.nowGrade.toFixed(1).toString();
+            this.valLabel.string = GradeManage.instance.nowGrade.toFixed(0).toString();
          }
      }
 }

@@ -47,8 +47,9 @@ export default class InputMask extends cc.Component {
      onLoad () {
         if(this.canvas)
         {
-            this.node.width = cc.winSize.width
-            this.node.height = cc.winSize.height;
+            var frame = cc.winSize;
+            this.node.width = frame.width
+            this.node.height = frame.height;
         }
 
      }
