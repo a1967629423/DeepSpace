@@ -149,13 +149,6 @@ export default class Character4 extends Character {
     {
         if(this.nowState&&this._nowState!= this.DieState&&this.nowState.die())this.changeState(this.DieState);
     }
-    onDestroy()
-    {
-        if(this._nowState)this._nowState.Quit();
-        if(this._globalState)this._globalState.Quit();
-        this._nowState = null;
-        this._globalState = null;
-    }
 
 
 }

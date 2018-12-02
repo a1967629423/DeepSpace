@@ -18,6 +18,7 @@ export default class State_Die3 extends CharacterState3 {
             },2000)
             CameraFx.Instantiation.traceTager = null;
             SceneSystem2.Instance.player = null;
+            this.character.exist = false;
             if(this.character.body.type!== cc.RigidBodyType.Dynamic)this.character.body.type = cc.RigidBodyType.Dynamic;
 
             

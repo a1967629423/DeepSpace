@@ -22,16 +22,20 @@ export default class State_Lunch3  extends CharacterState3 {
         this.character.body.linearVelocity = this.lunchDir.mul(this.character.lunchSpeed);
     }
 
-    onWall(spring:Wall,op:OperatorStruct)
+    onWall(wall:Wall,op:OperatorStruct)
     {
         //此处先暂时不转移到相应状态
         if(op.canOperator)
         {
             if(!this.Ignore)
             {
-                spring.Begin();
+                wall.Begin();
                 this.character.body.linearVelocity  = cc.v2(0,0);
-                if(this.character.nowState!==this.character.IdleState)this.character.changeState(this.character.IdleState);
+                if((<DieWall>wall).die===undefined)
+                {
+                    if(this.character.nowState!==this.character.IdleState)this.character.changeState(this.character.IdleState);
+                }
+               
             }
         }
     }
