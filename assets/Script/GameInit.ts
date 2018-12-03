@@ -1,3 +1,6 @@
+import Ajax from "./Tools/Web/Ajax";
+import AddCoookie from "./Tools/Cookie/AddCookie";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -30,6 +33,13 @@ export default class GameInit extends cc.Component {
      start()
      {
         setTimeout(()=>{this.gameStart()},600);
+        let cookie = AddCoookie.Get();
+        if(!cookie["_playerName"])
+        {
+           let name = prompt("你的游戏名字？");
+           AddCoookie.Add({_playerName:name});
+        }
+        //AddCoookie.Add({palyeName:"deng"});
      }
      gameRestart()
      {
