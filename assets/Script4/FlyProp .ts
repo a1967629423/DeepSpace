@@ -3,10 +3,9 @@ import PorpObject from "./PropObject";
 import State_Fly from "./State_Fly";
 
 const { ccclass, property } = cc._decorator;
-
+//飞行道具
 @ccclass
-//默认道具
-export default class DefaultProp extends PorpObject {
+export default class FlyProp extends PorpObject {
     @property
     Grade: number = 100;
     // LIFE-CYCLE CALLBACKS:
@@ -14,7 +13,10 @@ export default class DefaultProp extends PorpObject {
     // onLoad () {}
     Begin(): boolean {
         //默认加分
+
+
         GradeManage.instance.addGrade(this.Grade);
+        this.character.globalState.attaching(State_Fly);
         return super.Begin();
     }
 

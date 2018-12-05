@@ -1,6 +1,7 @@
 import SceneSystem2 from "../SceneSystem2";
 import PorpObject from "../PropObject";
 import Creator from "./Creator";
+import AssetsSystem from "../../Script/System/AssestSystem";
 
 const { ccclass, property } = cc._decorator;
 @ccclass
@@ -14,6 +15,7 @@ export default class PropManage extends Creator {
         var r = Math.random();
         if (r > 0.2) {
             var x = Math.random()*(SceneSystem2.Instance.rX-SceneSystem2.Instance.lX);
+            //AssetsSystem.instance.getAssest("Normal","flyProp")
             var po = cc.instantiate(this.prefab_ins).getComponent(PorpObject);
             if(po)
             {

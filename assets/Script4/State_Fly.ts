@@ -1,9 +1,5 @@
 import CharacterState3, { OperatorStruct } from "./State3";
-import GlobalTime, { CoroutinesType } from "../Script/Tools/GlobalTime";
 import SceneSystem2 from "./SceneSystem2";
-import ShaderUtil from "../Script/Tools/ShaderUntil";
-import Wall from "./Wall";
-import DieWall from "./DieWall";
 import State_Super from "./State_Super";
 
 export default class State_Fly extends CharacterState3 {
