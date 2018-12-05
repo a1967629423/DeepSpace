@@ -119,8 +119,9 @@ export default class Character4 extends Character {
     {
         this.distance += Math.abs(this.node.y-this.lastY);
         this.lastY = this.node.y;
-        if(this._globalState)this._globalState.update(dt);
-        if(this.nowState)this.nowState.update(dt);
+        var op = OperatorStruct.getinstance();
+        if(this._globalState)this._globalState.update(dt,op);
+        if(this.nowState)this.nowState.update(dt,op);
     }
     onTouchV2(v2:cc.Vec2)
     {

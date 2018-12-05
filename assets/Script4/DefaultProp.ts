@@ -1,5 +1,6 @@
 import GradeManage from "../Script/GradeManage";
 import PorpObject from "./PropObject";
+import State_Fly from "./State_Fly";
 
 const { ccclass, property } = cc._decorator;
 
@@ -15,7 +16,8 @@ export default class DefaultProp extends PorpObject {
 
 
         GradeManage.instance.addGrade(this.Grade);
-        this.character.health++;
+        //this.character.health++;
+        this.character.globalState.attaching(State_Fly);
         return super.Begin();
     }
 

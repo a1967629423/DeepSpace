@@ -21,9 +21,9 @@ export default class State_Die3 extends CharacterState3 {
             CameraFx.Instantiation.traceTager = null;
             SceneSystem2.Instance.player = null;
             this.character.exist = false;
-            Ajax.Post("http:\\\\localhost\\test.php",{grade:GradeManage.instance.nowGrade}).then((value)=>{
-                console.log(value);
-            });
+            // Ajax.Post("http:\\\\localhost\\test.php",{grade:GradeManage.instance.nowGrade}).then((value)=>{
+            //     console.log(value);
+            // });
             if(this.character.body.type!== cc.RigidBodyType.Dynamic)this.character.body.type = cc.RigidBodyType.Dynamic;
 
             

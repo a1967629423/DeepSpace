@@ -39,6 +39,12 @@ export default class GameInit extends cc.Component {
            let name = prompt("你的游戏名字？");
            AddCoookie.Add({_playerName:name});
         }
+      //   Ajax.Get('http://shimmer.neusoft.edu.cn/wechat/web/api/me',{}).then((value)=>{
+      //      var result = JSON.parse(value);
+      //      while(typeof result === "string")result = JSON.parse(result);
+      //      let name = result['id'];
+      //      AddCoookie.Add({_playerName:name});
+      //   });
         //AddCoookie.Add({palyeName:"deng"});
      }
      gameRestart()
