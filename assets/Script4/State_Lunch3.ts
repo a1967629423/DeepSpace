@@ -1,5 +1,5 @@
 import CharacterState3, { OperatorStruct } from "./State3";
-import Wall from "./Wall";
+import Wall, { WallType } from "./Wall";
 import PorpObject from "./PropObject";
 import DieWall from "./DieWall";
 
@@ -11,14 +11,25 @@ export default class State_Lunch3  extends CharacterState3 {
         
         this.Ignore = true;
         console.log("change Lunch");
-        this.lunchDir = this.character.lunchDirect;
+        var dir = cc.v2(this.character.lunchSpeed,this.character.moveSpeed).mul(1/this.character.lunchSpeed);
+        if(this.character.nowWall)
+        {
+            if(this.character.nowWall.Type===WallType.Right)dir.x*=-1;
+        }        
+        else
+        {
+            dir = this.character.lunchDirect;
+        }
+        
+        this.lunchDir = dir;
         setTimeout(()=>{this.Ignore = false;},100);
         if(this.character.body.type != cc.RigidBodyType.Animated)this.character.body.type = cc.RigidBodyType.Animated;
         
         //this.character.body.applyForceToCenter(this.lunchDir.normalize().mul(12000),true);
     }
-    update(dt:number)
+    update(dt:number,op:OperatorStruct)
     {
+        if(op.canOperator)
         this.character.body.linearVelocity = this.lunchDir.mul(this.character.lunchSpeed);
     }
 

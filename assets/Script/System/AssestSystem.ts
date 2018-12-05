@@ -37,7 +37,7 @@ export default class AssetsSystem extends cc.Component {
     onLoad()
     {
         this.Assets.forEach(this.initAssets.bind(this));
-        let reg = /\S+?(?=;)/g;
+        let reg = /(?!;)\S+?(?=;)/g;
         this.Groups = this.Groups___.match(reg);
     }
     initAssets(value:cc.Prefab)

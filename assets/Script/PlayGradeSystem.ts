@@ -11,8 +11,8 @@ export default class PlayGradeSystem extends cc.Component {
 
     @property(cc.Label)
     label: cc.Label = null;
-    @property(cc.Node)
-    player:cc.Node = null;
+    @property(Character)
+    player:Character = null;
     @property({displayName:"每次记录间隔的时间",min:0.1})
     interval:number = 1;
     time:number = 0;
@@ -25,11 +25,11 @@ export default class PlayGradeSystem extends cc.Component {
     }
 
     update (dt) {
-         if(this.player&&this.player.isValid)
+         if(this.player&&this.player.isValid&&this.player.exist)
          {
             if(this.time-this.interval>0&&this.player.isValid)
             {
-                var distance =  this.player.y;
+                var distance =  this.player.node.y;
                 GradeManage.instance.addGrade(Math.max(distance-this.lastDistance,0));
                 this.lastDistance  = distance;
                 this.time = 0;
@@ -38,10 +38,10 @@ export default class PlayGradeSystem extends cc.Component {
             {
                 this.time +=dt;
             }
-            if(this.player.y-this.lastY>8000)
+            if(this.player.node.y-this.lastY>8000)
             {
                 GameInit.instance.changeBackground(this.node);
-                this.lastY = this.player.y;
+                this.lastY = this.player.node.y;
             }
          }
 
