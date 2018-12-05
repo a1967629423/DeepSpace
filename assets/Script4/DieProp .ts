@@ -3,18 +3,16 @@ import PorpObject from "./PropObject";
 import State_Fly from "./State_Fly";
 
 const { ccclass, property } = cc._decorator;
-
+//死亡道具
 @ccclass
-//默认道具
-export default class DefaultProp extends PorpObject {
+export default class DieProp extends PorpObject {
     @property
     Grade: number = 100;
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
     Begin(): boolean {
-        //默认加分
-        GradeManage.instance.addGrade(this.Grade);
+        this.character.die();
         return super.Begin();
     }
 

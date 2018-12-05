@@ -11,6 +11,7 @@ export default class GradeManage  {
     }
     private _nowGrade:number = 0;
     private _lastGrade:number = 0;
+    private _nowSpecial:number = 0;
     public get nowGrade() : number {
         return this._nowGrade;
     }
@@ -18,6 +19,15 @@ export default class GradeManage  {
     public get lastGrade() : number {
         return this._lastGrade;
     }
+    public 
+    public get nowSpecial() : number {
+        return this._nowGrade;
+    }
+    public set nowSpecial(val : number) {
+        this._nowGrade = val;
+    }
+    
+    
     
     
     constructor()
