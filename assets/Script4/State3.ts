@@ -27,6 +27,7 @@ export default class CharacterState3 {
     QuitEvent:Function = null;
     /**
      * 使状态附着在此状态上
+     * 后面添加的状态执行优先级大于前面
      * @param cs 附着在此状态上的状态类型
      */
     
@@ -58,6 +59,13 @@ export default class CharacterState3 {
         this.attachment[typestr].ch.splice(index,1);
         if(this.attachment[typestr].ch.length<1)delete this.attachment[typestr];
     }
+    /**
+     * 修改一个附加状态的执行顺序
+     */
+    changAttachStateOrder()
+    {
+
+    }
     unattach(cs:CharacterState3)
     {
         cs.Quit();  
@@ -80,25 +88,32 @@ export default class CharacterState3 {
     onWall(stype:Wall,Op:OperatorStruct=OperatorStruct.getinstance()){
         for(let val in this.attachment)
         {
-            this.attachment[val].ch.forEach((value:CharacterState3)=>{
-                value.onWall(stype,Op);
-            })
+            
+            let nch = this.attachment[val].ch;
+            for(let i = nch.length-1;i>=0;i--)
+            {
+                nch[i].onWall(stype,Op);
+            }
         }
     }
     onPorp(ptype:Porpp,Op:OperatorStruct=OperatorStruct.getinstance()){
         for(let val in this.attachment)
         {
-            this.attachment[val].ch.forEach((value:CharacterState3)=>{
-                value.onPorp(ptype,Op);
-            });
+            let nch = this.attachment[val].ch;
+            for(let i = nch.length-1;i>=0;i--)
+            {
+                nch[i].onPorp(ptype,Op);
+            }
         }
     }
     update(dt:number,Op:OperatorStruct=OperatorStruct.getinstance()){
         for(let val in this.attachment)
         {
-            this.attachment[val].ch.forEach((value:CharacterState3)=>{
-                value.update(dt,Op);
-            })
+            let nch = this.attachment[val].ch;
+            for(let i = nch.length-1;i>=0;i--)
+            {
+                nch[i].update(dt,Op);
+            }
         }
     }
     onClick(v2:cc.Vec2){}

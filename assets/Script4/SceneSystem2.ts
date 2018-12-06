@@ -106,14 +106,14 @@ export default class SceneSystem2 extends SceneSystem {
             wall.addChild(RoundWall);
             wall.addChild(DieWall);
             bg.node.addChild(wall);
-            
             //生成墙壁
             setTimeout(()=>{
                 this.nowCreateBackground = bg;
                 this.createWall(RoundWall);
                 //生成死亡墙
                 this.createDieWall(DieWall);
-                this.createDieObjectManage(bg);
+                //不生成掉落物品
+                //this.createDieObjectManage(bg);
                 //生成道具
                 this.createPropManage(bg);
             });           
