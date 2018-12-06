@@ -24,6 +24,9 @@ export default class Character4 extends Character {
     moveSpeed:number = 300;
     @property({displayName:"发射速度"})
     lunchSpeed:number = 900;
+    
+    pauseState:boolean = false;
+
     private _nowState:CharacterState3 = null;
     private _globalState:CharacterState3 = null;
     public get globalState():CharacterState3
@@ -117,11 +120,14 @@ export default class Character4 extends Character {
     }
     update(dt)
     {
-        this.distance += Math.abs(this.node.y-this.lastY);
-        this.lastY = this.node.y;
-        var op = OperatorStruct.getinstance();
-        if(this._globalState)this._globalState.update(dt,op);
-        if(this.nowState)this.nowState.update(dt,op);
+        if(!this.pauseState)
+        {
+            this.distance += Math.abs(this.node.y-this.lastY);
+            this.lastY = this.node.y;
+            var op = OperatorStruct.getinstance();
+            if(this._globalState)this._globalState.update(dt,op);
+            if(this.nowState)this.nowState.update(dt,op);
+        }
     }
     onTouchV2(v2:cc.Vec2)
     {
@@ -145,6 +151,14 @@ export default class Character4 extends Character {
     maskTouch()
     {
 
+    }
+    pause()
+    {
+        this.pauseState = true;
+    }
+    resume()
+    {
+        this.pauseState = false;
     }
     die()
     {

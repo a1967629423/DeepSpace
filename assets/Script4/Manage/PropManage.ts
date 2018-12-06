@@ -18,27 +18,30 @@ export default class PropManage extends Creator {
     generateObject(i: number):cc.Node {
         var r = Math.random();
         if (r > 0.2) {
-            var x = Math.random()*(SceneSystem2.Instance.rX-SceneSystem2.Instance.lX);
+            var wallWidth = SceneSystem2.Instance.rX-SceneSystem2.Instance.lX;
+            var stateWallWidth = 80
+            var x = 0;
             //AssetsSystem.instance.getAssest("Normal","flyProp")
             let ep = 0;
             this.PropType.forEach((val:{style:string,type:string,p:number})=>{
                 ep+=val.p;
             })
             var tr = Math.random()*ep;
-            var po;
+            var po:PorpObject = null;
             for(var f = 0;f<this.PropType.length;f++)
             {
                 let add = !f?0:this.PropType[f-1].p;
-                if(r<this.PropType[f].p+add)
+                if(tr<this.PropType[f].p+add)
                 {
                     let ty =this.PropType[f];
                     po = cc.instantiate(AssetsSystem.instance.getAssest(ty.style,ty.type)).getComponent(PorpObject);
+                    x = Math.random()*(wallWidth-po.node.x-stateWallWidth)+po.node.x*po.node.anchorX+stateWallWidth/2;
                     break;
                 }
             }
             if(po)
             {
-                po.node.y = i *300;
+                po.node.y = i *350+80;
                 po.node.x = x;
                 this.node.addChild(po.node);
                 return po.node;                  
