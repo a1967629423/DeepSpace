@@ -1,6 +1,7 @@
 import CharacterState3, { OperatorStruct } from "./State3";
 import Wall from "./Wall";
 import DieWall from "./DieWall";
+import GlobalTime, { CoroutinesType } from "../Script/Tools/GlobalTime";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -19,9 +20,15 @@ export default class State_Super extends CharacterState3 {
     time:number = 1000;
     Start()
     {
-        setTimeout(()=>{
-            this.Quit();
-        },this.time)
+        // setTimeout(()=>{
+        //     this.Quit();
+        // },this.time)
+        var _this = this;
+        GlobalTime.Instantiation.Coroutines((function*(){
+            yield CoroutinesType.SleepTime(_this.time/1000);
+            _this.Quit();
+
+        })())
     }
     onWall(wall:Wall,op:OperatorStruct)
     {

@@ -38,14 +38,15 @@ export default class State_Lunch3  extends CharacterState3 {
         //此处先暂时不转移到相应状态
         if(op.canOperator)
         {
-            if(!this.Ignore)
+            if((<DieWall>wall).die!==undefined)
+            {
+                wall.Begin();
+            }
+            else if(!this.Ignore)
             {
                 wall.Begin();
                 this.character.body.linearVelocity  = cc.v2(0,0);
-                if((<DieWall>wall).die===undefined)
-                {
-                    if(this.character.nowState!==this.character.IdleState)this.character.changeState(this.character.IdleState);
-                }
+                if(this.character.nowState!==this.character.IdleState)this.character.changeState(this.character.IdleState);
                
             }
         }

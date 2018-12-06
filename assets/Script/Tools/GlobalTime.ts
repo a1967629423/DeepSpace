@@ -115,6 +115,7 @@ class CoroutinesProgram {
 export default class GlobalTime extends cc.Component {
     @property
     speedTime:number = 1;
+    pauseState:boolean = false;
     private static _instantiation:GlobalTime = null;
     
     public static get Instantiation() : GlobalTime {
@@ -151,6 +152,14 @@ export default class GlobalTime extends cc.Component {
     }
     start () {
     }
+    pause()
+    {
+        this.pauseState = true;
+    }
+    resume()
+    {
+        this.pauseState = false;
+    }
     
     // LIFE-CYCLE CALLBACKS:
 
@@ -158,7 +167,7 @@ export default class GlobalTime extends cc.Component {
 
 
      update (dt) {
-         if(this.coroutines)
+         if(this.coroutines&&!this.pauseState)
          {
             
              for(var cor of this.coroutines)

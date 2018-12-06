@@ -1,6 +1,7 @@
 import CharacterState3, { OperatorStruct } from "./State3";
 import SceneSystem2 from "./SceneSystem2";
 import State_Super from "./State_Super";
+import GlobalTime, { CoroutinesType } from "../Script/Tools/GlobalTime";
 
 export default class State_Fly extends CharacterState3 {
     centerX:number = 0;
@@ -10,11 +11,19 @@ export default class State_Fly extends CharacterState3 {
     {
         this.centerX = (SceneSystem2.Instance.rX-SceneSystem2.Instance.lX)/2;
         this.character.globalState.attaching(State_Super).time = this.time+1000;
-        setTimeout(()=>{
-            this.isFly = false;
-            if(this.character.nowState!==this.character.LunchState)this.character.changeState(this.character.LunchState);
-            this.Quit();
-        },this.time)
+        var _this = this;
+        //为了完成暂停函数，定时器改成协程
+        GlobalTime.Instantiation.Coroutines((function*(){
+            //yield;
+            yield CoroutinesType.SleepTime((_this.time/1000));
+            if(_this.character.nowState!==_this.character.LunchState)_this.character.changeState(_this.character.LunchState);
+            _this.Quit();
+        })());
+        // setTimeout(()=>{
+        //     this.isFly = false;
+        //     if(this.character.nowState!==this.character.LunchState)this.character.changeState(this.character.LunchState);
+        //     this.Quit();
+        // },this.time)
     }
     update(dt,op:OperatorStruct)
     {
