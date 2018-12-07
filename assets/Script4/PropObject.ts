@@ -23,9 +23,13 @@ export default class PorpObject extends cc.Component  {
 
     Begin():boolean
     {
-        this.node.destroy();
         this.destroy();
         return true;
+    }
+    destroy():boolean
+    {
+        this.node.destroy();
+        return super.destroy();
     }
     onDestroy()
     {

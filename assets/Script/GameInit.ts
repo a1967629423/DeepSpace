@@ -33,12 +33,12 @@ export default class GameInit extends cc.Component {
      start()
      {
         setTimeout(()=>{this.gameStart()},600);
-        let cookie = AddCoookie.Get();
-        if(!cookie["_playerName"])
-        {
-           let name = prompt("你的游戏名字？");
-           AddCoookie.Add({_playerName:name});
-        }
+      //   let cookie = AddCoookie.Get();
+      //   if(!cookie["_playerName"])
+      //   {
+      //      let name = prompt("你的游戏名字？");
+      //      AddCoookie.Add({_playerName:name});
+      //   }
       //   Ajax.Get('http://shimmer.neusoft.edu.cn/wechat/web/api/me',{}).then((value)=>{
       //      var result = JSON.parse(value);
       //      while(typeof result === "string")result = JSON.parse(result);

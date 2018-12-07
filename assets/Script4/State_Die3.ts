@@ -24,7 +24,7 @@ export default class State_Die3 extends CharacterState3 {
             // Ajax.Post("http:\\\\localhost\\test.php",{grade:GradeManage.instance.nowGrade}).then((value)=>{
             //     console.log(value);
             // });
-            if(this.character.body.type!== cc.RigidBodyType.Dynamic)this.character.body.type = cc.RigidBodyType.Dynamic;
+            //if(this.character.body.type!== cc.RigidBodyType.Dynamic)this.character.body.type = cc.RigidBodyType.Dynamic;
 
             
             

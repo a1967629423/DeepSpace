@@ -9,6 +9,11 @@ export class OperatorStruct
     {
         return new OperatorStruct();
     }
+    destroy()
+    {
+        this.canOperator = null;
+        this.operatorInformation = null;
+    }
 }
 export default class CharacterState3 {
     /**

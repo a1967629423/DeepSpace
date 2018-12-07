@@ -34,4 +34,9 @@ export default class Wall extends cc.Component {
         //console.log(direct);
         //this.character.body.linearVelocity = this.character.body.linearVelocity.add(direct.mul(1000));
     }
+    destroy():boolean
+    {
+        this.node.destroy();
+        return super.destroy();
+    }
 }

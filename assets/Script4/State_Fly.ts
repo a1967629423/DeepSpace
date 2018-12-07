@@ -32,7 +32,7 @@ export default class State_Fly extends CharacterState3 {
             if(this.isFly)
             {
                 op.canOperator = false;
-                op.operatorInformation.fly = true;
+                op.operatorInformation.fly = this;
                 var xdir = 0;
                 if(this.character.node.x!=this.centerX)xdir=(-this.character.node.x+this.centerX);
                 this.character.body.linearVelocity = cc.v2(xdir,this.character.moveSpeed+200);

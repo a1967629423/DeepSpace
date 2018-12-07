@@ -92,18 +92,20 @@ export default class Character4 extends Character {
         if(cc.isValid(stype,true))
         {
             this._nowWall = stype;
-            var op = OperatorStruct.getinstance();
+            let op = OperatorStruct.getinstance();
             if(this._globalState)this._globalState.onWall(stype,op)
             if(this.nowState)this.nowState.onWall(stype,op);
+            op.destroy();
         }
     }
     onProp(ptype:PorpObject)
     {
         if(cc.isValid(ptype,true))
         {
-            var op = OperatorStruct.getinstance();
+            let op = OperatorStruct.getinstance();
             if(this.globalState)this.globalState.onPorp(ptype,op)
             if(this.nowState)this.nowState.onPorp(ptype,op);
+            op.destroy();
         }
     }
     onLoad()
@@ -124,9 +126,10 @@ export default class Character4 extends Character {
         {
             this.distance += Math.abs(this.node.y-this.lastY);
             this.lastY = this.node.y;
-            var op = OperatorStruct.getinstance();
+            let op = OperatorStruct.getinstance();
             if(this._globalState)this._globalState.update(dt,op);
             if(this.nowState)this.nowState.update(dt,op);
+            op.destroy();
         }
     }
     onTouchV2(v2:cc.Vec2)

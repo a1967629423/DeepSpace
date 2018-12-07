@@ -9,7 +9,8 @@ export default class PropManage extends Creator {
     PropType:{style:string,type:string,p:number}[] = [
         {style:"Normal",type:"prop",p:0.4},
         {style:"Normal",type:"flyProp",p:0.1},
-        {style:"Normal",type:"godProp",p:0.5}
+        {style:"Normal",type:"godProp",p:0.5},
+        {style:"Normal",type:"dieProp",p:0.2}
     ]
     // onLoad () {}
     start() {
