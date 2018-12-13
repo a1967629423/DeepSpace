@@ -2,13 +2,14 @@ import Normal_ScenesState from "./Normal_ScenesState";
 import GameInit from "../../../Script/GameInit";
 import Wall, { WallType } from "../../Wall";
 import AssetsSystem from "../../../Script/System/AssestSystem";
+import GlobalTime, { CoroutinesType } from "../../../Script/Tools/GlobalTime";
 
 export default class Change_ScenesState extends Normal_ScenesState {
     createSomething(bg,idx)
     {
         super.createSomething(bg,idx);
         setTimeout(()=>{
-            debugger;
+            //debugger;
             this.context.changeState(this.context.normalState);
         },10);
     }
@@ -53,8 +54,6 @@ export default class Change_ScenesState extends Normal_ScenesState {
                 var rremix = <Remix>right.addComponent("Remix");
                 if(lremix&&rremix)
                 {
-                    
-                    debugger;
                     this.context.nowGroupindex++;
                     var wnode = this.context.getAssest(this.context.nowGroup,"wall");
                     rremix.targetTex = wnode.getComponent(cc.Sprite).spriteFrame.getTexture();
@@ -62,10 +61,36 @@ export default class Change_ScenesState extends Normal_ScenesState {
                     AssetsSystem.instance.putAssest(this.context.nowGroup,"wall",wnode);
                     lremix.cout = cout;
                     rremix.cout = cout;
+                    left.once("poolDestory",()=>{
+                        lremix.destroy();
+                        var title = <Title>left.addComponent("Title");
+                        title.cout = cout;
+                    });
+                    right.once("poolDestory",()=>{
+                        rremix.destroy();
+                        var title =  <Title>right.addComponent("Title");
+                        title.cout = cout;
+                    });
                 }
             }
-            wallGroup.addChild(right);
-            wallGroup.addChild(left);
+            GlobalTime.Instantiation.Coroutines((function* (l, w) {
+                yield CoroutinesType.SleepTime(1);
+                w.addChild(l);
+                setTimeout(() => {
+                    //延迟重置位置
+                    l.y = 0;
+                })
+                left.active = true;
+            })(left, wallGroup));
+            GlobalTime.Instantiation.Coroutines((function* (r, w) {
+                yield CoroutinesType.SleepTime(0.5);
+                w.addChild(right);
+                setTimeout(() => {
+                    //延迟重置位置
+                    r.y = 0;
+                })
+                right.active = true;
+            })(right, wallGroup));
         }
     }
     Quit()

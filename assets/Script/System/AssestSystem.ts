@@ -103,7 +103,7 @@ export default class AssetsSystem extends cc.Component {
         if(this._assetsGroup[groupName]&&this._assetsGroup[groupName][type])
         {
             //console.log(type+ " size "+this._assetsGroup[groupName][type].size())
-            //node.emit("poolDestory");
+            node.emit("poolDestory");
             this._assetsGroup[groupName][type].put(node);
         }
     }

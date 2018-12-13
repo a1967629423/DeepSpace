@@ -15,7 +15,7 @@ export default class Normal_ScenesState extends ScenesState {
     }
     changeToChangeState() {
         GameInit.instance.node.off("changeBackground", this.changeToChangeState, this);
-        //if(this.context.nowState!=this.context.ChangeState)this.context.changeState(this.context.ChangeState);
+        if(this.context.nowState!=this.context.ChangeState)this.context.changeState(this.context.ChangeState);
 
     }
     createDieWall(wallGroup: cc.Node) {
@@ -110,6 +110,7 @@ export default class Normal_ScenesState extends ScenesState {
                 yield CoroutinesType.SleepTime(1);
                 w.addChild(l);
                 setTimeout(() => {
+                    //延迟重置位置
                     l.y = 0;
                 })
                 left.active = true;
@@ -118,10 +119,10 @@ export default class Normal_ScenesState extends ScenesState {
                 yield CoroutinesType.SleepTime(0.5);
                 w.addChild(right);
                 setTimeout(() => {
+                    //延迟重置位置
                     r.y = 0;
                 })
                 right.active = true;
-
             })(right, wallGroup));
         }
 
