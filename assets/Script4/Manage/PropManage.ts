@@ -22,7 +22,6 @@ export default class PropManage extends Creator {
             var wallWidth = SceneSystem2.Instance.rX-SceneSystem2.Instance.lX;
             var stateWallWidth = 80
             var x = 0;
-            //AssetsSystem.instance.getAssest("Normal","flyProp")
             let ep = 0;
             this.PropType.forEach((val:{style:string,type:string,p:number})=>{
                 ep+=val.p;
@@ -35,7 +34,7 @@ export default class PropManage extends Creator {
                 if(tr<this.PropType[f].p+add)
                 {
                     let ty =this.PropType[f];
-                    po = cc.instantiate(AssetsSystem.instance.getAssest(ty.style,ty.type)).getComponent(PorpObject);
+                    po = AssetsSystem.instance.getAssest(ty.style,ty.type).getComponent(PorpObject);
                     x = Math.random()*(wallWidth-po.node.x-stateWallWidth)+po.node.x*po.node.anchorX+stateWallWidth/2;
                     break;
                 }

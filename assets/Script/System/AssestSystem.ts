@@ -24,7 +24,7 @@ export default class AssetsSystem extends cc.Component {
     }
     @property([cc.Prefab])
     Assets:cc.Prefab[] = new Array<cc.Prefab>();
-    _assetsGroup:Object = new Object();
+    _assetsGroup:{[idx:string]:{[idx:string]:cc.NodePool}} = {};
     @property({multiline:true,displayName:"样式出现顺序",tooltip:"使用';'进行分割"})
     Groups___:String = "Normal;";
     Groups:string[] = [];
@@ -48,13 +48,29 @@ export default class AssetsSystem extends cc.Component {
         {
             if(this._assetsGroup[assets.assetsGropName])
             {
-                this._assetsGroup[assets.assetsGropName][assets.assetsType] = cn;
+                if(this._assetsGroup[assets.assetsGropName][assets.assetsType])
+                {
+                    this._assetsGroup[assets.assetsGropName][assets.assetsType].clear();
+                }
+                else
+                {
+                    var pool = new cc.NodePool();
+                    for(var i =0;i<assets.assetsInsCout;i++)
+                    {
+                        pool.put(cc.instantiate(cn));
+                    }
+                    this._assetsGroup[assets.assetsGropName][assets.assetsType] = pool;
+                }      
             }
             else
             {
-                var ob = new Object();
-                ob[assets.assetsType] = cn;
-                this._assetsGroup[assets.assetsGropName] = ob;
+                var pool = new cc.NodePool();
+                for(var i =0;i<assets.assetsInsCout;i++)
+                {
+
+                    pool.put(cc.instantiate(cn));
+                }
+                this._assetsGroup[assets.assetsGropName] = {[assets.assetsType]:pool};
             }
         }
     }
@@ -65,7 +81,31 @@ export default class AssetsSystem extends cc.Component {
      */
     getAssest(groupName:string,type:string):cc.Node
     {
-        return this._assetsGroup[groupName]?this._assetsGroup[groupName][type]:undefined;
+        //console.log("get Assest type: "+type);
+        if(this._assetsGroup[groupName]&&this._assetsGroup[groupName][type])
+        {
+            let node = this._assetsGroup[groupName][type].get();
+            // if(node)setTimeout(((n)=>{
+            //     return ()=>{
+            //         n.emit("poolStart");
+            //     }
+            // })(node))
+            return node;
+        }
+        else
+        {
+            return null;
+        }
+    }
+    putAssest(groupName:string,type:string,node:cc.Node)
+    {
+        //console.log("put Assest type: "+type);
+        if(this._assetsGroup[groupName]&&this._assetsGroup[groupName][type])
+        {
+            //console.log(type+ " size "+this._assetsGroup[groupName][type].size())
+            //node.emit("poolDestory");
+            this._assetsGroup[groupName][type].put(node);
+        }
     }
     start () {
         GameInit.instance.node.once("gameEnd",()=>{

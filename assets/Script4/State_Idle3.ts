@@ -1,13 +1,14 @@
 import CharacterState3, { OperatorStruct } from "./State3";
-import Until from "../Script/Tools/Until";
 import Wall, { WallType } from "./Wall";
 import PorpObject from "./PropObject";
 
 export default class State_Idle3 extends CharacterState3 {
 
+    moveVec2:cc.Vec2 = cc.v2();
     Start()
     {
         console.log("change Idle")
+        this.moveVec2.y = this.character.moveSpeed;
     }
     onTouchV2(v2:cc.Vec2)
     {
@@ -34,7 +35,7 @@ export default class State_Idle3 extends CharacterState3 {
     update(dt,op:OperatorStruct)
     {
         if(op.canOperator)
-        this.character.body.linearVelocity = cc.v2(0,1).mul(this.character.moveSpeed);
+        this.character.body.linearVelocity = this.moveVec2;
     }
     onClick(v2:cc.Vec2)
     {

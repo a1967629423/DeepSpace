@@ -1,23 +1,21 @@
-const OtherMaterial = require("OtherMaterial");
+const ScrollShader = require("OtherMaterial");
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        cocos: cc.Sprite,
-        play:cc.Node
+        n:1,
     },
 
     // LIFE-CYCLE CALLBACKS:
     onLoad () {
         cc.dynamicAtlasManager.enabled = false;
-        this._material = new OtherMaterial();
+        this._material = new ScrollShader();
         
     },
 
     start () {
         if (this.cocos) {
             //设置material
-            this._start = Date.now();
             // let texture = this.cocos.spriteFrame.getTexture();
             // //设置材质贴图
             // this._material.texture = texture;
@@ -29,12 +27,23 @@ cc.Class({
             // //设置渲染数据
             // //TODO:优化shader管理
             // this.cocos._renderData._material = this._material;
-            window.RegMaterial(this.cocos,this._material);
+
+        }
+        var sp = this.getComponent(cc.Sprite)
+        if(sp)
+        {
+            window.RegMaterial(sp,this._material);
+            this._material.row = this.n;
         }
     },
+    setOffset(val)
+    {
+        this._material.uvOffset = val;
+    }
+    ,
     update (dt) {
-        var addtime = Date.now()-this._start;
-        this._material.uvOffset = addtime/1000;
+        // var addtime = Date.now()-this._start;
+        // this._material.uvOffset = addtime/1000;
         
     },
 });

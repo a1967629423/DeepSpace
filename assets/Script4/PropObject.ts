@@ -1,5 +1,7 @@
 import DieObject from "./DieObject";
 import Character4 from "./Character4";
+import AssetsName from "../Script/Tools/AssetsName";
+import AssetsSystem from "../Script/System/AssestSystem";
 
 const {ccclass, property} = cc._decorator;
 
@@ -28,8 +30,17 @@ export default class PorpObject extends cc.Component  {
     }
     destroy():boolean
     {
-        this.node.destroy();
-        return super.destroy();
+        var assestconf = this.getComponent(AssetsName);
+        if(AssetsSystem.instance&&assestconf)
+        {
+            AssetsSystem.instance.putAssest(assestconf.assetsGropName,assestconf.assetsType,this.node);
+            return true;
+        }
+        else
+        {
+            this.node.destroy();
+            return super.destroy();
+        }
     }
     onDestroy()
     {

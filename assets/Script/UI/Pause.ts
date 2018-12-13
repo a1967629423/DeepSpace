@@ -1,5 +1,6 @@
 import Character4 from "../../Script4/Character4";
 import GlobalTime from "../Tools/GlobalTime";
+import MusicSystem from "../System/MusicSystem";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -38,11 +39,13 @@ export default class Pause extends cc.Component {
             {
                 this.ch4.pause();
                 GlobalTime.Instantiation.pause();
+                MusicSystem.instance.pause();
             }
             else
             {
                 this.ch4.resume();
                 GlobalTime.Instantiation.resume();
+                MusicSystem.instance.resume();
             }
             this.nowState = !this.nowState;
         }

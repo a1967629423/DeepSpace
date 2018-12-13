@@ -10,6 +10,7 @@ import State_Die3 from "./State_Die3";
 import PorpObject from "./PropObject";
 import State_Begin3 from "./State_Begin3";
 import State_Global from "./State_Global";
+import Until from "../Script/Tools/Until";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -89,7 +90,7 @@ export default class Character4 extends Character {
     }
     onWall(stype:Wall)
     {
-        if(cc.isValid(stype,true))
+        if(Until.isValid(stype.node,true))
         {
             this._nowWall = stype;
             let op = OperatorStruct.getinstance();
@@ -100,7 +101,7 @@ export default class Character4 extends Character {
     }
     onProp(ptype:PorpObject)
     {
-        if(cc.isValid(ptype,true))
+        if(Until.isValid(ptype.node,true))
         {
             let op = OperatorStruct.getinstance();
             if(this.globalState)this.globalState.onPorp(ptype,op)

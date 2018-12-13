@@ -106,9 +106,15 @@ class CoroutinesProgram {
         else
         {
             this.reDoneFun(this);
-            this.type = null;
-            this.Iter = null;         
+            this.destory();      
         }
+    }
+    destory()
+    {
+        this.type = null;
+        this.Iter = null;
+        this.reDoneFun = null; 
+
     }
 }
 @ccclass
@@ -179,6 +185,11 @@ export default class GlobalTime extends cc.Component {
      onDestroy()
      {
          //super.onDestroy();
+         this.coroutines = null;
+         for(var key in this.coroutines)
+         {
+            this.coroutines[key].destory();
+         }
          GlobalTime._instantiation = null;
      }
 }

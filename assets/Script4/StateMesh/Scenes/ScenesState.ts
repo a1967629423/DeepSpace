@@ -8,6 +8,7 @@ export default class ScenesState {
         this.context = c;
     }
     Start(){}
+    update(dt:number){}
     createSomething(bg:BackGround2,idx){}
     createWall(Group:cc.Node){}
     createDieWall(Group:cc.Node){}

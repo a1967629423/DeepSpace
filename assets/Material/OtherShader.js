@@ -7,10 +7,12 @@ let shader = {
         `
 uniform mat4 viewProj;
 uniform float uvoffset_y;
+uniform float n;
 attribute vec3 a_position;
 attribute vec2 a_uv0;
 varying vec2 uv0;
 varying vec2 uv1;
+varying float nv;
 float remain(float a,float b)
 {
     return a-floor(a/b);
@@ -20,10 +22,11 @@ void main () {
     gl_Position = pos;
     vec2 a_uv1 = a_uv0;
     vec2 a_uv2 = a_uv0;
-    a_uv1.y = a_uv1.y+abs(remain(uvoffset_y,1.0));
-    a_uv2.y = a_uv2.y-abs(1.0-remain(uvoffset_y,1.0));
+    a_uv1.y = a_uv1.y+abs(remain(uvoffset_y,1.0))*n;
+    a_uv2.y = a_uv2.y-abs(1.0-remain(uvoffset_y,1.0))*n;
     uv0 = a_uv1;
     uv1 = a_uv2;
+    nv = n;
 }`,
     frag:
         `
@@ -31,10 +34,15 @@ void main () {
         uniform vec4 color;
         varying vec2 uv0;
         varying vec2 uv1;
+        varying float nv;
         void main () {
-            vec4 c = color * texture2D(texture, uv0);
-            vec4 c1 = color * texture2D(texture, uv1);
-            if(uv0.y>1.0)
+            vec2 a_uv0 = uv0;
+            vec2 a_uv1 = uv1;
+            a_uv0.y/=nv;
+            a_uv1.y/=nv;
+            vec4 c = color * texture2D(texture, a_uv0);
+            vec4 c1 = color * texture2D(texture, a_uv1);
+            if(a_uv0.y>1.0)
             {
                 c=c1;
             }

@@ -182,6 +182,7 @@
     "_enabled": true,
     "assetsGropName": "Normal",
     "assetsType": "dieWall",
+    "assetsInsCout": 32,
     "_id": ""
   },
   {

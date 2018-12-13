@@ -40,6 +40,10 @@ cc.Class({
     onLoad () {
         this._material = new RemixMaterial();
      },
+     onEnable()
+     {
+         this.start();
+     },
 
     start () {
         var Sprite = this.getComponent(cc.Sprite);

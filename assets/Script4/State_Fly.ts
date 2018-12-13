@@ -7,6 +7,7 @@ export default class State_Fly extends CharacterState3 {
     centerX:number = 0;
     time:number = 2000;
     isFly:boolean = true;
+    nowSpeed:number = 0;
     Start()
     {
         this.centerX = (SceneSystem2.Instance.rX-SceneSystem2.Instance.lX)/2;
@@ -19,6 +20,7 @@ export default class State_Fly extends CharacterState3 {
             if(_this.character.nowState!==_this.character.LunchState)_this.character.changeState(_this.character.LunchState);
             _this.Quit();
         })());
+        this.nowSpeed = this.character.moveSpeed+200;
         // setTimeout(()=>{
         //     this.isFly = false;
         //     if(this.character.nowState!==this.character.LunchState)this.character.changeState(this.character.LunchState);
@@ -35,7 +37,7 @@ export default class State_Fly extends CharacterState3 {
                 op.operatorInformation.fly = this;
                 var xdir = 0;
                 if(this.character.node.x!=this.centerX)xdir=(-this.character.node.x+this.centerX);
-                this.character.body.linearVelocity = cc.v2(xdir,this.character.moveSpeed+200);
+                this.character.body.linearVelocity = cc.v2(xdir,this.nowSpeed);
             }
         }
 

@@ -1,15 +1,4 @@
-import Character from "./Character";
 import BackGround2 from "./BackGround2";
-
-// Learn TypeScript:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const { ccclass, property } = cc._decorator;
 //使用setparent会先移除Chile，这会导致粒子特效消失，下一步优化：讲player放在单独的node下，通过worldposition来计算局部位置
@@ -37,14 +26,13 @@ export default class SceneSystem extends cc.Component {
     // onLoad () {}
     width: number = 0;
     height: number = 0;
-    private static _instance:SceneSystem = null;
-    public static get Instance():SceneSystem
-    {
-        if(!this._instance)this._instance = cc.find("System/SceneSystem").getComponent(SceneSystem);
+    private static _instance: SceneSystem = null;
+    public static get Instance(): SceneSystem {
+        if (!this._instance) this._instance = cc.find("System/SceneSystem").getComponent(SceneSystem);
         return this._instance;
     }
     start() {
-        setTimeout(() => { this.Init() })
+        this.Init()
     }
     Init() {
         if (this.bg) {
@@ -65,13 +53,14 @@ export default class SceneSystem extends cc.Component {
                         var gd = cc.instantiate(this.bg).getComponent(BackGround2);
                         //创建场景内物体
                         var idx = (i + 1) * 3 + (f + 1);
-                        this.createrSomething(gd, idx)
+                        this.createrSomething(gd, idx);
                         //添加到中心场景
-                        this.center.ground[idx] = gd;
-                        gd.node.position = cc.v2(lx + w * f, ly + h * i);
-                        gd.node.setParent(this.father);
-                        gd.node.setSiblingIndex(0);
-
+                        if (cc.isValid(gd, true)) {
+                            this.center.ground[idx] = gd;
+                            gd.node.position = cc.v2(lx + w * f, ly + h * i);
+                            gd.node.setParent(this.father);
+                            gd.node.setSiblingIndex(0);
+                        }
                     }
                 }
             }
@@ -90,51 +79,50 @@ export default class SceneSystem extends cc.Component {
     }
 
     update(dt) {
-        setTimeout(() => {
-            //重新开始游戏时，node还未初始化
-            if (this.center&&this.player) {
-                var lposition = this.center.node.convertToNodeSpaceAR(this.player.position);
-                var x = lposition.x;
-                var y = lposition.y;
-                if (x < 0) {
-                    if (y < 0) {
-                        //左下角
-                        this.ReSetCenter(0);
+
+        //重新开始游戏时，node还未初始化
+        if (this.center && this.player) {
+            var lposition = this.center.node.convertToNodeSpaceAR(this.player.position);
+            var x = lposition.x;
+            var y = lposition.y;
+            if (x < 0) {
+                if (y < 0) {
+                    //左下角
+                    this.ReSetCenter(0);
 
 
-                    } else if (y > this.height) {
-                        //左上角
-                        this.ReSetCenter(6);
-                    }
-                    else {
-                        //左中部
-                        this.ReSetCenter(3);
-                    }
-
-                } else if (x > this.width) {
-                    if (y < 0) {
-                        //右下角
-                        this.ReSetCenter(2)
-                    } else if (y > this.height) {
-
-                        this.ReSetCenter(8);
-                    }
-                    else {
-                        this.ReSetCenter(5);
-                    }
+                } else if (y > this.height) {
+                    //左上角
+                    this.ReSetCenter(6);
                 }
                 else {
-                    if (y < 0) {
-                        this.ReSetCenter(1);
-                    } else if (y > this.height) {
-                        this.ReSetCenter(7);
+                    //左中部
+                    this.ReSetCenter(3);
+                }
 
-                    }
+            } else if (x > this.width) {
+                if (y < 0) {
+                    //右下角
+                    this.ReSetCenter(2)
+                } else if (y > this.height) {
+
+                    this.ReSetCenter(8);
+                }
+                else {
+                    this.ReSetCenter(5);
+                }
+            }
+            else {
+                if (y < 0) {
+                    this.ReSetCenter(1);
+                } else if (y > this.height) {
+                    this.ReSetCenter(7);
 
                 }
 
             }
-        })
+
+        }
 
     }
     ReSetCenter(idx: number) {
@@ -167,10 +155,12 @@ export default class SceneSystem extends cc.Component {
                         var idx = ri * 3 + rf;
                         this.createrSomething(gd, idx);
                         //添加到中心场景
-                        ct.ground[idx] = gd;
-                        gd.node.position = cc.v2(lx + this.width * f, ly + this.height * i);
-                        gd.node.setParent(this.father);
-                        gd.node.setSiblingIndex(0);
+                        if (cc.isValid(gd, true)) {
+                            ct.ground[idx] = gd;
+                            gd.node.position = cc.v2(lx + this.width * f, ly + this.height * i);
+                            gd.node.setParent(this.father);
+                            gd.node.setSiblingIndex(0);
+                        }
                     }
 
 
@@ -203,8 +193,7 @@ export default class SceneSystem extends cc.Component {
         //     this.player.nowStar.node.setParent(this.center.node);
         // }
     }
-    onDestroy()
-    {
+    onDestroy() {
         SceneSystem._instance = null;
     }
 }

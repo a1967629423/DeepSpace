@@ -21,7 +21,7 @@ export default class RankList extends cc.Component {
             var widget = richName.addComponent(cc.Widget);
             var name = rank[val]["playerName"];
             var grade = rank[val]["playerGrade"];
-            var g = Number.parseInt(val)+1;
+            var g =   Number(val)+1;
             richName.string = `<color=#ff0000><b>${g}</b>.</c><color=#af7fff>${name}:</c>`;
             richName.fontSize = 18;
             richName.lineHeight = 30;

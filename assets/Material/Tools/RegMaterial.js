@@ -11,10 +11,13 @@
 {
     w.RegMaterial = function(sprite,Material)
     {
-        let texutre = sprite.spriteFrame.getTexture();
-        Material.texture = texutre;
-        Material.updateHash();
-        sprite._material = Material;
-        sprite._renderData._material = Material;
+        if(sprite._material!==Material)
+        {
+            let texutre = sprite.spriteFrame.getTexture();
+            Material.texture = texutre;
+            Material.updateHash();
+            sprite._material = Material;
+            sprite._renderData._material = Material;
+        }
     }
 })(window)

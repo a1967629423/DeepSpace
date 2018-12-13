@@ -1,11 +1,6 @@
 import SceneSystem from "../Script/SceneSystem";
 import BackGround2 from "../Script/BackGround2";
-import DieWall from "./DieWall";
-import { WallType } from "./Wall";
-import DieObjectManage from "./Manage/DieObjectManage";
-import PropManage from "./Manage/PropManage";
 import ScenesState from "./StateMesh/Scenes/ScenesState";
-import AssetsName from "../Script/Tools/AssetsName";
 import Normal_ScenesState from "./StateMesh/Scenes/Normal_ScenesState";
 import Change_ScenesState from "./StateMesh/Scenes/Change_ScenesState";
 import AssetsSystem from "../Script/System/AssestSystem";
@@ -87,6 +82,11 @@ export default class SceneSystem2 extends SceneSystem {
         super.start();
         this.changeState(this.normalState);
     }
+    update(dt)
+    {
+        super.update(dt);
+        if(this._nowState)this._nowState.update(dt);
+    }
     createrSomething(bg:BackGround2,idx:number)
     {
         //因为setTimeOut调整执行顺序所以不能在这使用
@@ -121,6 +121,7 @@ export default class SceneSystem2 extends SceneSystem {
         else
         {
             bg.node.destroy();
+            bg.destroy();
         }
 
     }

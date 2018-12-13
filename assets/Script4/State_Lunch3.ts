@@ -5,10 +5,10 @@ import DieWall from "./DieWall";
 
 export default class State_Lunch3  extends CharacterState3 {
     lunchDir:cc.Vec2 = cc.v2(0,0);
+    lineV:cc.Vec2 = cc.v2(0,0);
     Ignore:boolean;
     Start()
     {
-        
         this.Ignore = true;
         console.log("change Lunch");
         var dir = cc.v2(this.character.lunchSpeed,this.character.moveSpeed).mul(1/this.character.lunchSpeed);
@@ -20,17 +20,16 @@ export default class State_Lunch3  extends CharacterState3 {
         {
             dir = this.character.lunchDirect;
         }
-        
         this.lunchDir = dir;
         setTimeout(()=>{this.Ignore = false;},100);
         if(this.character.body.type != cc.RigidBodyType.Animated)this.character.body.type = cc.RigidBodyType.Animated;
-        
+        this.lineV = this.lunchDir.mul(this.character.lunchSpeed);
         //this.character.body.applyForceToCenter(this.lunchDir.normalize().mul(12000),true);
     }
     update(dt:number,op:OperatorStruct)
     {
         if(op.canOperator)
-        this.character.body.linearVelocity = this.lunchDir.mul(this.character.lunchSpeed);
+        this.character.body.linearVelocity = this.lineV;
     }
 
     onWall(wall:Wall,op:OperatorStruct)

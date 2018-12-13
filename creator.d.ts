@@ -24388,3 +24388,8 @@ declare  class Remix extends cc.Component{
 declare class Title extends cc.Component{
 	cout:number;
 }
+declare class Scroll extends cc.Component
+{
+	n:number
+	setOffset(val:number);
+}
