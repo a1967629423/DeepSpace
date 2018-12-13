@@ -44,6 +44,7 @@ export default class PropManage extends Creator {
                 po.node.y = i *350+80;
                 po.node.x = x;
                 this.node.addChild(po.node);
+                po.node.active = true;
                 return po.node;                  
             }
             return super.generateObject(i);

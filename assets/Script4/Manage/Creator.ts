@@ -28,8 +28,11 @@ export default class Creator extends cc.Component {
                 for (var i = 0; i < _t.generateNumber; i++) {
                     yield CoroutinesType.SleepTime(0.3);
                     (function(){
-                        let childNode = this.generateObject(i);
-                        if(childNode)childNode.once("destroy",this.childDestroy,this);
+                        let childNode:cc.Node = this.generateObject(i);
+                        if(childNode)
+                        {
+                            childNode.once("destroy",this.childDestroy,this);                    
+                        }
                     }).bind(_t)();
                 }
             })(this))

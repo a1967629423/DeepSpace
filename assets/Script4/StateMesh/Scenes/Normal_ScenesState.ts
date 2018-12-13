@@ -15,25 +15,26 @@ export default class Normal_ScenesState extends ScenesState {
     }
     changeToChangeState() {
         GameInit.instance.node.off("changeBackground", this.changeToChangeState, this);
-        if(this.context.nowState!=this.context.ChangeState)this.context.changeState(this.context.ChangeState);
+        if (this.context.nowState != this.context.ChangeState) this.context.changeState(this.context.ChangeState);
 
     }
     createDieWall(wallGroup: cc.Node) {
         var _dieWall;
 
         //if(!this.context.dieWallInstance)this.context.dieWallInstance = cc.instantiate(_dieWall)
-        GlobalTime.Instantiation.Coroutines((function*(_t){
+        GlobalTime.Instantiation.Coroutines((function* (_t) {
             yield CoroutinesType.SleepTime(0.2);
-            (function(){
-                for (var i = 0; i < 10; i++) {
-                    var c = Math.random()
-                    if (c > this.wallCreatP) {
+            for (var i = 0; i < 10; i++) {
+                var c = Math.random()
+                if (c > _t.wallCreatP) {
+                    yield CoroutinesType.SleepTime(0.5);
+                    (function(){
                         _dieWall = AssetsSystem.instance.getAssest(AssetsSystem.instance.nowGroup, "dieWall");
                         if (_dieWall) {
                             var random = Math.random();
                             var wall = _dieWall;
                             wall.setAnchorPoint(cc.v2(0, 0));
-        
+    
                             var addWidth = this.context.dieWallWidthRang * Math.random();
                             wall.width += addWidth;
                             var box = wall.getComponent(cc.PhysicsBoxCollider);
@@ -66,21 +67,21 @@ export default class Normal_ScenesState extends ScenesState {
                                 wall.position = cc.v2(this.context.wallWidth - wall.width, i * 200);
                                 wall.getComponent(DieWall).Type = WallType.Right;
                             }
-                            //延迟添加
-                            GlobalTime.Instantiation.Coroutines(function* (w, g) {
-                                yield CoroutinesType.SleepFrame(8);
-                                if (w.getParent()) debugger;
-                                g.addChild(w);
-                                w.active = true;
-                            }(wall, wallGroup))
+                            wallGroup.addChild(wall);
+                            wall.active = true;
+                            // GlobalTime.Instantiation.Coroutines(function* (w, g) {
+                            //     yield CoroutinesType.SleepFrame(8);
+                            //     if (w.getParent()) debugger;
+                            //     g.addChild(w);
+                            //     w.active = true;
+                            // }(wall, wallGroup))
                         }
-                        else
-                        {
+                        else {
                             debugger;
                         }
-                    }
+                    }).bind(_t)();
                 }
-            }).bind(_t)();
+            }
         })(this))
     }
 

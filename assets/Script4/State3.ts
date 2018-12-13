@@ -20,6 +20,7 @@ export default class CharacterState3 {
      * 附着在此状态上的状态
      */
     attachment:{[idx:string]:{ch:CharacterState3[],construct:{prototype:CharacterState3}}} = {};
+    sqs:CharacterState3[] = [];
     character:Character4 = null;
     /**
      * 被依附的状态
@@ -45,10 +46,12 @@ export default class CharacterState3 {
         if(!this.attachment[typestr])
         {
             this.attachment[typestr]= {ch:Array<CharacterState3>(cs),construct:type};
+            this.sqs.push(cs);
         }
         else
         {
             this.attachment[typestr].ch.push(cs);
+            this.sqs.push(cs);
         }
         setTimeout(()=>{
             cs.Start();
@@ -61,7 +64,11 @@ export default class CharacterState3 {
         let index = this.attachment[typestr].ch.findIndex((value:CharacterState3)=>{
             if(value===CS)return true;
         });
+        let index2 = this.sqs.findIndex((value:CharacterState3)=>{
+            if(value===CS)return true;
+        });
         this.attachment[typestr].ch.splice(index,1);
+        this.sqs.splice(index2,1);
         if(this.attachment[typestr].ch.length<1)delete this.attachment[typestr];
     }
     /**
@@ -91,35 +98,47 @@ export default class CharacterState3 {
     
     Start(){}
     onWall(stype:Wall,Op:OperatorStruct=OperatorStruct.getinstance()){
-        for(let val in this.attachment)
+        for(var i = this.sqs.length-1;i>=0;i--)
         {
-            
-            let nch = this.attachment[val].ch;
-            for(let i = nch.length-1;i>=0;i--)
-            {
-                nch[i].onWall(stype,Op);
-            }
+            this.sqs[i].onWall(stype,Op);
         }
+        // for(let val in this.attachment)
+        // {
+            
+        //     let nch = this.attachment[val].ch;
+        //     for(let i = nch.length-1;i>=0;i--)
+        //     {
+        //         nch[i].onWall(stype,Op);
+        //     }
+        // }
     }
     onPorp(ptype:Porpp,Op:OperatorStruct=OperatorStruct.getinstance()){
-        for(let val in this.attachment)
+        for(var i = this.sqs.length-1;i>=0;i--)
         {
-            let nch = this.attachment[val].ch;
-            for(let i = nch.length-1;i>=0;i--)
-            {
-                nch[i].onPorp(ptype,Op);
-            }
+            this.sqs[i].onPorp(ptype,Op);
         }
+        // for(let val in this.attachment)
+        // {
+        //     let nch = this.attachment[val].ch;
+        //     for(let i = nch.length-1;i>=0;i--)
+        //     {
+        //         nch[i].onPorp(ptype,Op);
+        //     }
+        // }
     }
     update(dt:number,Op:OperatorStruct=OperatorStruct.getinstance()){
-        for(let val in this.attachment)
+        for(var i = this.sqs.length-1;i>=0;i--)
         {
-            let nch = this.attachment[val].ch;
-            for(let i = nch.length-1;i>=0;i--)
-            {
-                nch[i].update(dt,Op);
-            }
+            this.sqs[i].update(dt,Op);
         }
+        // for(let val in this.attachment)
+        // {
+        //     let nch = this.attachment[val].ch;
+        //     for(let i = nch.length-1;i>=0;i--)
+        //     {
+        //         nch[i].update(dt,Op);
+        //     }
+        // }
     }
     onClick(v2:cc.Vec2){}
     onTouchV2(v2:cc.Vec2){}
