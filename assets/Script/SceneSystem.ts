@@ -1,4 +1,5 @@
 import BackGround2 from "./BackGround2";
+import AssetsSystem from "./System/AssestSystem";
 
 const { ccclass, property } = cc._decorator;
 //使用setparent会先移除Chile，这会导致粒子特效消失，下一步优化：讲player放在单独的node下，通过worldposition来计算局部位置
@@ -34,10 +35,25 @@ export default class SceneSystem extends cc.Component {
     start() {
         this.Init()
     }
+    get ScenesBackgound():BackGround2
+    {
+        var scene = null;
+        var node = null;
+        try
+        {
+            node = AssetsSystem.instance.getAssest("Normal","scenesBackground");
+            scene = node.getComponent(BackGround2);
+        } catch(e)
+        {
+            debugger;
+        }
+        
+        return scene;
+    }
     Init() {
         if (this.bg) {
             if (this.center == null) {
-                this.center = cc.instantiate(this.bg).getComponent(BackGround2);
+                this.center =this.ScenesBackgound;
             }
             var cnode = this.center.node;
             var w = this.width = this.bgwidth;
@@ -50,7 +66,7 @@ export default class SceneSystem extends cc.Component {
             for (var i = -1; i <= 1; i++) {
                 for (var f = -1; f <= 1; f++) {
                     if (!(i == 0 && f == 0)) {
-                        var gd = cc.instantiate(this.bg).getComponent(BackGround2);
+                        var gd = this.ScenesBackgound;
                         //创建场景内物体
                         var idx = (i + 1) * 3 + (f + 1);
                         this.createrSomething(gd, idx);
@@ -60,6 +76,7 @@ export default class SceneSystem extends cc.Component {
                             gd.node.position = cc.v2(lx + w * f, ly + h * i);
                             gd.node.setParent(this.father);
                             gd.node.setSiblingIndex(0);
+                            gd.node.active = true;
                         }
                     }
                 }
@@ -150,16 +167,19 @@ export default class SceneSystem extends cc.Component {
                 //创建新元素
                 if (!(i == 0 && f == 0)) {
                     if (!ct.ground[ri * 3 + rf]) {
-                        var gd = cc.instantiate(this.bg).getComponent(BackGround2);
+                        var gd = this.ScenesBackgound;
+                        
                         //创建场景内物体
                         var idx = ri * 3 + rf;
                         this.createrSomething(gd, idx);
                         //添加到中心场景
+                        
                         if (cc.isValid(gd, true)) {
                             ct.ground[idx] = gd;
                             gd.node.position = cc.v2(lx + this.width * f, ly + this.height * i);
                             gd.node.setParent(this.father);
                             gd.node.setSiblingIndex(0);
+                            gd.node.active = true;
                         }
                     }
 

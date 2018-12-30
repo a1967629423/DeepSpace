@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "0d9fbfa6-78b1-4a88-86e7-adecc878662d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "首页 分离素材 钟楼 月亮 (2)": {
+      "ver": "1.0.3",
+      "uuid": "fe604a5a-f1c1-4f8e-9688-100f20a66b19",
+      "rawTextureUuid": "0d9fbfa6-78b1-4a88-86e7-adecc878662d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1080,
+      "height": 1770,
+      "rawWidth": 1080,
+      "rawHeight": 1770,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

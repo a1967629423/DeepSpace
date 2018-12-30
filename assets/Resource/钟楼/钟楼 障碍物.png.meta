@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "60ce69d1-3362-49a8-bcb7-86a718dde7d9",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "钟楼 障碍物": {
+      "ver": "1.0.3",
+      "uuid": "8328ceeb-d266-4b9e-bca0-e0ad92b1ae9b",
+      "rawTextureUuid": "60ce69d1-3362-49a8-bcb7-86a718dde7d9",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 198,
+      "height": 58,
+      "rawWidth": 198,
+      "rawHeight": 58,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

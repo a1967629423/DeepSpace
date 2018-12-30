@@ -5,10 +5,28 @@ import PorpObject from "./PropObject";
 export default class State_Idle3 extends CharacterState3 {
 
     moveVec2:cc.Vec2 = cc.v2();
+    relayVec:cc.Vec2;
+    isInit:boolean = false;
     Start()
     {
         console.log("change Idle")
+        this.character.Animation.play("characterIdle");
         this.moveVec2.y = this.character.moveSpeed;
+        //this.relayVec = this.moveVec2.mul(GlobalTime.DefaultDt);
+        if(!this.isInit)this.init();
+    }
+    init()
+    {
+        this.character.node.on("moveSpeedChange",this.moveSpeedChange,this);
+        this.isInit = true;
+    }
+    moveSpeedChange(val:number)
+    {
+        this.moveVec2.y = this.character.moveSpeed+val;
+    }
+    calculateRelay(dt)
+    {
+        this.relayVec = this.moveVec2.mul(dt);
     }
     onTouchV2(v2:cc.Vec2)
     {
@@ -25,6 +43,10 @@ export default class State_Idle3 extends CharacterState3 {
         //this.character.LunchState.onWall(wall,op);
         if(op.canOperator)
         {
+            if(wall === this.character.nowWall&&wall.Collider)
+            {
+                wall.Collider.enabled = false;
+            }
             wall.Begin();
         }
     }
@@ -35,7 +57,10 @@ export default class State_Idle3 extends CharacterState3 {
     update(dt,op:OperatorStruct)
     {
         if(op.canOperator)
-        this.character.body.linearVelocity = this.moveVec2;
+        {
+            this.character.body.linearVelocity = this.moveVec2;
+        }
+        
     }
     onClick(v2:cc.Vec2)
     {
@@ -45,5 +70,9 @@ export default class State_Idle3 extends CharacterState3 {
         this.character.body.linearVelocity = cc.v2(0,0);
         this.character.changeState(this.character.LunchState);
     }
+    Quit()
+    {
+        super.Quit();
 
+    }
 }

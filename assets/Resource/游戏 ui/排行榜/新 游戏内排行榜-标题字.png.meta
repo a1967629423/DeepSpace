@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "53a862b5-7a8a-48a1-803a-5738b90b6eb8",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "新 游戏内排行榜-标题字": {
+      "ver": "1.0.3",
+      "uuid": "19054c3e-349d-410d-bfc3-34ba8e94ad10",
+      "rawTextureUuid": "53a862b5-7a8a-48a1-803a-5738b90b6eb8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1,
+      "offsetY": -4,
+      "trimX": 4,
+      "trimY": 21,
+      "width": 626,
+      "height": 228,
+      "rawWidth": 636,
+      "rawHeight": 262,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import Character4 from "./Character4";
-import AssetsName from "../Script/Tools/AssetsName";
-import AssetsSystem from "../Script/System/AssestSystem";
+import PoolObject from "./PoolObject";
 const {ccclass, property} = cc._decorator;
 export enum WallType
 {
@@ -10,13 +9,20 @@ export enum WallType
  * 标准弹簧的定义
  */
 @ccclass
-export default class Wall extends cc.Component {
+export default class Wall extends PoolObject{
     @property({type:cc.Enum(WallType)})
     Type:WallType = WallType.Left;
     SelfCollider:number = 0;
     character:Character4 = null;
+    Collider:cc.PhysicsCollider = null;
+    start()
+    {
+        super.start();
+        this.Collider = this.getComponent(cc.PhysicsCollider);
+    }
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
+        
         if(self.tag===this.SelfCollider)
         {
             var ch4 =other.node.getComponent(Character4);
@@ -34,20 +40,6 @@ export default class Wall extends cc.Component {
         //console.log(this.node.rotation);
         //console.log(direct);
         //this.character.body.linearVelocity = this.character.body.linearVelocity.add(direct.mul(1000));
-    }
-    destroy():boolean
-    {
-        var assestconf = this.getComponent(AssetsName);
-        if(AssetsSystem.instance&&assestconf)
-        {
-            AssetsSystem.instance.putAssest(assestconf.assetsGropName,assestconf.assetsType,this.node);
-            return true;
-        }
-        else
-        {
-            this.node.destroy();
-            return super.destroy();
-        }
     }
     onDestroy()
     {

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "f4ea1f62-a9cc-4b10-b4b2-b4530c636ff5",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "游戏内排行榜-按钮-再来一局": {
+      "ver": "1.0.3",
+      "uuid": "9574494c-9288-4799-bd52-af21e61f214a",
+      "rawTextureUuid": "f4ea1f62-a9cc-4b10-b4b2-b4530c636ff5",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 157,
+      "height": 157,
+      "rawWidth": 157,
+      "rawHeight": 157,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

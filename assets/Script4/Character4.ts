@@ -11,23 +11,50 @@ import PorpObject from "./PropObject";
 import State_Begin3 from "./State_Begin3";
 import State_Global from "./State_Global";
 import Until from "../Script/Tools/Until";
+import DieWall from "./DieWall";
+import GameInit from "../Script/GameInit";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class Character4 extends Character {
+    private _moveSpeed:number = 300;
+    private _lunchSpeed:number = 800;
     @property({type:cc.Node,displayName:"取消Node"})
     CancelNode:cc.Node = null;
     @property({type:cc.Node,displayName:"死亡后弹窗Node"})
     DieLayoutNode:cc.Node = null;
+    @property({type:cc.Prefab,displayName:"死亡弹窗Prefab"})
+    DieLayoutPrefab:cc.Prefab = null;
     @property({displayName:"最大生命值",step:1})
     healthMax:number = 3;
     @property({displayName:"在墙壁上的移动速度"})
-    moveSpeed:number = 300;
+    public get moveSpeed():number
+    {
+        return this._moveSpeed;
+    }
+    public set moveSpeed(val)
+    {
+        this.node.emit("moveSpeedChange",val-this._moveSpeed);
+        this._moveSpeed = val;
+    }
     @property({displayName:"发射速度"})
-    lunchSpeed:number = 900;
-    
+    public get lunchSpeed():number
+    {
+        return this._lunchSpeed;
+    }
+    public set lunchSpeed(val)
+    {
+        this.node.emit("lunchSpeedChang",val-this._lunchSpeed);
+        this._lunchSpeed = val;
+    }
+    @property({displayName:"飞行速度"})
+    flySpeed:number = 200;
+    @property({displayName:"最大移动速度"})
+    maxMoveSpeed:number = 500;
+    @property({displayName:"最大发射速度"})
+    maxLunchSpeed:number = 900;
     pauseState:boolean = false;
-
+    Animation:cc.Animation = null;
     private _nowState:CharacterState3 = null;
     private _globalState:CharacterState3 = null;
     public get globalState():CharacterState3
@@ -48,9 +75,14 @@ export default class Character4 extends Character {
     firstTouchPosition:cc.Vec2 = cc.v2(0,0);
     lunchDirect:cc.Vec2 = cc.v2(0,0);
     private _nowWall:Wall = null;
+    private _lastWall:Wall = null;
     public get nowWall()
     {
         return this._nowWall;
+    }
+    public get lastWall()
+    {
+        return this._lastWall;
     }
     private _health:number = 0;
     public get health():number
@@ -92,10 +124,13 @@ export default class Character4 extends Character {
     {
         if(Until.isValid(stype.node,true))
         {
+            if((<DieWall>stype).die===undefined)
             this._nowWall = stype;
             let op = OperatorStruct.getinstance();
             if(this._globalState)this._globalState.onWall(stype,op)
             if(this.nowState)this.nowState.onWall(stype,op);
+            if((<DieWall>stype).die===undefined)
+            this._lastWall = stype;
             op.destroy();
         }
     }
@@ -118,8 +153,16 @@ export default class Character4 extends Character {
     start()
     {
         super.start();
+        this.Animation = this.getComponent(cc.Animation);
         this.changeState(this.BeginState);
         this.node.zIndex = 1;
+        GameInit.instance.node.on("styleChangeComplete",this.upSpeed,this);
+    }
+    upSpeed()
+    {
+        //切换加速
+        if(this.moveSpeed<this.maxMoveSpeed)this.moveSpeed+=30;
+        if(this.lunchSpeed<this.maxLunchSpeed)this.lunchSpeed+=50;
     }
     update(dt)
     {
@@ -167,6 +210,10 @@ export default class Character4 extends Character {
     die()
     {
         if(this.nowState&&this._nowState!= this.DieState&&this.nowState.die())this.changeState(this.DieState);
+    }
+    onDestroy()
+    {
+        GameInit.instance.node.off("styleChangeComplete",this.upSpeed,this)
     }
 
 

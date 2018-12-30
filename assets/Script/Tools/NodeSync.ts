@@ -1,4 +1,5 @@
 import GlobalTime, { CoroutinesType } from "./GlobalTime";
+import GameInit from "../GameInit";
 
 
 // Learn TypeScript:
@@ -10,42 +11,41 @@ import GlobalTime, { CoroutinesType } from "./GlobalTime";
 // Learn life-cycle callbacks:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-enum SyncEnum
-{
-    disable,mainCamera,mainPlay
+enum SyncEnum {
+    disable, mainCamera, mainPlay
 }
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class NodeSync extends cc.Component {
     @property(cc.Node)
-    tageNode:cc.Node = null;
-    @property({type:cc.Enum(SyncEnum)})
-    SyncTypeEnum:SyncEnum = SyncEnum.disable;
+    tageNode: cc.Node = null;
+    @property({ type: cc.Enum(SyncEnum) })
+    SyncTypeEnum: SyncEnum = SyncEnum.disable;
     @property
-    Synclocation:boolean = true;
+    Synclocation: boolean = true;
     @property
-    SyncSize:boolean = false;
+    SyncSize: boolean = false;
     @property
-    workInStart:boolean = false;
+    workInStart: boolean = false;
     @property
-    negation:boolean = false;
-    onLoad()
-    {
+    workInResize: boolean = false;
+    @property
+    negation: boolean = false;
+    onLoad() {
         switch (this.SyncTypeEnum) {
             case SyncEnum.mainCamera:
                 this.tageNode = cc.Camera.main.node;
                 break;
             case SyncEnum.mainPlay:
-            break;
+                break;
             default:
                 break;
         }
     }
-    start()
-    {
+    start() {
         // var _this = this;
-        
+
         // GlobalTime.Instantiation.Coroutines((function*(){
         //     while(_this.tageNode)
         //     {
@@ -53,40 +53,55 @@ export default class NodeSync extends cc.Component {
         //         yield CoroutinesType.frame;
         //     }
         // })())
-        if(this.workInStart)
-        {
-            if(this.Synclocation)
-            {
-               this.tracePosition();
+        if (this.workInStart) {
+            if (this.Synclocation) {
+                this.tracePosition();
             }
-            if(this.SyncSize)
-            {
+            if (this.SyncSize) {
                 this.traceSize();
             }
         }
+        if (this.workInResize) {
+            if (this.Synclocation) {
+                GameInit.instance.node.on("resize", this.tracePosition, this);
+            }
+            if (this.SyncSize) {
+                GameInit.instance.node.on("resize", this.traceSize, this);
+            }
+        }
     }
-    tracePosition()
-    {
-        var po =this.node.getParent().convertToNodeSpaceAR(this.tageNode.getParent().convertToWorldSpaceAR(this.tageNode.position));
-        this.node.position =  this.negation?po.neg():po;
+    tracePosition() {
+        var parent =  this.node.getParent();
+        var tarparent = this.tageNode.getParent();
+        var po = parent.convertToNodeSpaceAR(tarparent.convertToWorldSpaceAR(this.tageNode.position));
+        this.node.position = this.negation ? po.neg() : po;
         po = null;
+        parent = null;
+        tarparent = null;
     }
-    traceSize()
-    {
+    traceSize() {
         this.node.setContentSize(this.tageNode.getContentSize());
     }
-     update (dt) {
-         if(this.tageNode&&!this.workInStart)
-         {
-             if(this.Synclocation)
-             {
+    update(dt) {
+        if (this.tageNode && !this.workInStart) {
+            if (this.Synclocation) {
                 this.tracePosition();
-             }
-             if(this.SyncSize)
-             {
-                 this.traceSize();
-             }
-            
-         }
-     }
+            }
+            if (this.SyncSize) {
+                this.traceSize();
+            }
+
+        }
+    }
+    onDestroy()
+    {
+        if(this.workInResize)
+        {
+            if(GameInit.instance)
+            {
+                GameInit.instance.node.off("resize",this.tracePosition,this);
+                GameInit.instance.node.off("resize",this.traceSize,this);
+            }
+        }
+    }
 }

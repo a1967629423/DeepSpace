@@ -69,12 +69,12 @@ export default class Until extends cc.Component {
         if(!this._viewRect)this._viewRect = cc.rect(0,0,cc.winSize.height,cc.winSize.width);
         return this._viewRect;
     }
-    public static inView(Camera:cc.Camera,obrect:cc.Rect):boolean
+    public static inView(obrect:cc.Rect):boolean
     {
         var CameraViewRect = this.ViewRect;
         //CameraViewRect.center = Camera.node.getParent().convertToWorldSpaceAR(Camera.node.position);
         //相机本来就是相对于世界中心
-        CameraViewRect.center = Camera.node.position;
+        CameraViewRect.center = cc.Camera.main.node.position;
         return CameraViewRect.intersects(obrect);
     }
     public static isValid(node:cc.Node,sw:boolean = false)

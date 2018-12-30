@@ -1,21 +1,10 @@
 import GlobalTime, { CoroutinesType } from "./Tools/GlobalTime";
 import Until from "./Tools/Until";
-import PorpObject from "../Script4/PropObject";
-// Learn TypeScript:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
+import PoolObject from "../Script4/PoolObject";
 
 const {ccclass, property} = cc._decorator;
-//实现背景图变化接口
-//实现无限大功能
 @ccclass
-export default class BackGround2 extends cc.Component {
+export default class BackGround2 extends PoolObject {
     
     @property(cc.Label)
     label: cc.Label = null;
@@ -27,6 +16,7 @@ export default class BackGround2 extends cc.Component {
     changeNormal:boolean = false;
     ca:cc.Camera;
     start () {
+        super.start();
         this.node.zIndex = 5;
         this.ca = cc.Camera.findCamera(this.node);
     }
@@ -52,50 +42,53 @@ export default class BackGround2 extends cc.Component {
          var _this = this;
         
         GlobalTime.Instantiation.Coroutines((function*(){
-            while(Until.inView(_this.ca,cc.rect(_this.node.x,_this.node.y,2000,2000)))
+            while(Until.inView(cc.rect(_this.node.x,_this.node.y,2000,2000)))
             {
                 yield CoroutinesType.second;
             }
+            yield CoroutinesType.SleepTime(0.4);
             console.log("background to destory");
-            //先等上面的墙壁生成完毕
-            yield CoroutinesType.SleepTime(1.6);
             //每次循环一半
-            var wallArr = _this.getComponentsInChildren("Wall");
-            var propArr = _this.getComponentsInChildren(PorpObject);
-            var wi = 0;
-            var pi = 0;
-            var halfWi = wallArr.length/2;
-            var halfPi = propArr.length/2;
-            cc.director.once(cc.Director.EVENT_AFTER_DRAW,()=>{
-                for(;wi<halfWi;wi++)
+            var poolobj = _this.getComponentsInChildren(PoolObject);
+            GlobalTime.Instantiation.Coroutines((function*(){
+                for(var key in poolobj)
                 {
-                    wallArr[wi].destroy();
+                    yield CoroutinesType.SleepTime(0.2);
+                    if(poolobj[key]!==_this)poolobj[key].destroy();
                 }
-                for(;pi<halfPi;pi++)
-                {
-                    propArr[pi].destroy();
-                }
-            });
-            //等一会
-            yield CoroutinesType.SleepTime(0.2);
-            cc.director.once(cc.Director.EVENT_AFTER_DRAW,()=>{
-                for(;wi<wallArr.length;wi++)
-                {
-                    wallArr[wi].destroy();
-                }
-                for(;pi<propArr.length;pi++)
-                {
-                    propArr[pi].destroy();
-                }
-            })
-            //最后销毁
-            yield CoroutinesType.SleepTime(0.3);
-            _this.node.destroy();
+                poolobj = null;
+                yield CoroutinesType.SleepTime(0.2);
+                _this.destroy();
+                _this = null;
+            })());
+
         })());
+    }
+    unuse()
+    {
+        this.ground.length = 0;
     }
     onDestroy()
     {
         this.ground = null;
+    }
+    destroy():boolean
+    {
+        var result = super.destroy();
+        if(this.node.childrenCount>0)
+        {
+            //debugger;
+            //有可能会删除不干净
+            // this.node.getComponentsInChildren(PoolObject).forEach((val)=>{
+            //     if(val!==this)val.destroy();
+            // })
+            this.node.removeAllChildren()
+        }
+        if(this.node.parent)
+        {
+            this.node.removeFromParent(true);
+        }
+        return result;
     }
 
     // update (dt) {}

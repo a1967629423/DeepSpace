@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "e73a8ff7-e96a-4a1f-80e4-1e57c0246d51",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "教学楼 特殊道具": {
+      "ver": "1.0.3",
+      "uuid": "85a1f835-4d8d-49e6-afa7-3950302f487a",
+      "rawTextureUuid": "e73a8ff7-e96a-4a1f-80e4-1e57c0246d51",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 270,
+      "height": 277,
+      "rawWidth": 270,
+      "rawHeight": 277,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

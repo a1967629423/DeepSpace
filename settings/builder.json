@@ -1,11 +1,20 @@
 {
+  "android-instant": {
+    "REMOTE_SERVER_ROOT": "",
+    "host": "",
+    "pathPattern": "",
+    "recordPath": "",
+    "scheme": "https",
+    "skipRecord": false
+  },
   "appKey": "",
   "appSecret": "",
   "encryptJs": true,
   "excludeScenes": [
     "16ab9a86-d057-41b4-8cdc-8092a65f7680",
     "cf2756df-c298-4105-95e0-a1027d9acec5",
-    "07afd266-6eea-4daf-852e-849f8425c5ef"
+    "07afd266-6eea-4daf-852e-849f8425c5ef",
+    "df2ae8b4-fa6a-471c-8d37-a995f9fa9d6d"
   ],
   "fb-instant-games": {},
   "includeAnySDK": false,

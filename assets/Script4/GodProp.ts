@@ -14,7 +14,7 @@ export default class GodtProp extends PorpObject {
     // onLoad () {}
     Begin(): boolean {
         //默认加分
-        GradeManage.instance.addGrade(this.Grade);
+        //GradeManage.instance.addGrade(this.Grade);
         this.character.health++;
         return super.Begin();
     }

@@ -16,7 +16,10 @@
   "excluded-modules": [
     "ParticleSystem",
     "TiledMap",
-    "DragonBones"
+    "Spine Skeleton",
+    "DragonBones",
+    "StudioComponent",
+    "Native NetWork"
   ],
   "fit-height": true,
   "fit-width": false,

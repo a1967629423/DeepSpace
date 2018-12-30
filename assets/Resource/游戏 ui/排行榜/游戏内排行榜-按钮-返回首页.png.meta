@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "c3919f83-9a1d-49f3-b41b-1fccc36b3a4d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "游戏内排行榜-按钮-返回首页": {
+      "ver": "1.0.3",
+      "uuid": "fcf1eaa6-b704-4498-a196-cf8bf64703e9",
+      "rawTextureUuid": "c3919f83-9a1d-49f3-b41b-1fccc36b3a4d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 157,
+      "height": 157,
+      "rawWidth": 157,
+      "rawHeight": 157,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

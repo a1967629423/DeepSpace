@@ -7,6 +7,12 @@
   "sample": 60,
   "speed": 0.2,
   "wrapMode": "2",
-  "curveData": {},
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": []
+      }
+    }
+  },
   "events": []
 }

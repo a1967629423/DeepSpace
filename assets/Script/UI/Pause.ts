@@ -39,13 +39,14 @@ export default class Pause extends cc.Component {
             {
                 this.ch4.pause();
                 GlobalTime.Instantiation.pause();
-                MusicSystem.instance.pause();
+                //MusicSystem.instance.pause();
             }
             else
             {
                 this.ch4.resume();
                 GlobalTime.Instantiation.resume();
-                MusicSystem.instance.resume();
+                //MusicSystem.instance.resume();
+                
             }
             this.nowState = !this.nowState;
         }

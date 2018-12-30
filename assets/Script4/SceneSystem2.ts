@@ -67,6 +67,7 @@ export default class SceneSystem2 extends SceneSystem {
         super();
         this.normalState = new Normal_ScenesState(this);
         this.ChangeState = new Change_ScenesState(this);
+        
     }
     /**
      * 将资源从组中取出
@@ -77,16 +78,21 @@ export default class SceneSystem2 extends SceneSystem {
     {
         return  AssetsSystem.instance.getAssest(groupName,type);
     }
+    onLoad()
+    {
+        this.changeState(this.normalState);
+    }
     start()
     {
         super.start();
-        this.changeState(this.normalState);
+        
     }
     update(dt)
     {
         super.update(dt);
         if(this._nowState)this._nowState.update(dt);
     }
+    static myi = 0;
     createrSomething(bg:BackGround2,idx:number)
     {
         //因为setTimeOut调整执行顺序所以不能在这使用
@@ -107,20 +113,17 @@ export default class SceneSystem2 extends SceneSystem {
             wall.addChild(DieWall);
             bg.node.addChild(wall);
             //生成墙壁
-            setTimeout(()=>{
-                this.nowCreateBackground = bg;
-                this.createWall(RoundWall);
-                //生成死亡墙
-                this.createDieWall(DieWall);
-                //不生成掉落物品
-                //this.createDieObjectManage(bg);
-                //生成道具
-                this.createPropManage(bg);
-            });           
+            this.nowCreateBackground = bg;
+            this.createWall(RoundWall);
+            //生成死亡墙
+            this.createDieWall(DieWall);
+            //不生成掉落物品
+            //this.createDieObjectManage(bg);
+            //生成道具
+            this.createPropManage(bg);           
         }
         else
         {
-            bg.node.destroy();
             bg.destroy();
         }
 

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "fa32c001-f2b9-4fcb-8bb5-b420e6d16a3f",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "钟楼 特殊道具": {
+      "ver": "1.0.3",
+      "uuid": "e6dbc8ab-96f6-4f59-9803-5d35140d2d88",
+      "rawTextureUuid": "fa32c001-f2b9-4fcb-8bb5-b420e6d16a3f",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 194,
+      "height": 245,
+      "rawWidth": 194,
+      "rawHeight": 245,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

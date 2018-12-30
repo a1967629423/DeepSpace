@@ -5,14 +5,28 @@ export class OperatorStruct
 {
     public canOperator:boolean = true;
     public operatorInformation:any = Object.create(null);
+    public static cachesOperator = null;
     public static getinstance()
     {
-        return new OperatorStruct();
+        //角色只有一个，所以只有一个Operator
+        let op;
+        if(!this.cachesOperator)op = new OperatorStruct();
+        else
+        {
+            op = this.cachesOperator;
+            this.cachesOperator = null;
+        }
+        return op;
+    }
+    constructor()
+    {
+        if(!OperatorStruct.cachesOperator)OperatorStruct.cachesOperator = this;
     }
     destroy()
     {
-        this.canOperator = null;
-        this.operatorInformation = null;
+        this.canOperator = true;
+        this.operatorInformation = Object.create(null);
+        OperatorStruct.cachesOperator = this;
     }
 }
 export default class CharacterState3 {

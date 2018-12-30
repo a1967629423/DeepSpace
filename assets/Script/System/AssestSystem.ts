@@ -1,5 +1,6 @@
 import AssetsName from "../Tools/AssetsName";
 import GameInit from "../GameInit";
+import PoolObject from "../../Script4/PoolObject";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -19,7 +20,7 @@ export default class AssetsSystem extends cc.Component {
     private static _instance:AssetsSystem = null;
     public static get instance():AssetsSystem
     {
-        if(!this._instance)this._instance = cc.find("System/AssestSystem").getComponent(AssetsSystem);
+        if(!this._instance)this._instance = cc.director.getScene().getChildByName("AssetsSystem").getComponent(AssetsSystem);
         return this._instance;
     }
     @property([cc.Prefab])
@@ -36,6 +37,7 @@ export default class AssetsSystem extends cc.Component {
     }
     onLoad()
     {
+        cc.game.addPersistRootNode(this.node);
         this.Assets.forEach(this.initAssets.bind(this));
         let reg = /(?!;)\S+?(?=;)/g;
         this.Groups = this.Groups___.match(reg);
@@ -48,13 +50,22 @@ export default class AssetsSystem extends cc.Component {
         {
             if(this._assetsGroup[assets.assetsGropName])
             {
+                var pool:cc.NodePool;
                 if(this._assetsGroup[assets.assetsGropName][assets.assetsType])
                 {
+                    console.warn("出现重复的包");
                     this._assetsGroup[assets.assetsGropName][assets.assetsType].clear();
+                    this._assetsGroup[assets.assetsGropName][assets.assetsType] = null;
+                    pool =assets.getComponent(PoolObject)?new cc.NodePool(PoolObject):new cc.NodePool;
+                    for(var i =0;i<assets.assetsInsCout;i++)
+                    {
+                        pool.put(cc.instantiate(cn));
+                    }
+                    this._assetsGroup[assets.assetsGropName][assets.assetsType] = pool;
                 }
                 else
                 {
-                    var pool = new cc.NodePool();
+                    pool =assets.getComponent(PoolObject)?new cc.NodePool(PoolObject):new cc.NodePool;
                     for(var i =0;i<assets.assetsInsCout;i++)
                     {
                         pool.put(cc.instantiate(cn));
@@ -81,10 +92,11 @@ export default class AssetsSystem extends cc.Component {
      */
     getAssest(groupName:string,type:string):cc.Node
     {
-        //console.log("get Assest type: "+type);
+        //console.log("get Assest type: "+type+" group: "+groupName);
         if(this._assetsGroup[groupName]&&this._assetsGroup[groupName][type])
         {
-            let node = this._assetsGroup[groupName][type].get();
+            //console.log(type+ " size "+this._assetsGroup[groupName][type].size())
+            let node = this._assetsGroup[groupName][type].get()
             // if(node)setTimeout(((n)=>{
             //     return ()=>{
             //         n.emit("poolStart");
@@ -103,13 +115,28 @@ export default class AssetsSystem extends cc.Component {
         if(this._assetsGroup[groupName]&&this._assetsGroup[groupName][type])
         {
             //console.log(type+ " size "+this._assetsGroup[groupName][type].size())
-            node.emit("poolDestory");
+            //node.emit("poolDestory");
             this._assetsGroup[groupName][type].put(node);
         }
     }
     start () {
-        GameInit.instance.node.once("gameEnd",()=>{
-            AssetsSystem._instance = null;
+        GameInit.rootNode.on(GameInit.GameEnd,()=>{
+            this.nowGroupindex = 0;
+            // AssetsSystem._instance = null;
+            // this.Assets = null;
+            // for(var key1 in this._assetsGroup)
+            // {
+            //     for(var key2 in  this._assetsGroup[key1])
+            //     {
+            //         this._assetsGroup[key1][key2].clear();
+            //         this._assetsGroup[key1][key2] = null;
+            //     }
+            //     this._assetsGroup[key1] = null;
+            // }
+            // this._assetsGroup = null;
+            // this.Groups = null;
+            // this.Groups___ = null;
+
         })
     }
 

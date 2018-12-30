@@ -1,14 +1,16 @@
-import DieObject from "./DieObject";
 import Character4 from "./Character4";
-import AssetsName from "../Script/Tools/AssetsName";
-import AssetsSystem from "../Script/System/AssestSystem";
+import PoolObject from "./PoolObject";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class PorpObject extends cc.Component  {
+export default class PorpObject extends PoolObject {
     character:Character4 = null;
     SelfCollider:number = 0;
+    start()
+    {
+        super.start();
+    }
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
         if(self.tag===this.SelfCollider)
@@ -27,20 +29,6 @@ export default class PorpObject extends cc.Component  {
     {
         this.destroy();
         return true;
-    }
-    destroy():boolean
-    {
-        var assestconf = this.getComponent(AssetsName);
-        if(AssetsSystem.instance&&assestconf)
-        {
-            AssetsSystem.instance.putAssest(assestconf.assetsGropName,assestconf.assetsType,this.node);
-            return true;
-        }
-        else
-        {
-            this.node.destroy();
-            return super.destroy();
-        }
     }
     onDestroy()
     {

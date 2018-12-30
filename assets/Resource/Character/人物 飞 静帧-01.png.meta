@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "0d38f859-9175-4c69-8446-4493b29a3c29",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "人物 飞 静帧-01": {
+      "ver": "1.0.3",
+      "uuid": "febb3f6d-53bf-46b6-923b-e40e435b2f70",
+      "rawTextureUuid": "0d38f859-9175-4c69-8446-4493b29a3c29",
+      "trimType": "auto",
+      "trimThreshold": 0,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 512,
+      "height": 512,
+      "rawWidth": 512,
+      "rawHeight": 512,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

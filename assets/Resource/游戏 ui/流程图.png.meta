@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "d86e2dbb-b65e-472c-b97b-f10da5e55d1a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "流程图": {
+      "ver": "1.0.3",
+      "uuid": "f0b8df9b-a96a-4059-ad05-943979d57491",
+      "rawTextureUuid": "d86e2dbb-b65e-472c-b97b-f10da5e55d1a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1294,
+      "height": 960,
+      "rawWidth": 1294,
+      "rawHeight": 960,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

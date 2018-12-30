@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "e19fcbb2-0707-4c9a-b167-fcb2954357ce",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "首页 分离素材 19攀登(1)": {
+      "ver": "1.0.3",
+      "uuid": "77a0330c-1a44-4d86-98a4-9033d92785d9",
+      "rawTextureUuid": "e19fcbb2-0707-4c9a-b167-fcb2954357ce",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 10.5,
+      "offsetY": -10,
+      "trimX": 26,
+      "trimY": 40,
+      "width": 566,
+      "height": 150,
+      "rawWidth": 597,
+      "rawHeight": 210,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

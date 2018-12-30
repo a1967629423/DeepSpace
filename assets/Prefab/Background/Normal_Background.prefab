@@ -257,6 +257,7 @@
     "Synclocation": false,
     "SyncSize": false,
     "workInStart": false,
+    "workInResize": false,
     "negation": false,
     "_id": ""
   },
@@ -324,7 +325,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -98,
+      "y": -134,
       "z": 0
     },
     "_scale": {
@@ -389,6 +390,7 @@
     "Synclocation": true,
     "SyncSize": false,
     "workInStart": false,
+    "workInResize": false,
     "negation": true,
     "slowRate": 0.018,
     "_id": ""
@@ -446,7 +448,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -206,
+      "y": -242,
       "z": 0
     },
     "_scale": {
@@ -511,6 +513,7 @@
     "Synclocation": true,
     "SyncSize": false,
     "workInStart": false,
+    "workInResize": false,
     "negation": true,
     "slowRate": 0.025,
     "_id": ""
@@ -740,6 +743,7 @@
     "_enabled": true,
     "assetsGropName": "Normal",
     "assetsType": "background",
+    "assetsInsCout": 1,
     "_id": ""
   },
   {

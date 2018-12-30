@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "fe27057c-af84-4df9-8eff-a06f6ad4fe35",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "三期墙面 右": {
+      "ver": "1.0.3",
+      "uuid": "23552ac1-d72b-4eb9-8928-a6ff464a034c",
+      "rawTextureUuid": "fe27057c-af84-4df9-8eff-a06f6ad4fe35",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 301,
+      "height": 686,
+      "rawWidth": 301,
+      "rawHeight": 686,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

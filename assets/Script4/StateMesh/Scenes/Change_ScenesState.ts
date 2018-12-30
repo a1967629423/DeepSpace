@@ -22,8 +22,8 @@ export default class Change_ScenesState extends Normal_ScenesState {
     }
     createWall(wallGroup:cc.Node)
     {
-        var wallL = this.context.getAssest(this.context.nowGroup,"wall");
-        var wallR = this.context.getAssest(this.context.nowGroup,"wall");
+        var wallL = this.context.getAssest(AssetsSystem.instance.nowGroup,"wall");
+        var wallR = this.context.getAssest(AssetsSystem.instance.nowGroup,"wall");
         if(wallL&&wallR)
         {
             
@@ -34,15 +34,15 @@ export default class Change_ScenesState extends Normal_ScenesState {
             left.anchorX = 1;
             var lbox = left.getComponent(cc.PhysicsBoxCollider);
             lbox.offset.x = Math.abs(lbox.offset.x)*-1;
+            lbox.enabled = true;
             right.getComponent(Wall).Type = WallType.Right;
             right.x= this.context.rX;
             right.anchorX = 0;
             var rbox = right.getComponent(cc.PhysicsBoxCollider);
             rbox.offset.x = Math.abs(rbox.offset.x);
+            rbox.enabled = true;
             left.active = true;
             right.active = true;
-
-
             var ltitle = <Title>left.getComponent("Title");
             var rtitle = <Title>right.getComponent("Title");
             if(ltitle&&rtitle)
@@ -50,27 +50,40 @@ export default class Change_ScenesState extends Normal_ScenesState {
                 left.removeComponent("Title");
                 right.removeComponent("Title");
                 var cout = ltitle.cout;
+                var x_cout = ltitle.x_cout;
                 var lremix = <Remix>left.addComponent("Remix");
                 var rremix = <Remix>right.addComponent("Remix");
                 if(lremix&&rremix)
                 {
-                    this.context.nowGroupindex++;
-                    var wnode = this.context.getAssest(this.context.nowGroup,"wall");
+                    AssetsSystem.instance.nowGroupindex++;
+                    var wnode = this.context.getAssest(AssetsSystem.instance.nowGroup,"wall");
                     rremix.targetTex = wnode.getComponent(cc.Sprite).spriteFrame.getTexture();
                     lremix.targetTex = wnode.getComponent(cc.Sprite).spriteFrame.getTexture();
-                    AssetsSystem.instance.putAssest(this.context.nowGroup,"wall",wnode);
+                    AssetsSystem.instance.putAssest(AssetsSystem.instance.nowGroup,"wall",wnode);
                     lremix.cout = cout;
                     rremix.cout = cout;
-                    left.once("poolDestory",()=>{
+                    lremix.x_cout = x_cout;
+                    rremix.x_cout = x_cout;
+                    left.getComponent(Wall).listenReuse=()=>{
                         lremix.destroy();
+                        var wnode = this.context.getAssest(AssetsSystem.instance.nowGroup,"wall");
+                        left.getComponent(cc.Sprite).spriteFrame.setTexture(wnode.getComponent(cc.Sprite).spriteFrame.getTexture());
                         var title = <Title>left.addComponent("Title");
                         title.cout = cout;
-                    });
-                    right.once("poolDestory",()=>{
+                        title.x_cout = x_cout;
+                        AssetsSystem.instance.putAssest(AssetsSystem.instance.nowGroup,"wall",wnode);
+                        left.getComponent(Wall).listenReuse = null;
+                    }
+                    right.getComponent(Wall).listenReuse=()=>{
                         rremix.destroy();
+                        var wnode = this.context.getAssest(AssetsSystem.instance.nowGroup,"wall");
+                        right.getComponent(cc.Sprite).spriteFrame.setTexture(wnode.getComponent(cc.Sprite).spriteFrame.getTexture());
                         var title =  <Title>right.addComponent("Title");
                         title.cout = cout;
-                    });
+                        title.x_cout = x_cout;
+                        AssetsSystem.instance.putAssest(AssetsSystem.instance.nowGroup,"wall",wnode);
+                        right.getComponent(Wall).listenReuse = null;
+                    }
                 }
             }
             GlobalTime.Instantiation.Coroutines((function* (l, w) {

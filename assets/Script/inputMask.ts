@@ -1,4 +1,5 @@
 import Character,{ITouchEvent} from "./Character";
+import GameInit from "./GameInit";
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -53,13 +54,18 @@ export default class InputMask extends cc.Component {
         }
 
      }
-
     start () {
         this.node.on(cc.Node.EventType.TOUCH_START,this.clickFun,this);
         this.node.on(cc.Node.EventType.TOUCH_START,this.touchFun,this);
         this.node.on(cc.Node.EventType.TOUCH_MOVE,this.touchFun,this);
         this.node.on(cc.Node.EventType.TOUCH_END,this.endTouchFun,this);
-        
+        GameInit.instance.node.on("resize",this.WindowResize,this);
+    }
+    WindowResize()
+    {
+        var frame = cc.winSize;
+        this.node.width = frame.width
+        this.node.height = frame.height;
     }
     touchFun(touchEvent:cc.Event.EventTouch)
     {
@@ -80,13 +86,9 @@ export default class InputMask extends cc.Component {
      update (dt:Number) 
      {
          //缩放mask防止修改camerazoom导致mask过小
-         var ov2 = cc.v2(this.node.getContentSize().width,this.node.getContentSize().height);
+         
          if(!this.mainCamera){this.mainCamera = cc.Camera.findCamera(this.node);}
-         if(this.controlPoint)
-         {
-            this.controlPoint.convertToWorldSpace(this.controlPoint.position);
-            this.mainCamera.getWorldToCameraPoint(this.controlPoint.convertToWorldSpace(this.controlPoint.position),ov2);
-         }
+
          //对zoomRatio取反
          var m = (1/this.mainCamera.zoomRatio);
          this._zoom = m;
@@ -97,6 +99,13 @@ export default class InputMask extends cc.Component {
          {
             if(this.isTouch)
             {
+                var ov2 = cc.v2(this.node.getContentSize().width/2,this.node.getContentSize().height/2);
+                // if(this.controlPoint)
+                // {
+                //    debugger;
+                //    //this.controlPoint.convertToWorldSpace(this.controlPoint.position);
+                //    this.mainCamera.getWorldToCameraPoint(this.controlPoint.convertToWorldSpace(this.controlPoint.position),ov2);
+                // }
                this.player.onTouchLocal(this.TouchPosition);
                this.player.onTouchV2(this.TouchPosition.sub(ov2).mulSelf(0.5));
             }
@@ -116,8 +125,11 @@ export default class InputMask extends cc.Component {
      onDestroy()
      {
         this.node.off(cc.Node.EventType.TOUCH_START,this.touchFun,this)
+        this.node.off(cc.Node.EventType.TOUCH_START,this.clickFun,this)
         this.node.off(cc.Node.EventType.TOUCH_MOVE,this.touchFun,this)
         this.node.off(cc.Node.EventType.TOUCH_END,this.endTouchFun,this)
+        if(GameInit.instance)
+        GameInit.instance.node.off("resize",this.WindowResize,this);
         InputMask.clearInstantiation(); 
      }
 }

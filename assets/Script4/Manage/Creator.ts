@@ -1,4 +1,7 @@
 import GlobalTime, { CoroutinesType } from "../../Script/Tools/GlobalTime";
+import AssetsName from "../../Script/Tools/AssetsName";
+import AssetsSystem from "../../Script/System/AssestSystem";
+import PoolObject from "../PoolObject";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -13,14 +16,20 @@ import GlobalTime, { CoroutinesType } from "../../Script/Tools/GlobalTime";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class Creator extends cc.Component {
+export default class Creator extends PoolObject {
     @property({ step: 1 })
     generateNumber: number = 0;
+    assestconf:AssetsName = null;
     protected prefab_ins: cc.Node;
     protected childNumber: number = 0;
+    fenshu:number = 1.0;
     start()
     {
-        
+        super.start();
+        this.assestconf = this.getComponent(AssetsName);   
+    }
+    reuse()
+    {
         if (this.generateNumber > 0) {
             this.Init();
             this.childNumber = this.generateNumber;
@@ -28,11 +37,7 @@ export default class Creator extends cc.Component {
                 for (var i = 0; i < _t.generateNumber; i++) {
                     yield CoroutinesType.SleepTime(0.3);
                     (function(){
-                        let childNode:cc.Node = this.generateObject(i);
-                        if(childNode)
-                        {
-                            childNode.once("destroy",this.childDestroy,this);                    
-                        }
+                        this.generateObject(i);
                     }).bind(_t)();
                 }
             })(this))
@@ -41,7 +46,6 @@ export default class Creator extends cc.Component {
         else {
             this.node.destroy();
         }
-        
     }
     Init()
     {
@@ -54,12 +58,11 @@ export default class Creator extends cc.Component {
     childDestroy() {
         this.childNumber--;
         if (this.childNumber <= 0) {
-            setTimeout(()=>{
-                if(cc.isValid(this.node))
-                {
-                    this.node.destroy();
-                }     
-            })
+            if(cc.isValid(this.node))
+            {
+                
+                this.destroy();
+            }
         }
     }
     onDestroy()

@@ -20,4 +20,18 @@
             sprite._renderData._material = Material;
         }
     }
+    w.UnRegMaterial=function(sprite,Material)
+    {
+        //sprite._material = null;
+        //sprite._renderData._material = null;
+        Material._texture = null;
+        Material._effect = null;
+        Material._mainTech = null;
+        Material.prototype = null;
+        if(sprite._renderData&&sprite._renderData._material)sprite._renderData._material = null;
+        if(sprite._material)sprite._material = null;
+    }
+    w.addEventListener("popstate",function(e){
+        cc.find("System/GameInit").getComponent("GameInit").popstate();
+    })
 })(window)

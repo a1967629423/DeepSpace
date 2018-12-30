@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "8471dc4c-0378-465c-969d-cfd73cbfd49e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "护盾 道具": {
+      "ver": "1.0.3",
+      "uuid": "452aa64a-789e-4f46-98e6-4593cac7bb01",
+      "rawTextureUuid": "8471dc4c-0378-465c-969d-cfd73cbfd49e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 236,
+      "height": 235,
+      "rawWidth": 236,
+      "rawHeight": 235,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -68,7 +68,7 @@ export default class Character extends cc.Component implements ITouchEvent {
      * 飞行的距离
      */
     public get Distance() : number {
-        return this.distance;
+        return this.distance/10;
     }
     /**
      * 当前的能量
