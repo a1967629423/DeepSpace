@@ -12659,7 +12659,7 @@ declare module cc {
 		!#zh
 		获取碰撞体的世界坐标系下的包围盒 
 		*/
-		getAABB(): void;	
+		getAABB(): Rect;	
 	}	
 	/** undefined */
 	export class PhysicsPolygonCollider extends PhysicsCollider implements Collider.Polygon {		

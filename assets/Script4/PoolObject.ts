@@ -17,6 +17,7 @@ export default class PoolObject extends cc.Component {
     }
     listenUnuse:Function = null;
     listenReuse:Function= null;
+    isUse:boolean = true;
     unuse()
     {
         if(this.listenUnuse)

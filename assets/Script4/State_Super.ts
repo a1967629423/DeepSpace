@@ -1,9 +1,10 @@
-import CharacterState3, { OperatorStruct } from "./State3";
+import CharacterState3 from "./State3";
 import Wall from "./Wall";
 import DieWall from "./DieWall";
 import GlobalTime, { CoroutinesType } from "../Script/Tools/GlobalTime";
 import PorpObject from "./PropObject";
 import DieProp from "./DieProp ";
+import { OperatorStruct } from "./StateMachine/State";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -43,19 +44,23 @@ export default class State_Super extends CharacterState3 {
             {
                 op.canOperator =false;
                 op.operatorInformation.super = this;
+                wall.node.active = false;
                 wall.destroy();
+                
             }
         }
     }
-    onPorp(tprop:PorpObject,op:OperatorStruct)
+    onProp(tprop:PorpObject,op:OperatorStruct)
     {
         if(op.canOperator)
         {
-            if((<DieProp>tprop).die!==undefined)
+            if((<DieProp>tprop).die !== undefined)
             {
                 op.canOperator = false;
                 op.operatorInformation.super = this;
+                tprop.node.active = false;
                 tprop.destroy();
+                
             }
         }
     }

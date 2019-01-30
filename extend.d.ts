@@ -38,5 +38,6 @@ declare var GameServer:{
 	game_openDialog(),
 	game_openIntro(),
 	game_getTime():number,
-	game_init(Function)
+	game_init(func:Function)
+	game_getRow(callback:(res:{success:boolean,row:string,error:string})=>void)
 }

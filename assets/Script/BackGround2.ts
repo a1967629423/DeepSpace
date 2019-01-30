@@ -46,7 +46,7 @@ export default class BackGround2 extends PoolObject {
             {
                 yield CoroutinesType.second;
             }
-            yield CoroutinesType.SleepTime(0.4);
+            yield CoroutinesType.SleepTime(0.2);
             console.log("background to destory");
             //每次循环一半
             var poolobj = _this.getComponentsInChildren(PoolObject);

@@ -26,6 +26,7 @@ export default class StartButton extends cc.Component {
             if(this.chang)
             {
                 GameServer.game_init((res:{success:boolean,error:string})=>{
+                    //console.log("loadScenes");
                     if(res.success)
                     {
                         this.changeScenes();
@@ -39,6 +40,7 @@ export default class StartButton extends cc.Component {
         }
         else
         {
+            alert("检测到脚本文件并未完全装载，这种情况下成绩将不会被计入排行榜，请刷新重试");
             this.changeScenes();
         }
 
@@ -53,7 +55,6 @@ export default class StartButton extends cc.Component {
         }
         else
         {
-            GameInit.rootDataSave.setDataToNode(DataSave.inGame,true);
             this.chang.change(null);
         }
     }

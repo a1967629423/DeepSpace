@@ -1,10 +1,11 @@
 import BackGround2 from "./BackGround2";
 import AssetsSystem from "./System/AssestSystem";
+import StateMachine from "../Script4/StateMachine/StateMachine";
 
 const { ccclass, property } = cc._decorator;
 //使用setparent会先移除Chile，这会导致粒子特效消失，下一步优化：讲player放在单独的node下，通过worldposition来计算局部位置
 @ccclass
-export default class SceneSystem extends cc.Component {
+export default class SceneSystem extends StateMachine {
 
     @property(cc.Label)
     label: cc.Label = null;

@@ -1,19 +1,15 @@
-import CharacterState3, { OperatorStruct } from "./State3";
+import CharacterState3 from "./State3";
 import Wall from "./Wall";
 import DieWall from "./DieWall";
 import State_Super from "./State_Super";
+import { OperatorStruct } from "./StateMachine/State";
 //护盾
 export default class State_God extends CharacterState3 {
     SuperS:State_Super;
     Start()
     {
-        this.character.node.on("healthChange",(val)=>{
-            if(!this.SuperS&&val>0)
-            {
-                this.SuperS = this.character.globalState.attaching(State_Super);
-                this.SuperS.continual = true;
-            }
-        })
+        this.SuperS = this.context.attachState(State_Super);
+        this.SuperS.continual = true;
     }
     onWall(wall:Wall,op:OperatorStruct)
     {
@@ -25,16 +21,21 @@ export default class State_God extends CharacterState3 {
         {
             if(op.operatorInformation.super===this.SuperS)
             {
-                this.character.health--;
                 if(this.character.health<=0)
                 {
-                    this.SuperS.Quit();
-                    this.SuperS = null;
+                    op.canOperator = true;
+
                 }
+                else
+                {
+                    this.character.health--;
+                }
+                
+
             }
         }
     }
-    onPorp(p,op:OperatorStruct)
+    onProp(p,op:OperatorStruct)
     {
         this.caHealth(op);
     }

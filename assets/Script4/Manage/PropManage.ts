@@ -17,11 +17,12 @@ export default class PropManage extends Creator {
     reuse()
     {
         this.PropType = [
-            {style:"Normal",type:"prop",p:0.4+(this.fenshu/1000)%1},
+            {style:AssetsSystem.instance.nowGroup,type:"prop",p:0.4+(this.fenshu/1000)%1},
             {style:"Normal",type:"godProp",p:0.1},
             {style:"Normal",type:"flyProp",p:0.1},
-            {style:"Normal",type:"luckProp",p:0.03+(this.fenshu/10000)%0.09},
+            //{style:"Normal",type:"luckProp",p:0.03+(this.fenshu/10000)%0.09},
             {style:"Normal",type:"dieProp",p:0.1},
+            {style:"Normal",type:"boomProp",p:0.1},
         ]
         super.reuse();
     }
@@ -46,7 +47,6 @@ export default class PropManage extends Creator {
                     
                     
                     let ty =this.PropType[f];
-                    if(f === 0)ty.style = AssetsSystem.instance.nowGroup;
                     po = AssetsSystem.instance.getAssest(ty.style,ty.type).getComponent(PorpObject);
                     x = Math.random()*(wallWidth-po.node.width*po.node.anchorX-stateWallWidth*2)+po.node.width*po.node.anchorX+stateWallWidth;
                     break;

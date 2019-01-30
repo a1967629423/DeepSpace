@@ -1,6 +1,6 @@
 import Character from "../Script/Character";
 import Wall from "./Wall";
-import CharacterState3, { OperatorStruct } from "./State3";
+import CharacterState3 from "./State3";
 import State_Idle3 from "./State_Idle3";
 import State_Lunch3 from "./State_Lunch3";
 import State_Drag from "./State_Drag";
@@ -13,6 +13,8 @@ import State_Global from "./State_Global";
 import Until from "../Script/Tools/Until";
 import DieWall from "./DieWall";
 import GameInit from "../Script/GameInit";
+import { OperatorStruct } from "./StateMachine/State";
+import State_God from "./State_God";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -55,14 +57,18 @@ export default class Character4 extends Character {
     maxLunchSpeed:number = 900;
     pauseState:boolean = false;
     Animation:cc.Animation = null;
-    private _nowState:CharacterState3 = null;
     private _globalState:CharacterState3 = null;
+    public get nowState():CharacterState3
+    {
+        return <CharacterState3>super.nowState;
+    }
+    public set nowState(val)
+    {
+        super.nowState = val;
+    }
     public get globalState():CharacterState3
     {
         return this._globalState;
-    }
-    public get nowState() : CharacterState3 {
-        return this._nowState;
     }
     BeginState:State_Begin3 = null;
     IdleState:State_Idle3 = null;
@@ -88,6 +94,7 @@ export default class Character4 extends Character {
     public get health():number
     {
         return this._health;
+        //return 2;
     }
     public set health(val)
     {
@@ -109,17 +116,6 @@ export default class Character4 extends Character {
         this.BeginState = new State_Begin3(this);
         this.GState = new State_Global(this);
     }
-    /**
-     * 改变状态
-     * @param cs 状态
-     */
-    changeState(cs:CharacterState3)
-    {
-        if(this.nowState)this.nowState.Quit();
-        this._nowState = cs;
-        cs.Start();
-        
-    }
     onWall(stype:Wall)
     {
         if(Until.isValid(stype.node,true))
@@ -127,7 +123,11 @@ export default class Character4 extends Character {
             if((<DieWall>stype).die===undefined)
             this._nowWall = stype;
             let op = OperatorStruct.getinstance();
-            if(this._globalState)this._globalState.onWall(stype,op)
+            this.forEachAttach("onWall",op,stype);
+            // for(var i = this.sqs.length-1;i>=0;i--)
+            // {
+            //     (<CharacterState3>this.sqs[i]).onWall(stype,op);
+            // }
             if(this.nowState)this.nowState.onWall(stype,op);
             if((<DieWall>stype).die===undefined)
             this._lastWall = stype;
@@ -139,16 +139,21 @@ export default class Character4 extends Character {
         if(Until.isValid(ptype.node,true))
         {
             let op = OperatorStruct.getinstance();
-            if(this.globalState)this.globalState.onPorp(ptype,op)
-            if(this.nowState)this.nowState.onPorp(ptype,op);
+            this.forEachAttach("onProp",op,ptype);
+            // for(var i = this.sqs.length-1;i>=0;i--)
+            // {
+            //     (<CharacterState3>this.sqs[i]).onProp(ptype,op);
+            // }
+            if(this.nowState)this.nowState.onProp(ptype,op);
             op.destroy();
         }
     }
     onLoad()
     {
         super.onLoad();
-        this._globalState = this.GState;
-        this._globalState.Start();
+        this.attachState(State_God);
+        //this._globalState = this.GState;
+        //this._globalState.Start();
     }
     start()
     {
@@ -171,7 +176,11 @@ export default class Character4 extends Character {
             this.distance += Math.abs(this.node.y-this.lastY);
             this.lastY = this.node.y;
             let op = OperatorStruct.getinstance();
-            if(this._globalState)this._globalState.update(dt,op);
+            this.forEachAttach("update",op,dt);
+            // for(var i = this.sqs.length-1;i>=0;i--)
+            // {
+            //     (<CharacterState3>this.sqs[i]).update(dt,op);
+            // }
             if(this.nowState)this.nowState.update(dt,op);
             op.destroy();
         }
@@ -209,7 +218,7 @@ export default class Character4 extends Character {
     }
     die()
     {
-        if(this.nowState&&this._nowState!= this.DieState&&this.nowState.die())this.changeState(this.DieState);
+        this.changeState(this.DieState);
     }
     onDestroy()
     {

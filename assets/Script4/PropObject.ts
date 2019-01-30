@@ -20,11 +20,16 @@ export default class PorpObject extends PoolObject {
             {
                 console.log("prop")
                 this.character = ch4;
+                this.applyEffect();
                 ch4.onProp(this);
+                
             }
         }
     }
+    applyEffect()
+    {
 
+    }
     Begin():boolean
     {
         this.destroy();

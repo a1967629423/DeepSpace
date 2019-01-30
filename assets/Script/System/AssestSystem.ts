@@ -120,6 +120,7 @@ export default class AssetsSystem extends cc.Component {
         }
     }
     start () {
+        window["assestSys"] = this;
         GameInit.rootNode.on(GameInit.GameEnd,()=>{
             this.nowGroupindex = 0;
             // AssetsSystem._instance = null;

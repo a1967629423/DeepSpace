@@ -1,4 +1,5 @@
 import DataSave from "./DataSave";
+import GameWeb from "./Tools/Web/GameWeb";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -57,10 +58,6 @@ export default class GameInit extends cc.Component {
    }
    ResizeFun: EventListenerOrEventListenerObject;
    start() {
-
-      if(GameInit.rootDataSave.getDataFromNode(DataSave.inGame)){
-         console.log("begin");
-         setTimeout(() => { this.gameStart() }, 600);}
       this.ResizeFun = this.resize.bind(this)
       window.addEventListener("resize", this.ResizeFun);
       //var cm = cc.director.getCollisionManager();
@@ -119,37 +116,40 @@ export default class GameInit extends cc.Component {
    {
       if(GameInit.rootDataSave.getDataFromNode("GameId")!=val)GameInit.rootDataSave.setDataToNode("GameId",val);
    }
-   Debug = true;
-   gameStart() {
+   Debug = false;
+   gameStart():Promise<{}> {
       
-      
-      if(!this.Debug)
-      {
-         try {
-            this.StartTime = GameServer.game_getTime();
-            GameServer.game_start(this.StartTime,(res:{success:boolean,id:string,error:string})=>{
-               if(res.success)
-               {
-                  this.GameId = res.id;
-                  //if(GameInit.rootDataSave.getDataFromNode("GameId")!=res.id)GameInit.rootDataSave.setDataToNode("GameID",res.id);
-                  this.node.emit("gameStart");
-                  GameInit.rootNode.emit("gameStart");
-               }
-               else
-               {
-                  alert(res.error);
-               }
-            });
-         } catch (error) {
-            console.error(error)
-            
+      return new Promise((resolve,reject)=>{
+         if(!this.Debug)
+         {
+            try {
+               this.StartTime = GameServer.game_getTime();
+               GameWeb.GameStart(this.StartTime).then((val)=>{
+                  if(val.success)
+                  {
+                     this.GameId = val.id;
+                     this.node.emit("gameStart");
+                     GameInit.rootNode.emit("gameStart");
+                     resolve();
+                  }
+                  
+
+               });
+            } catch (error) {
+               console.error(error);
+               alert("检测到脚本文件并未完全装载，这种情况下成绩将不会被计入排行榜，请刷新重试");
+               
+            }
          }
-      }
-      else
-      {
-         this.node.emit("gameStart");
-         GameInit.rootNode.emit("gameStart");
-      }
+         else
+         {
+            this.node.emit("gameStart");
+            GameInit.rootNode.emit("gameStart");
+            alert("检测到脚本文件并未完全装载，这种情况下成绩将不会被计入排行榜，请刷新重试");
+            resolve();
+         }
+      });
+
 
 
    }

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "4b44b136-53c7-4652-8e76-6debaf7c19a6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "@微光网络工作室 2019": {
+      "ver": "1.0.3",
+      "uuid": "ae0e1d17-b882-4a14-b407-6a4a15851d01",
+      "rawTextureUuid": "4b44b136-53c7-4652-8e76-6debaf7c19a6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": -2,
+      "trimX": 1,
+      "trimY": 9,
+      "width": 340,
+      "height": 35,
+      "rawWidth": 343,
+      "rawHeight": 49,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

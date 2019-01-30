@@ -1,6 +1,7 @@
-import CharacterState3, { OperatorStruct } from "./State3";
+import CharacterState3 from "./State3";
 import Wall, { WallType } from "./Wall";
 import PorpObject from "./PropObject";
+import { OperatorStruct } from "./StateMachine/State";
 
 export default class State_Idle3 extends CharacterState3 {
 
@@ -50,9 +51,9 @@ export default class State_Idle3 extends CharacterState3 {
             wall.Begin();
         }
     }
-    onPorp(p:PorpObject,op)
+    onProp(p:PorpObject,op)
     {
-        this.character.LunchState.onPorp(p,op);
+        this.character.LunchState.onProp(p,op);
     }
     update(dt,op:OperatorStruct)
     {

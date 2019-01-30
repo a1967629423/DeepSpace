@@ -29,7 +29,9 @@ export default class Wall extends PoolObject{
             if(ch4)
             {
                 this.character = ch4;
+                this.applyEffect();
                 ch4.onWall(this);
+                
             }
         }
     }
@@ -40,6 +42,10 @@ export default class Wall extends PoolObject{
         //console.log(this.node.rotation);
         //console.log(direct);
         //this.character.body.linearVelocity = this.character.body.linearVelocity.add(direct.mul(1000));
+    }
+    applyEffect()
+    {
+
     }
     onDestroy()
     {

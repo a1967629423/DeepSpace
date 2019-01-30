@@ -1,10 +1,19 @@
 import SceneSystem2 from "../../SceneSystem2";
 import BackGround2 from "../../../Script/BackGround2";
+import State from "../../StateMachine/State";
 
-export default class ScenesState {
-    protected context:SceneSystem2 = null;
+export default class ScenesState extends State {
+    public get context():SceneSystem2
+    {
+        return <SceneSystem2>super.context
+    }
+    public set context(val)
+    {
+        super.context = val;
+    }
     constructor(c:SceneSystem2)
     {
+        super(c);
         this.context = c;
     }
     Start(){}

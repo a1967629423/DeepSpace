@@ -28,15 +28,15 @@ export default class Normal_ScenesState extends ScenesState {
             for (var i = 0; i < 9; i++) {
                 var c = Math.random()
                 if (c > _t.wallCreatP) {
-                    yield CoroutinesType.SleepTime(0.5);
+                    yield CoroutinesType.SleepTime(0.3);
                     (function(){
                         _dieWall = AssetsSystem.instance.getAssest(AssetsSystem.instance.nowGroup, "dieWall");
                        
                         if (_dieWall) {
                             var random = Math.random();
                             var wall:cc.Node = _dieWall;
+                            wallGroup.addChild(wall);
                             wall.setAnchorPoint(cc.v2(1, 0));
-                            
                             var addWidth = this.context.dieWallWidthRang * Math.random();
                             wall.width =120+ addWidth;
                             var box = wall.getComponent(cc.PhysicsBoxCollider);
@@ -50,8 +50,13 @@ export default class Normal_ScenesState extends ScenesState {
                                 if(spes)spes=!spes;
                                 wall.scaleX=-1;
                                 var height = 100+ i * 220;
-
-                                wall.position = cc.v2(0,height);
+                                wall.setPosition(cc.v2(0,height));
+                                (function(w,h){
+                                    setTimeout(()=>{
+                                        w.setPosition(cc.v2(0,h));
+                                    })
+                                })(wall,height)
+                                //wall.setPosition(cc.v2(0,height));
                                 wall.getComponent(DieWall).Type = WallType.Left;
 
                                 random = Math.random();
@@ -68,14 +73,21 @@ export default class Normal_ScenesState extends ScenesState {
                                         tbox.offset.x = tbox.size.width/2*-1;
                                        // tbox.offset =
                                             //cc.v2(twall.getContentSize().width / 2, twall.getContentSize().height / 2);
-                                        twall.position = cc.v2(this.context.wallWidth, height+100);
+                                        
                                         twall.getComponent(DieWall).Type = WallType.Right;
                                         //延迟添加
                                         wallGroup.addChild(twall);
                                         twall.scaleX =1;
+                                        wall.setPosition(cc.v2(this.context.wallWidth, height+100));
+                                        (function(w,h,t){
+                                            setTimeout(()=>{
+                                                w.setPosition(cc.v2(t.context.wallWidth, h+100));
+                                            })
+                                        })(twall,height,this)
+                                        //twall.setPosition(cc.v2(this.context.wallWidth, height+100));
                                         twall.active = true;
+                                        twall = null;
                                         spes = true;
-                                        
                                         // GlobalTime.Instantiation.Coroutines(function* (w, g) {
                                         //     yield CoroutinesType.SleepFrame(12);
                                         //     g.addChild(w);
@@ -85,13 +97,21 @@ export default class Normal_ScenesState extends ScenesState {
                                 }
                             }
                             else {
-                                wall.position = cc.v2(this.context.wallWidth,height);
+                                wall.setPosition(cc.v2(this.context.wallWidth,height));
+                                (function(w,h,t){
+                                    setTimeout(()=>{
+                                        w.setPosition(cc.v2(t.context.wallWidth,h));
+                                    })
+                                })(wall,height,this)
+                                //wall.setPosition(cc.v2(this.context.wallWidth,height));
                                 wall.getComponent(DieWall).Type = WallType.Right;
                                 wall.scaleX = 1;
                                 box.offset.x = box.size.width/2*-1;
                             }
-                            wallGroup.addChild(wall);
                             wall.active = true;
+                            _dieWall = null;
+                            wall = null;
+                            box = null;
                             // GlobalTime.Instantiation.Coroutines(function* (w, g) {
                             //     yield CoroutinesType.SleepFrame(8);
                             //     if (w.getParent()) debugger;
@@ -133,7 +153,7 @@ export default class Normal_ScenesState extends ScenesState {
             rbox.offset.x = Math.abs(rbox.offset.x);
             rbox.enabled = true;
             GlobalTime.Instantiation.Coroutines((function* (l, w) {
-                yield CoroutinesType.SleepTime(1.5);
+                yield CoroutinesType.SleepTime(0.5);
                 w.addChild(l);
                 setTimeout(() => {
                     //延迟重置位置

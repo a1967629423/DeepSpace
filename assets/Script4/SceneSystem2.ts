@@ -34,16 +34,13 @@ export default class SceneSystem2 extends SceneSystem {
     //StateMesh
     normalState:Normal_ScenesState = null;
     ChangeState:Change_ScenesState = null;
-    private _nowState:ScenesState = null;
     public get nowState():ScenesState
     {
-        return this._nowState;
+        return <ScenesState>super.nowState;
     }
-    changeState(ns:ScenesState)
+    public set nowState(val)
     {
-        if(this._nowState)this._nowState.Quit();
-        this._nowState = ns;
-        ns.Start();
+        super.nowState = val;
     }
 
     set nowGroupindex(val)
@@ -90,7 +87,7 @@ export default class SceneSystem2 extends SceneSystem {
     update(dt)
     {
         super.update(dt);
-        if(this._nowState)this._nowState.update(dt);
+        if(this.nowState)this.nowState.update(dt);
     }
     static myi = 0;
     createrSomething(bg:BackGround2,idx:number)
@@ -100,7 +97,7 @@ export default class SceneSystem2 extends SceneSystem {
         
         if(idx === 7)
         {
-            if(this._nowState)this._nowState.createSomething(bg,idx );
+            if(this.nowState)this.nowState.createSomething(bg,idx );
             this.wallWidth = this.rX-this.lX;
             var wall = new cc.Node("Wall");
             var RoundWall = new cc.Node("Round");
@@ -130,18 +127,18 @@ export default class SceneSystem2 extends SceneSystem {
     }
     createWall(wallGroup:cc.Node)
     {
-        if(this._nowState)this._nowState.createWall(wallGroup);
+        if(this.nowState)this.nowState.createWall(wallGroup);
     }
     createDieWall(wallGroup:cc.Node)
     {
-        if(this._nowState)this._nowState.createDieWall(wallGroup);
+        if(this.nowState)this.nowState.createDieWall(wallGroup);
     }
     createDieObjectManage(bg:BackGround2)
     {
-        if(this._nowState)this._nowState.createDieObjectManage(this.dieObjectManageGrop?this.dieObjectManageGrop:bg.node);
+        if(this.nowState)this.nowState.createDieObjectManage(this.dieObjectManageGrop?this.dieObjectManageGrop:bg.node);
     }
     createPropManage(bg:BackGround2)
     {
-        if(this._nowState)this._nowState.createPropManage(bg.node);
+        if(this.nowState)this.nowState.createPropManage(bg.node);
     }
 }

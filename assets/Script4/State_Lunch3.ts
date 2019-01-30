@@ -1,8 +1,9 @@
-import CharacterState3, { OperatorStruct } from "./State3";
+import CharacterState3  from "./State3";
 import Wall, { WallType } from "./Wall";
 import PorpObject from "./PropObject";
 import DieWall from "./DieWall";
 import GlobalTime from "../Script/Tools/GlobalTime";
+import { OperatorStruct } from "./StateMachine/State";
 
 export default class State_Lunch3  extends CharacterState3 {
     lunchDir:cc.Vec2 = cc.v2(0,0);
@@ -54,6 +55,7 @@ export default class State_Lunch3  extends CharacterState3 {
             //     this.nowP = true;
             //     this.lineV = cc.v2(this.rightMax-this.character.node.x,0);
             // }
+            if(Math.abs(this.character.node.x-200)>400)this.die();
             this.character.body.linearVelocity = this.lineV;
         }
         
@@ -77,13 +79,25 @@ export default class State_Lunch3  extends CharacterState3 {
                 //     this.character.lastWall.Collider.enabled = true;
                 // }
                 //wall.getComponent(cc.PhysicsBoxCollider).enabled = true;
-                this.nowP = !this.nowP;
+                //撞到墙壁反转方向
+                this.nowP =!this.nowP;
+                if(this.nowP)
+                {
+                    if(this.character.node.x<200)
+                    {
+                        this.nowP = false;
+                    }
+                }
+                else if(this.character.node.x>200)
+                {
+                    this.nowP = true;
+                }
                 if(this.character.nowState!==this.character.IdleState)this.character.changeState(this.character.IdleState);
 
             }
         }
     }
-    onPorp(porp:PorpObject,op:OperatorStruct)
+    onProp(porp:PorpObject,op:OperatorStruct)
     {
         //此处先暂时不转移到相应状态
         if(op.canOperator)
