@@ -106,9 +106,15 @@ class CoroutinesProgram {
         else
         {
             this.reDoneFun(this);
-            this.type = null;
-            this.Iter = null;         
+            this.destory();      
         }
+    }
+    destory()
+    {
+        this.type = null;
+        this.Iter = null;
+        this.reDoneFun = null; 
+
     }
 }
 @ccclass
@@ -164,8 +170,8 @@ export default class GlobalTime extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}
-
-
+    DT:number = 0;
+    static DefaultDt = 0.0166;
      update (dt) {
          if(this.coroutines&&!this.pauseState)
          {
@@ -175,10 +181,22 @@ export default class GlobalTime extends cc.Component {
                  cor.next(dt);
              }
          }
+        //  if(Math.abs(dt-this.DT)>0.004)
+        //  {
+        //     this.DT = dt;
+        //     GlobalTime.DefaultDt = dt;
+        //     //this.node.emit("DtChange",dt);
+        //  }
      }
      onDestroy()
      {
          //super.onDestroy();
+         for(var key in this.coroutines)
+         {
+            this.coroutines[key].destory();
+         }
+         this.coroutines = null;
+
          GlobalTime._instantiation = null;
      }
 }

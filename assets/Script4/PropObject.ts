@@ -1,12 +1,16 @@
-import DieObject from "./DieObject";
 import Character4 from "./Character4";
+import PoolObject from "./PoolObject";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class PorpObject extends cc.Component  {
+export default class PorpObject extends PoolObject {
     character:Character4 = null;
     SelfCollider:number = 0;
+    start()
+    {
+        super.start();
+    }
     onBeginContact(contact,self:cc.Collider,other:cc.Collider)
     {
         if(self.tag===this.SelfCollider)
@@ -16,14 +20,18 @@ export default class PorpObject extends cc.Component  {
             {
                 console.log("prop")
                 this.character = ch4;
+                this.applyEffect();
                 ch4.onProp(this);
+                
             }
         }
     }
+    applyEffect()
+    {
 
+    }
     Begin():boolean
     {
-        this.node.destroy();
         this.destroy();
         return true;
     }

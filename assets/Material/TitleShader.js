@@ -27,10 +27,12 @@ frag:
     uniform sampler2D texture;
     uniform vec4 color;
     uniform float cout;
+    uniform float x_cout;
     varying vec2 uv0;
     void main () {
         vec2 a_uv0 = uv0;
         a_uv0.y = remain(a_uv0.y*cout,1.);
+        a_uv0.x = remain(a_uv0.x*x_cout,1.);
         //vec4 c = vec4(0.,0.,0.,1.);
         vec4 c = color * texture2D(texture, a_uv0);
         

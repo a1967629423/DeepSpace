@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "da9b44e6-96ef-4f07-9dfb-2e72cd81adb7",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "教学-按钮-开始游戏": {
+      "ver": "1.0.3",
+      "uuid": "151e541a-1eda-4893-ab5e-b9474076d88c",
+      "rawTextureUuid": "da9b44e6-96ef-4f07-9dfb-2e72cd81adb7",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 372,
+      "height": 135,
+      "rawWidth": 372,
+      "rawHeight": 135,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

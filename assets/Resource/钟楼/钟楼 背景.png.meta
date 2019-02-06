@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "82be4b9d-b149-42d8-a61a-7094aca90435",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "钟楼 背景": {
+      "ver": "1.0.3",
+      "uuid": "3610482c-a0a2-4e0c-930b-e4a66bb9e275",
+      "rawTextureUuid": "82be4b9d-b149-42d8-a61a-7094aca90435",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1081,
+      "height": 1921,
+      "rawWidth": 1081,
+      "rawHeight": 1921,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

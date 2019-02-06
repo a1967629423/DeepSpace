@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "af64b6f7-1cbf-4967-ad2a-a0c0d99c3a36",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "三期 特殊道具": {
+      "ver": "1.0.3",
+      "uuid": "2c12b324-b5eb-4f5a-8d92-0b4b459fdb32",
+      "rawTextureUuid": "af64b6f7-1cbf-4967-ad2a-a0c0d99c3a36",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 268,
+      "height": 269,
+      "rawWidth": 268,
+      "rawHeight": 269,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

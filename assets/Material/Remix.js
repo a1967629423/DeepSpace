@@ -28,6 +28,7 @@ cc.Class({
         //     }
         // },
         cout:{default:0,type:cc.Integer,serializable:true},
+        x_cout:{default:1,type:cc.Integer,serializable:true},
         targetTex:{
             default:null,
             type:cc.Texture2D,
@@ -40,6 +41,17 @@ cc.Class({
     onLoad () {
         this._material = new RemixMaterial();
      },
+     onEnable()
+     {
+        var Sprite = this.getComponent(cc.Sprite);
+        if(Sprite&&this.targetTex)
+        {
+            window.RegMaterial(Sprite,this._material);
+            this._material.texture1 = this.targetTex;
+            this._material.cout = this.cout;
+            this._material.x_cout = this.x_cout;
+        }
+     },
 
     start () {
         var Sprite = this.getComponent(cc.Sprite);
@@ -48,7 +60,14 @@ cc.Class({
             window.RegMaterial(Sprite,this._material);
             this._material.texture1 = this.targetTex;
             this._material.cout = this.cout;
+            this._material.x_cout = this.x_cout;
         }
+    },
+    onDestroy()
+    {
+        // var sprite = this.getComponent(cc.Sprite);
+        // window.UnRegMaterial(sprite,this._material);
+        // this._material = null;
     },
 
     // update (dt) {},

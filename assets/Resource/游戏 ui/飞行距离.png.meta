@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "a0a6ccd8-5b5e-42d4-82bc-6260df8f0192",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "飞行距离": {
+      "ver": "1.0.3",
+      "uuid": "fbaea593-5c32-48c2-80f5-806c6aeb80b3",
+      "rawTextureUuid": "a0a6ccd8-5b5e-42d4-82bc-6260df8f0192",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1,
+      "offsetY": -1,
+      "trimX": 1,
+      "trimY": 8,
+      "width": 119,
+      "height": 30,
+      "rawWidth": 123,
+      "rawHeight": 44,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "19e1a86b-ce7e-412f-b9af-5fad2859a132",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "首页 按钮 排行榜": {
+      "ver": "1.0.3",
+      "uuid": "1fc8933c-545e-460e-9a98-f6fa8722fc94",
+      "rawTextureUuid": "19e1a86b-ce7e-412f-b9af-5fad2859a132",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 372,
+      "height": 135,
+      "rawWidth": 372,
+      "rawHeight": 135,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -16,7 +16,7 @@ export default class FlyProp extends PorpObject {
 
 
         GradeManage.instance.addGrade(this.Grade);
-        this.character.globalState.attaching(State_Fly);
+        this.character.attachState(State_Fly);
         return super.Begin();
     }
 

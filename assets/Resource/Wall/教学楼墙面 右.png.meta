@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "566604c7-97f1-4ec6-a362-1bdcc1c3b904",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "教学楼墙面 右": {
+      "ver": "1.0.3",
+      "uuid": "f29eac08-b149-441d-853f-bd7c384694c6",
+      "rawTextureUuid": "566604c7-97f1-4ec6-a362-1bdcc1c3b904",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 302,
+      "height": 686,
+      "rawWidth": 302,
+      "rawHeight": 686,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

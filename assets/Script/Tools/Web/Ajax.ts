@@ -15,7 +15,14 @@ export default class Ajax {
             request.onreadystatechange = () => {
                 if (request.readyState === 4) {
                     if (request.status === 200) {
-                        resolve(request.response);
+                        if(request.responseType==="json")
+                        {
+                            resolve(JSON.parse(request.response));
+                        }
+                        else
+                        {
+                            resolve(request.response);
+                        }
                     }
                     else {
                         reject(request.status);
@@ -40,7 +47,14 @@ export default class Ajax {
             request.onreadystatechange = () => {
                 if (request.readyState === 4) {
                     if (request.status === 200) {
-                        resolve(request.response);
+                        if(request.responseType==="json")
+                        {
+                            resolve(JSON.parse(request.response));
+                        }
+                        else
+                        {
+                            resolve(request.response);
+                        }
                     }
                     else {
                         reject(request.status);

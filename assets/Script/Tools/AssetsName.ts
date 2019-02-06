@@ -16,4 +16,6 @@ export default class AssetsName extends cc.Component {
     assetsGropName: string = '';
     @property
     assetsType:string = '';
+    @property
+    assetsInsCout:number = 16;
 }

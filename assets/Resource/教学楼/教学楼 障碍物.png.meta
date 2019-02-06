@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "78565f5b-ff96-40f4-8255-fef1dc67b764",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "教学楼 障碍物": {
+      "ver": "1.0.3",
+      "uuid": "e2123806-3718-495c-83ba-898c5c0b1845",
+      "rawTextureUuid": "78565f5b-ff96-40f4-8255-fef1dc67b764",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 199,
+      "height": 57,
+      "rawWidth": 199,
+      "rawHeight": 57,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -74,7 +74,6 @@ export default class CameraFx extends cc.Component {
 
         })());
         var ch = this.traceTager.getComponent(Character);
-        if (ch) this.traceBody = ch.body;
     }
     private static _instantiation: CameraFx = null;
     public static get Instantiation(): CameraFx {
@@ -82,7 +81,7 @@ export default class CameraFx extends cc.Component {
         return this._instantiation;
 
     }
-
+    move:cc.Vec2 = cc.v2();
     update(dt) {
         if (this.traceTager != null && this.tagerCamera != null) {
             //调后追踪的任务优先级
@@ -93,29 +92,28 @@ export default class CameraFx extends cc.Component {
                 //var trans = this.traceTager.getParent().getNodeToParentTransform();
                 //cc.AffineTransform.transformVec2(tagerVect,tagerVect,trans);
                 var cameraVect = this.tagerCamera.node.getParent().convertToWorldSpaceAR(this.tagerCamera.node.position);
-                var test = this.tagerCamera.node.getParent().convertToNodeSpaceAR(cameraVect);
-                var move: cc.Vec2 = cc.v2(0,0);
+                //var test = this.tagerCamera.node.getParent().convertToNodeSpaceAR(cameraVect);
+
                 if (this.applySmooth) {
-                    move = cc.v2(this.tagerCamera.node.x +
+                    this.move = cc.v2(this.tagerCamera.node.x +
                         (this.traceX ? ((tagerVect.x - cameraVect.x) * 2 * dt) : 0),
                         this.tagerCamera.node.y +
                         (this.traceY ? ((tagerVect.y - cameraVect.y) * 2 * dt) : 0));
                 }
                 else {
                     //DOTO:改成加上增加的距离
-                    move.x = this.traceX?tagerVect.x:cameraVect.x;
-                    move.y = this.traceY?tagerVect.y:cameraVect.y;
+                    this.move.x = this.traceX?tagerVect.x:cameraVect.x;
+                    this.move.y = this.traceY?tagerVect.y:cameraVect.y;
                 }
                 //TODO：修改成局部坐标
-                if (this.setRound) move.clampf(this.roundMin, this.roundMax);
-                if (this.goforward && move.y < this.tagerCamera.node.position.y) {
-                    move.y = this.tagerCamera.node.position.y;
+                if (this.setRound) this.move.clampf(this.roundMin, this.roundMax);
+                if (this.goforward && this.move.y < this.tagerCamera.node.position.y) {
+                    this.move.y = this.tagerCamera.node.position.y;
                 }
                 // newVector.x = cameraVect.x + ((tagerVect.x + vect3.x - cameraVect.x) * 2 * dt);
                 // newVector.y = cameraVect.y + ((tagerVect.y + vect3.y - cameraVect.y) * 2 * dt);
-                this.tagerCamera.node.position = this.tagerCamera.node.getParent().convertToNodeSpaceAR(move);//this.tagerCamera.node.getParent().convertToNodeSpaceAR(move);
+                this.tagerCamera.node.position = this.tagerCamera.node.getParent().convertToNodeSpaceAR(this.move);//this.tagerCamera.node.getParent().convertToNodeSpaceAR(move);
                 cameraVect = null;
-                move = null;
             }
 
 

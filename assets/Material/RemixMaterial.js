@@ -36,7 +36,9 @@ var RemixMaterial = (function (Material$$1) {
                 { name: 'rt1',type:renderer.PARAM_TEXTURE_2D},
                 {name:'cv',type:renderer.PARAM_FLOAT},
                 {name:'cout',type:renderer.PARAM_FLOAT},
+                {name:'x_cout',type:renderer.PARAM_FLOAT},
                 {name:'control_point',type:renderer.PARAM_FLOAT2},
+
             ],
             [
                 pass
@@ -47,6 +49,7 @@ var RemixMaterial = (function (Material$$1) {
         this._control_point = {x:0.4,y:0.4}
         this._cv = 0.0;
         this._cout = 3.0;
+        this._x_cout = 1.0;
         this._effect = new renderer.Effect(
             [
                 mainTech],
@@ -54,6 +57,7 @@ var RemixMaterial = (function (Material$$1) {
                 'color': this._color,
                 'cv':this._cv,
                 'cout':this._cout,
+                'x_cout':this._x_cout,
                 'control_point':this._control_point,
             },
             []
@@ -71,7 +75,7 @@ var RemixMaterial = (function (Material$$1) {
     var prototypeAccessors = { effect: { configurable: true }, texture: { configurable: true }, 
     color: { configurable: true },cv:{configurable:true},
     texture1:{configurable:true},control_point:{configurable:true},
-    cout:{configurable:true},};
+    cout:{configurable:true},x_cout:{configurable:true}};
 
     prototypeAccessors.effect.get = function () {
         return this._effect;
@@ -140,6 +144,15 @@ var RemixMaterial = (function (Material$$1) {
     {
         this._cout = val;
         this._effect.setProperty("cout",val);
+    }
+    prototypeAccessors.x_cout.get = function()
+    {
+        return this._x_cout;
+    }
+    prototypeAccessors.x_cout.set = function(val)
+    {
+        this._x_cout = val;
+        this._effect.setProperty("x_cout",val);
     }
 
     RemixMaterial.prototype.clone = function clone() {

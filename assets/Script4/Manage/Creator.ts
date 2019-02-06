@@ -1,3 +1,8 @@
+import GlobalTime, { CoroutinesType } from "../../Script/Tools/GlobalTime";
+import AssetsName from "../../Script/Tools/AssetsName";
+import AssetsSystem from "../../Script/System/AssestSystem";
+import PoolObject from "../PoolObject";
+
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -11,33 +16,36 @@
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class Creator extends cc.Component {
+export default class Creator extends PoolObject {
     @property({ step: 1 })
     generateNumber: number = 0;
-    @property(cc.Prefab)
-    ObjectPerfab: cc.Node = null;
+    assestconf:AssetsName = null;
     protected prefab_ins: cc.Node;
     protected childNumber: number = 0;
+    fenshu:number = 1.0;
     start()
     {
-        
-        if (this.ObjectPerfab && this.generateNumber > 0) {
+        super.start();
+        this.assestconf = this.getComponent(AssetsName);   
+    }
+    reuse()
+    {
+        if (this.generateNumber > 0) {
             this.Init();
             this.childNumber = this.generateNumber;
-            if (!this.prefab_ins)
-            {
-                this.prefab_ins = cc.instantiate(this.ObjectPerfab);
-            }
-            for (var i = 0; i < this.generateNumber; i++) {
+            GlobalTime.Instantiation.Coroutines((function*(_t){
+                for (var i = 0; i < _t.generateNumber; i++) {
+                    yield CoroutinesType.SleepTime(0.3);
+                    (function(){
+                        this.generateObject(i);
+                    }).bind(_t)();
+                }
+            })(this))
 
-                let childNode = this.generateObject(i);
-                if(childNode)childNode.once("destroy",this.childDestroy,this);
-            }
         }
         else {
             this.node.destroy();
         }
-        
     }
     Init()
     {
@@ -50,17 +58,15 @@ export default class Creator extends cc.Component {
     childDestroy() {
         this.childNumber--;
         if (this.childNumber <= 0) {
-            setTimeout(()=>{
-                if(cc.isValid(this.node))
-                {
-                    this.node.destroy();
-                }     
-            })
+            if(cc.isValid(this.node))
+            {
+                
+                this.destroy();
+            }
         }
     }
     onDestroy()
     {
-        this.ObjectPerfab = null;
         this.prefab_ins = null;
     }
 }

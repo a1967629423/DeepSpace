@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "883edb4c-609f-431e-bb94-e16f704231e6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "教学楼 背景 改": {
+      "ver": "1.0.3",
+      "uuid": "b197d1f7-7fce-497f-8569-d0739fe9a918",
+      "rawTextureUuid": "883edb4c-609f-431e-bb94-e16f704231e6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1081,
+      "height": 2161,
+      "rawWidth": 1081,
+      "rawHeight": 2161,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -8,6 +8,7 @@ const { ccclass, property } = cc._decorator;
 export default class DieProp extends PorpObject {
     @property
     Grade: number = 100;
+    die:boolean = true;
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {}

@@ -1,6 +1,8 @@
 import GameInit from "../GameInit";
 import GlobalTime, { CoroutinesType } from "./GlobalTime";
 import SceneSystem2 from "../../Script4/SceneSystem2";
+import ShowBackground from "../../Script4/ShowBackground";
+import AssetsSystem from "../System/AssestSystem";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -30,11 +32,11 @@ export default class ChangeBackground extends cc.Component {
                 GlobalTime.Instantiation.Coroutines((function*(){
                     var time = 0;
                     var dt =0;
-                    while(time<1)
+                    while(time<3)
                     {
                         
-                        time = Math.min(time,1);
-                        _this.mask.opacity = 255*time;
+                        time = Math.min(time,3);
+                        _this.mask.opacity = 255*time/3;
                         time+=dt;
                         dt =yield CoroutinesType.frame;
                         
@@ -43,12 +45,15 @@ export default class ChangeBackground extends cc.Component {
                     time = 0;
                     dt = 0;
                     //更换资源
+                    _this.getComponentInChildren(ShowBackground).destroy();
+                    _this.node.addChild(AssetsSystem.instance.getAssest(AssetsSystem.instance.nowGroup,"background"));
                     //
+                    dt = yield CoroutinesType.SleepTime(1);
                     GlobalTime.Instantiation.Coroutines((function*(){
-                        while(time<1)
+                        while(time<3)
                         {
-                            time = Math.min(time,1);
-                            _this.mask.opacity = 255+(-255)*time;
+                            time = Math.min(time,3);
+                            _this.mask.opacity = 255+(-255)*time/3;
                             time+=dt;
                             dt =yield CoroutinesType.frame;
                         }

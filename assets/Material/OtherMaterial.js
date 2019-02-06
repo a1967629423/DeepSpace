@@ -5,14 +5,14 @@ var gfx;
 var Material;
 
 // Require to load the shader to program lib
-const OtherShader = require('./Shader/OtherShader');
+const ScrollShader = require('OtherShader');
 
 renderEngine = cc.renderer.renderEngine;
 renderer = renderEngine.renderer;
 gfx = renderEngine.gfx;
 Material = renderEngine.Material;
 
-var OtherMaterial = (function (Material$$1) {
+var ScrollMaterial = (function (Material$$1) {
     function OtherMaterial() {
         Material$$1.call(this, false);
 
@@ -31,7 +31,9 @@ var OtherMaterial = (function (Material$$1) {
             [
                 { name: 'texture', type: renderer.PARAM_TEXTURE_2D },
                 { name: 'color', type: renderer.PARAM_COLOR4 },
-                {name:'uvoffset_y',type:renderer.PARAM_FLOAT}],
+                {name:'uvoffset_y',type:renderer.PARAM_FLOAT},
+                {name:'n',type:renderer.PARAM_FLOAT}
+            ],
             [
                 pass
             ]
@@ -39,12 +41,14 @@ var OtherMaterial = (function (Material$$1) {
 
         this._color = { r: 1.0, g: 1.0, b: 1.0, a: 1.0 };
         this._uvOffset_y = 0.0;
+        this._n = 1.;
         this._effect = new renderer.Effect(
             [
                 mainTech],
             {
                 'color': this._color,
-                'uvoffset_y':this._uvOffset
+                'uvoffset_y':this._uvOffset,
+                'n':this._n,
             },
             []
         );
@@ -57,7 +61,12 @@ var OtherMaterial = (function (Material$$1) {
     OtherMaterial.prototype = Object.create(Material$$1 && Material$$1.prototype);
     OtherMaterial.prototype.constructor = OtherMaterial;
 
-    var prototypeAccessors = { effect: { configurable: true }, texture: { configurable: true }, color: { configurable: true },uvOffset:{configurable:true} };
+    var prototypeAccessors = {
+         effect: { configurable: true }, 
+         texture: { configurable: true }, 
+         color: { configurable: true },
+         uvOffset:{configurable:true},
+         row:{configurable:true}};
 
     prototypeAccessors.effect.get = function () {
         return this._effect;
@@ -93,7 +102,17 @@ var OtherMaterial = (function (Material$$1) {
     };
     prototypeAccessors.uvOffset.set = function(val)
     {
+        this._uvOffset = val;
         this._effect.setProperty('uvoffset_y',val);
+    };
+    prototypeAccessors.row.get = function()
+    {
+        return this._n;
+    };
+    prototypeAccessors.row.set = function(val)
+    {
+        this._n = val;
+        this.effect.setProperty('n',val);
     };
 
     OtherMaterial.prototype.clone = function clone() {
@@ -111,4 +130,4 @@ var OtherMaterial = (function (Material$$1) {
 
 
 
-module.exports = OtherMaterial;
+module.exports = ScrollMaterial;

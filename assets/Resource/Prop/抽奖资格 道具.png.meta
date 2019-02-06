@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "d1fd8752-b628-4a0e-9193-c62c4e4c9f00",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "抽奖资格 道具": {
+      "ver": "1.0.3",
+      "uuid": "321dcf6d-ac98-40ee-b849-4e2a9b66a5ea",
+      "rawTextureUuid": "d1fd8752-b628-4a0e-9193-c62c4e4c9f00",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 282,
+      "height": 258,
+      "rawWidth": 282,
+      "rawHeight": 258,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import Until from "./Tools/Until";
 import GradeManage from "./GradeManage";
 import Star from "./Star";
+import StateMachine from "../Script4/StateMachine/StateMachine";
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -19,7 +20,7 @@ const {ccclass, property} = cc._decorator;
 *计算移动的距离-完成
 */
 @ccclass
-export default class Character extends cc.Component implements ITouchEvent {
+export default class Character extends StateMachine implements ITouchEvent {
     onTouch(touch: cc.Event.EventTouch,sourceNode:cc.Node) {
         //var vect2:cc.Vec2 = new cc.Vec2();
         //var a = cc.Camera.findCamera(this.node).getCameraToWorldPoint(touch.getLocation(),vect2);
@@ -68,7 +69,7 @@ export default class Character extends cc.Component implements ITouchEvent {
      * 飞行的距离
      */
     public get Distance() : number {
-        return this.distance;
+        return this.distance/10;
     }
     /**
      * 当前的能量

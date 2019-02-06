@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "923bffef-48f1-46b9-a436-17289e9aeb1d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "教学 临时": {
+      "ver": "1.0.3",
+      "uuid": "d127de4e-43dd-4a7f-b553-d4765b877474",
+      "rawTextureUuid": "923bffef-48f1-46b9-a436-17289e9aeb1d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 845,
+      "height": 1423,
+      "rawWidth": 845,
+      "rawHeight": 1423,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
